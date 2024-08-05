@@ -35,6 +35,12 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/rollup/plugin",
+      "options": {
+        "buildTargetName": "build"
+      }
     }
   ],
   "generators": {
@@ -43,6 +49,9 @@
         "style": "tailwind",
         "linter": "eslint"
       }
+    },
+    "@nx/react": {
+      "library": {}
     }
   },
   "nxCloudAccessToken": "ZTUxNGQxZjktOTIyYS00OWM5LThjMmItZjU2YzJmZDQyNDY2fHJlYWQtd3JpdGU="

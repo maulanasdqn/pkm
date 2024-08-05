@@ -1,3 +1,5 @@
+import { Button } from '@pkm/ui';
+
 export default function Index() {
   /*
    * Replace the elements below with your own.
@@ -14,6 +16,8 @@ export default function Index() {
               Welcome market 👋
             </h1>
           </div>
+
+          <Button></Button>
 
           <div id="hero" className="rounded">
             <div className="text-container">
