@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@pkm/libs": ["libs/src/index.ts"],
-      "@pkm/libs/server": ["libs/src/server.ts"],
       "@pkm/ui": ["components/ui/src/index.ts"]
     }
   },
