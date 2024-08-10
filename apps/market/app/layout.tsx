@@ -1,8 +1,10 @@
+import { AuthProvider } from '@pkm/libs/auth';
 import './global.css';
 
 export const metadata = {
   title: 'Pasar Digital',
-  description: 'Pasar Digital adalah sebuah platform digital yang menyediakan layanan jual beli online',
+  description:
+    'Pasar Digital adalah sebuah platform digital yang menyediakan layanan jual beli online',
 };
 
 export default function RootLayout({
@@ -12,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <AuthProvider>
+        <body>{children}</body>
+      </AuthProvider>
     </html>
   );
 }
