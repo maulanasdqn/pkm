@@ -3,7 +3,7 @@ name: NX PKM CI
 on:
   push:
     branches:
-      - main
+      - development
   pull_request:
 
 permissions:
