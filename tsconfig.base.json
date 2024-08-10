@@ -18,6 +18,7 @@
       "@pkm/libs": ["libs/src/index.ts"],
       "@pkm/libs/auth": ["libs/auth/src/index.ts"],
       "@pkm/libs/clsx": ["libs/clsx/src/index.ts"],
+      "@pkm/libs/drizzle": ["libs/drizzle/src/index.ts"],
       "@pkm/libs/entities": ["libs/entities/src/index.ts"],
       "@pkm/libs/env": ["libs/env/src/index.ts"],
       "@pkm/ui": ["components/ui/src/index.ts"]

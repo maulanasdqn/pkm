@@ -1,0 +1,9 @@
+{
+  "name": "drizzle",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/drizzle/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project drizzle --web",
+  "targets": {}
+}
