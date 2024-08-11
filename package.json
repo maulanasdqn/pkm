@@ -6,12 +6,15 @@
   "private": true,
   "dependencies": {
     "argon2-wasm-edge": "^1.0.23",
+    "clsx": "^2.1.1",
     "drizzle-orm": "^0.32.1",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.20",
     "pg": "^8.12.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-icons": "^5.2.1",
+    "ts-pattern": "^5.2.0",
     "tslib": "^2.3.0",
     "zod": "^3.23.8"
   },
