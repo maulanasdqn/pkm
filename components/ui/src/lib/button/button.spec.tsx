@@ -1,11 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { Button } from './button';
 
-import Page from '../app/page';
-
-describe('Page', () => {
+describe('Button', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Page />);
+    const { baseElement } = render(<Button />);
     expect(baseElement).toBeTruthy();
   });
 });
