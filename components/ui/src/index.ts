@@ -1,2 +1,2 @@
-export * from './input';
-export * from './button';
+export * from './lib/input';
+export * from './lib/button';

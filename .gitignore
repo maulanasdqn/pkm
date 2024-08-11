@@ -47,3 +47,5 @@ Thumbs.db
 # Next.js
 .next
 out
+
+storybook-static
