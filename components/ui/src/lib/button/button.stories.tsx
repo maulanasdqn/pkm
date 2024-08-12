@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from './button';
+import { CaretDownOutlined, LoadingOutlined } from '@ant-design/icons';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -8,7 +9,14 @@ const meta: Meta<typeof Button> = {
   title: 'components/UI/Button',
   argTypes: {
     variant: {
-      options: ['primary', 'secondary', 'gradient'],
+      options: [
+        'primary',
+        'secondary',
+        'text',
+        'yellowPrimary',
+        'yellowSecondary',
+        'yellowText',
+      ],
       control: { type: 'radio' },
     },
     disabled: {
@@ -17,8 +25,9 @@ const meta: Meta<typeof Button> = {
     className: {
       control: { type: 'text' },
     },
-    suspense: {
-      control: { type: 'boolean' },
+    size: {
+      options: ['sm', 'md', 'lg', 'icon'],
+      control: { type: 'radio' },
     },
   },
 };
@@ -28,30 +37,74 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    variant: 'primary',
-    children: 'Learn More',
-    className: 'w-[200px]',
+    children: 'Button',
   },
 };
 
-export const Secondary: Story = {
+export const PrimaryWithIcon: Story = {
+  args: {
+    variant: 'primary',
+    children: <ButtonChildren />,
+  },
+};
+
+export const SecondaryVariant: Story = {
   args: {
     variant: 'secondary',
-    children: 'Contact Us',
+    children: <ButtonChildren />,
   },
 };
 
-export const Gradient: Story = {
+export const Text: Story = {
   args: {
-    variant: 'gradient',
-    children: 'Learn More',
+    variant: 'text',
+    children: <ButtonChildren />,
   },
 };
 
-export const Suspense: Story = {
+export const Icon: Story = {
   args: {
-    suspense: true,
+    size: 'icon',
     variant: 'primary',
-    children: 'Learn More',
+    children: <CaretDownOutlined />,
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    children: <ButtonChildren />,
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    disabled: true,
+    children: <ButtonLoadingChildren />,
+  },
+};
+
+export const SecondaryColor: Story = {
+  args: {
+    variant: 'yellowPrimary',
+    children: <ButtonChildren />,
+  },
+};
+function ButtonLoadingChildren() {
+  return (
+    <>
+      <LoadingOutlined className="animate-spin" />
+      Please wait..
+    </>
+  );
+}
+
+function ButtonChildren() {
+  return (
+    <>
+      <CaretDownOutlined />
+      Button
+      <CaretDownOutlined />
+    </>
+  );
+}
