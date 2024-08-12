@@ -1,121 +1,66 @@
+import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@pkm/libs/clsx';
-import Link from 'next/link';
 import { TButton } from './type';
 import { P, match } from 'ts-pattern';
 
-const btnClassName = cva('rounded-full w-fit ', {
+const size = {
+  sm: 'text-xs h-9 px-3',
+  md: 'text-sm h-10 px-5',
+  lg: 'text-base h-11 px-7',
+  icon: 'h-10 w-10',
+};
+
+const className =
+  'inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+
+const btnClassName = cva(className, {
   variants: {
     variant: {
       primary:
-        'bg-green-4 hover:bg-green-2 transition-all duration-300 text-white py-[6px] px-[24px] md:py-[11px] md:px-[32px]',
+        'bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white',
       secondary:
-        'bg-transparent text-black hover:text-green-4 border border-black hover:border-green-4 py-[6px] px-[24px] md:py-[11px] md:px-[32px]',
-      ghost:
-        'bg-transparent text-white border border-white py-[11px] px-[32px]',
-      gradient:
-        'bg-white rounded-[8px] font-medium text-[18px] text-black hover:text-green-4 py-[4px] px-[16px]',
+        'border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary',
+      text: 'text-primary hover:text-primary-60% active:text-primary-80% focus:text-primary-60%',
+      yellowPrimary:
+        'bg-secondary hover:bg-secondary-60% active:bg-secondary-80% focus:bg-secondary-60% text-white',
+      yellowSecondary:
+        'border border-secondary bg-transparent hover:bg-secondary-20% active:bg-secondary-40% focus:bg-secondary-20% text-secondary-60%',
+      yellowText:
+        'text-secondary-60% hover:text-secondary-80% active:text-secondary-90% focus:text-secondary-80%',
     },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    size,
+  },
+  defaultVariants: {
+    variant: 'primary',
+    size: 'md',
   },
 });
 
 export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
+  size,
   className,
   href,
   variant,
-  suspense,
   ...props
 }): ReactElement => {
-  return match({
-    href,
-    variant,
-    suspense,
-  })
-    .with({ suspense: true }, () => (
-      <button
-        className={cn(
-          btnClassName({
-            variant,
-            className: `${className} bg-grey-1 animate-pulse text-grey-1`,
-          })
-        )}
-        {...props}
-      >
-        {props.children}
-      </button>
-    ))
-    .with(
-      {
-        href: P.string,
-        variant: P.not('gradient'),
-      },
-      (data) => (
-        <Link href={data.href}>
-          <button
-            className={cn(btnClassName({ variant, className }))}
-            {...props}
-          >
-            {props.children}
-          </button>
-        </Link>
-      )
-    )
-    .with(
-      {
-        href: P.union(P.nullish, undefined),
-        variant: P.not('gradient'),
-      },
-      () => (
-        <button className={cn(btnClassName({ variant, className }))} {...props}>
+  return match(href)
+    .with(P.string, (link) => (
+      <Link href={link}>
+        <button
+          className={cn(btnClassName({ variant, className, size }))}
+          {...props}
+        >
           {props.children}
         </button>
-      )
-    )
-
-    .with(
-      {
-        href: P.union(P.nullish, undefined),
-        variant: 'gradient',
-      },
-      () => (
-        <div className="w-fit border-[1.3px] bg-gradient pl-[14px] border-grey-2 hover:border-green rounded-[8px]">
-          <button
-            className={cn(btnClassName({ variant, className }))}
-            {...props}
-          >
-            {props.children}
-          </button>
-        </div>
-      )
-    )
-    .with(
-      {
-        href: P.string,
-        variant: 'gradient',
-      },
-      (data) => (
-        <Link
-          prefetch={false}
-          href={data.href}
-          aria-label={`${props.children}`}
-        >
-          <div className="w-fit border-[1.3px] bg-gradient pl-[14px] border-grey-2 hover:border-green rounded-[8px]">
-            <button
-              className={cn(btnClassName({ variant, className }))}
-              {...props}
-            >
-              {props.children}
-            </button>
-          </div>
-        </Link>
-      )
-    )
+      </Link>
+    ))
     .otherwise(() => (
-      <button className={cn(btnClassName({ variant, className }))} {...props}>
+      <button
+        className={cn(btnClassName({ variant, className, size }))}
+        {...props}
+      >
         {props.children}
       </button>
     ));

@@ -13,5 +13,12 @@ export type TButton = DetailedHTMLProps<
     HTMLAnchorElement
   > & {
     href?: string;
-    suspense?: boolean;
+    variant?:
+      | 'primary'
+      | 'secondary'
+      | 'text'
+      | 'yellowPrimary'
+      | 'yellowSecondary'
+      | 'yellowText';
+    size: 'sm' | 'md' | 'lg' | 'icon';
   };
