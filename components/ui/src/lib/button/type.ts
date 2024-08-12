@@ -20,6 +20,5 @@ export type TButton = DetailedHTMLProps<
       | 'yellowPrimary'
       | 'yellowSecondary'
       | 'yellowText';
-    // color?: 'primary' | 'secondary';
     size: 'sm' | 'md' | 'lg' | 'icon';
   };
