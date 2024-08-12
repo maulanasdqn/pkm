@@ -1,0 +1,1 @@
+yarn nx run-many -t lint build --all
