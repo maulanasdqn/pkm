@@ -75,7 +75,6 @@ export const colors = {
   },
 };
 
-
 export const fontFamily = {
   display: 'var(--font-sf-pro-text)',
   body: 'var(--font-sf-pro-text)',
