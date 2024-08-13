@@ -17,8 +17,11 @@
     "paths": {
       "@pkm/libs": ["libs/src/index.ts"],
       "@pkm/libs/auth": ["libs/auth/src/index.ts"],
+      "@pkm/libs/auth/market": ["libs/auth/src/market.ts"],
+      "@pkm/libs/auth/tourism": ["libs/auth/src/tourism.ts"],
       "@pkm/libs/clsx": ["libs/clsx/src/index.ts"],
-      "@pkm/libs/drizzle": ["libs/drizzle/src/index.ts"],
+      "@pkm/libs/drizzle/market": ["libs/drizzle/src/market.ts"],
+      "@pkm/libs/drizzle/market": ["libs/drizzle/src/tourism.ts"],
       "@pkm/libs/entities": ["libs/entities/src/index.ts"],
       "@pkm/libs/env": ["libs/env/src/index.ts"],
       "@pkm/ui": ["components/ui/src/index.ts"]
