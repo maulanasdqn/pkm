@@ -1,4 +1,5 @@
 import type { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { FieldValues, UseControllerProps } from 'react-hook-form';
 
 export type TTextField = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -7,3 +8,6 @@ export type TTextField = DetailedHTMLProps<
   type?: 'text' | 'email' | 'password';
   errorMessage?: string;
 };
+
+export type TControlledTextField<T extends FieldValues> =
+  UseControllerProps<T> & TTextField;
