@@ -84,22 +84,9 @@ export const TextField: FC<
 };
 
 export const ControlledTextField = <T extends FieldValues>({
-  variant,
-  type = 'text',
-  dimension,
-  errorMessage,
   ...props
 }: TControlledTextField<T> &
   VariantProps<typeof textfieldClassName>): ReactElement => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const eyeClassName = cn('text-neutral-60%', {
-    'text-neutral-50% cursor-not-allowed': props.disabled,
-    'text-red-50%': variant === 'error' && !props.disabled,
-    'text-neutral-80%': variant === 'info' && !props.disabled,
-    'text-primary-70%': variant === 'success' && !props.disabled,
-  });
-
   const { field } = useController({
     ...props,
     rules: {
@@ -107,35 +94,5 @@ export const ControlledTextField = <T extends FieldValues>({
     },
   });
 
-  return (
-    <div className="flex flex-col gap-1.5">
-      <div className="relative">
-        <input
-          type={showPassword ? 'text' : type}
-          {...{ ...props, ...field }}
-          className={cn(textfieldClassName({ variant, dimension }))}
-        />
-
-        {type === 'password' && (
-          <button
-            title="Password Visibility"
-            type="button"
-            disabled={props.disabled}
-            className="absolute right-4 top-1/2 -translate-y-1/2"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <EyeInvisibleFilled className={eyeClassName} />
-            ) : (
-              <EyeFilled className={eyeClassName} />
-            )}
-          </button>
-        )}
-      </div>
-
-      {errorMessage && variant === 'error' && (
-        <p className={'text-red-50% text-[10px]'}>{errorMessage}</p>
-      )}
-    </div>
-  );
+  return <TextField {...{ ...props, ...field }} />;
 };
