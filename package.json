@@ -4,12 +4,17 @@
   "license": "MIT",
   "scripts": {
     "ui:story": "nx storybook ui",
+    "ui:story:build": "nx build-storybook ui",
     "market:prod": "nx start market",
     "market:dev": "nx dev market",
     "market:build": "nx build market",
+    "market:db:gen": "drizzle-kit generate --config libs/drizzle/src/lib/market/config.ts",
+    "market:db:push": "drizzle-kit push --config libs/drizzle/src/lib/market/config.ts",
     "tourism:prod": "nx start tourism",
     "tourism:dev": "nx dev tourism",
     "tourism:build": "nx build tourism",
+    "tourism:db:gen": "drizzle-kit generate --config libs/drizzle/src/lib/tourism/config.ts",
+    "tourism:db:push": "drizzle-kit push --config libs/drizzle/src/lib/tourism/config.ts",
     "prepare": "husky"
   },
   "private": true,
