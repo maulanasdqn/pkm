@@ -8,21 +8,19 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   title: 'components/UI/Button',
   argTypes: {
+    color: {
+      options: ['primary', 'secondary'],
+      control: { type: 'radio' },
+    },
     variant: {
-      options: [
-        'primary',
-        'secondary',
-        'text',
-        'yellowPrimary',
-        'yellowSecondary',
-        'yellowText',
-      ],
+      options: ['primary', 'secondary', 'text'],
       control: { type: 'radio' },
     },
     disabled: {
       control: { type: 'boolean' },
     },
     className: {
+      description: 'Custom className',
       control: { type: 'text' },
     },
     size: {
@@ -44,21 +42,39 @@ export const Primary: Story = {
 export const PrimaryWithIcon: Story = {
   args: {
     variant: 'primary',
-    children: <ButtonChildren />,
+    children: (
+      <>
+        <CaretDownOutlined />
+        Button
+        <CaretDownOutlined />
+      </>
+    ),
   },
 };
 
-export const SecondaryVariant: Story = {
+export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    children: <ButtonChildren />,
+    children: (
+      <>
+        <CaretDownOutlined />
+        Button
+        <CaretDownOutlined />
+      </>
+    ),
   },
 };
 
 export const Text: Story = {
   args: {
     variant: 'text',
-    children: <ButtonChildren />,
+    children: (
+      <>
+        <CaretDownOutlined />
+        Button
+        <CaretDownOutlined />
+      </>
+    ),
   },
 };
 
@@ -73,38 +89,37 @@ export const Icon: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: <ButtonChildren />,
+    children: (
+      <>
+        <CaretDownOutlined />
+        Button
+        <CaretDownOutlined />
+      </>
+    ),
   },
 };
 
 export const Loading: Story = {
   args: {
     disabled: true,
-    children: <ButtonLoadingChildren />,
+    children: (
+      <>
+        <LoadingOutlined className="animate-spin" />
+        Please wait..
+      </>
+    ),
   },
 };
 
 export const SecondaryColor: Story = {
   args: {
-    variant: 'yellowPrimary',
-    children: <ButtonChildren />,
+    color: 'secondary',
+    children: (
+      <>
+        <CaretDownOutlined />
+        Button
+        <CaretDownOutlined />
+      </>
+    ),
   },
 };
-function ButtonLoadingChildren() {
-  return (
-    <>
-      <LoadingOutlined className="animate-spin" />
-      Please wait..
-    </>
-  );
-}
-
-function ButtonChildren() {
-  return (
-    <>
-      <CaretDownOutlined />
-      Button
-      <CaretDownOutlined />
-    </>
-  );
-}

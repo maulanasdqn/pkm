@@ -19,16 +19,10 @@ const btnClassName = cva(className, {
   variants: {
     variant: {
       primary:
-        'bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white',
+        'bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white data-[color=secondary]:bg-secondary data-[color=secondary]:hover:bg-secondary-60% data-[color=secondary]:active:bg-secondary-70% data-[color=secondary]:focus:bg-secondary-60% data-[color=secondary]:text-white',
       secondary:
-        'border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary',
-      text: 'text-primary hover:text-primary-60% active:text-primary-80% focus:text-primary-60%',
-      yellowPrimary:
-        'bg-secondary hover:bg-secondary-60% active:bg-secondary-80% focus:bg-secondary-60% text-white',
-      yellowSecondary:
-        'border border-secondary bg-transparent hover:bg-secondary-20% active:bg-secondary-40% focus:bg-secondary-20% text-secondary-60%',
-      yellowText:
-        'text-secondary-60% hover:text-secondary-80% active:text-secondary-90% focus:text-secondary-80%',
+        'border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary  data-[color=secondary]:border-secondary data-[color=secondary]:hover:bg-secondary-20% data-[color=secondary]:active:bg-secondary-40% data-[color=secondary]:focus:bg-secondary-20% data-[color=secondary]:text-secondary-60%',
+      text: 'text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70%',
     },
     size,
   },
@@ -43,12 +37,14 @@ export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
   className,
   href,
   variant,
+  color = 'primary',
   ...props
 }): ReactElement => {
   return match(href)
     .with(P.string, (link) => (
       <Link href={link}>
         <button
+          data-color={color}
           className={cn(btnClassName({ variant, className, size }))}
           {...props}
         >
@@ -58,6 +54,7 @@ export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
     ))
     .otherwise(() => (
       <button
+        data-color={color}
         className={cn(btnClassName({ variant, className, size }))}
         {...props}
       >
