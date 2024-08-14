@@ -12,7 +12,7 @@ const textfieldClassName = cva(
   {
     variants: {
       variant: {
-        default: 'border-neutral-60% placeholder:text-neutral-60% ',
+        default: 'border-neutral-60% placeholder:text-neutral-60%',
         success: 'bg-white border-primary-50% text-neutral-70%',
         info: 'bg-white border-blue-80% text-neutral-80%',
         error: 'bg-white border-red-60% text-red-50% placeholder:text-red-50%',
