@@ -1,2 +1,3 @@
-export * from './lib/inputs';
-export * from './lib/button';
+export * from './lib/atoms';
+export * from './lib/molecules';
+export * from './lib/organisms';
