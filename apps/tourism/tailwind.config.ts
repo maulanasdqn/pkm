@@ -13,6 +13,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+        'source-sans-pro': ['Source Sans 3', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
       colors,
     },
   },
