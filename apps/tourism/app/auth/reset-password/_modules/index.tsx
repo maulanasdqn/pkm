@@ -1,7 +1,7 @@
 import { FormAuth, TextField } from '@pkm/ui';
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 
-export const ResetPasswordModule: FC = () => {
+export const ResetPasswordModule: FC = (): ReactElement => {
   return (
     <FormAuth
       buttonName="Simpan"

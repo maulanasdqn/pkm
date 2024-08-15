@@ -1,8 +1,8 @@
 import { FormAuth, TextField } from '@pkm/ui';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 
-export const ForgotPasswordModule: FC = () => {
+export const ForgotPasswordModule: FC = (): ReactElement => {
   return (
     <FormAuth
       buttonName="Kirim"

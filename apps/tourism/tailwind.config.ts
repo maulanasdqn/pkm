@@ -14,9 +14,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        'source-sans-pro': ['Source Sans 3', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
+        montserrat: ['var(--font-montserrat)'],
+        'source-sans-pro': ['var(--font-source-sans-3)'],
+        inter: ['var(--font-inter)'],
       },
       colors,
     },
