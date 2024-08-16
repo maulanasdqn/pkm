@@ -4,7 +4,11 @@ import { FC, ReactElement, useState } from 'react';
 import { TControlledTextField, TTextField } from './type';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@pkm/libs/clsx';
-import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
+import {
+  EyeFilled,
+  EyeInvisibleFilled,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { FieldValues, useController } from 'react-hook-form';
 
 const textfieldClassName = cva(
@@ -19,7 +23,6 @@ const textfieldClassName = cva(
       },
 
       dimension: {
-        sm: 'text-[10px] py-2',
         md: 'text-[10px] py-2',
         lg: 'text-[13px]',
       },
@@ -43,7 +46,7 @@ export const TextField: FC<
 }): ReactElement => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const eyeClassName = cn('text-neutral-60%', {
+  const iconClassName = cn('text-neutral-60%', {
     'text-neutral-50% cursor-not-allowed': props.disabled,
     'text-red-50%': variant === 'error' && !props.disabled,
     'text-neutral-80%': variant === 'info' && !props.disabled,
@@ -56,8 +59,17 @@ export const TextField: FC<
         <input
           type={showPassword ? 'text' : type}
           {...props}
-          className={cn(textfieldClassName({ variant, dimension }))}
+          className={cn(textfieldClassName({ variant, dimension }), {
+            'pr-10': type === 'password',
+            'pl-10': type === 'search',
+          })}
         />
+
+        {type === 'search' && (
+          <span className="absolute left-4 top-1/2 -translate-y-1/2">
+            <SearchOutlined className={iconClassName} />
+          </span>
+        )}
 
         {type === 'password' && (
           <button
@@ -68,9 +80,9 @@ export const TextField: FC<
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
-              <EyeInvisibleFilled className={eyeClassName} />
+              <EyeInvisibleFilled className={iconClassName} />
             ) : (
-              <EyeFilled className={eyeClassName} />
+              <EyeFilled className={iconClassName} />
             )}
           </button>
         )}

@@ -1,18 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Textarea } from './textarea';
 
-import { TextField } from './textfield';
-
-const meta: Meta<typeof TextField> = {
-  component: TextField,
+const meta: Meta<typeof Textarea> = {
+  component: Textarea,
   tags: ['autodocs'],
-  title: 'components/UI/TextField',
+  title: 'components/UI/Textarea',
   argTypes: {
     variant: {
       options: ['default', 'success', 'info', 'error'],
-      control: { type: 'radio' },
-    },
-    type: {
-      options: ['text', 'email', 'password', 'search'],
       control: { type: 'radio' },
     },
     className: {
@@ -26,21 +21,13 @@ const meta: Meta<typeof TextField> = {
       control: { type: 'text' },
     },
     disabled: {
-      options: [true, false],
       control: { type: 'boolean' },
-    },
-    defaultValue: {
-      control: { type: 'text' },
-    },
-    errorMessage: {
-      control: { type: 'text' },
     },
   },
 };
 
 export default meta;
-
-type Story = StoryObj<typeof TextField>;
+type Story = StoryObj<typeof Textarea>;
 
 export const Default: Story = {
   args: {
@@ -71,24 +58,6 @@ export const Error: Story = {
     variant: 'error',
     className: 'w-[320px]',
     placeholder: 'Label',
-    errorMessage: 'Password yang anda masukkan salah!',
-  },
-};
-
-export const Password: Story = {
-  args: {
-    variant: 'default',
-    className: 'w-[320px]',
-    placeholder: 'Label',
-    type: 'password',
-  },
-};
-
-export const Search: Story = {
-  args: {
-    variant: 'default',
-    className: 'w-[320px]',
-    placeholder: 'Label',
-    type: 'search',
+    errorMessage: 'Something went wrong!',
   },
 };
