@@ -1,6 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { authSchema } from './schema';
 import { checkEmail, checkPassword, getUserDataWithRoles } from './util';
+import { authSchema } from './schema';
 
 export const credentialProvider = () =>
   CredentialsProvider({
