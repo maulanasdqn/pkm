@@ -1,22 +1,12 @@
 'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormAuth, FormAuthFooter, ControlledTextField } from '@pkm/ui';
-import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-const LoginSchema = z.object({
-  email: z.string().email({
-    message: 'email is required!',
-  }),
-  password: z.string().min(6, {
-    message: 'password must be at least 6 characters!',
-  }),
-});
+import { LoginSchema, TLoginSchema } from '@pkm/libs/entities';
+import { signIn } from 'next-auth/react';
 
-type TLoginSchema = z.infer<typeof LoginSchema>;
 export const LoginModule: FC = (): ReactElement => {
   const form = useForm<TLoginSchema>({
     resolver: zodResolver(LoginSchema),
@@ -29,8 +19,9 @@ export const LoginModule: FC = (): ReactElement => {
 
   const onSubmit = (data: TLoginSchema) => {
     const { email, password } = data;
-    return signIn('login', { email, password });
+    signIn('login', { email, password });
   };
+
   return (
     <FormAuth
       onSubmit={form.handleSubmit(onSubmit)}
@@ -47,7 +38,7 @@ export const LoginModule: FC = (): ReactElement => {
       <fieldset className="w-full flex flex-col gap-8 font-montserrat">
         <ControlledTextField
           placeholder="Email"
-          {...form.register('email')}
+          name="email"
           control={form.control}
           errorMessage={form.formState.errors.email?.message}
           variant={
@@ -62,7 +53,7 @@ export const LoginModule: FC = (): ReactElement => {
           <ControlledTextField
             type="password"
             placeholder="Password"
-            {...form.register('password')}
+            name="password"
             control={form.control}
             errorMessage={form.formState.errors.password?.message}
             variant={

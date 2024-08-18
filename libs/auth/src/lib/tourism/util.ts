@@ -4,7 +4,8 @@ import 'server-only';
 import { eq } from 'drizzle-orm';
 import { signOut } from './auth';
 import { db, users } from '@pkm/libs/drizzle/tourism';
-import { verifyPassword } from '../common';
+import { hashPassword, verifyPassword } from '../common';
+import { DatabaseError } from 'pg';
 
 export const checkEmail = async (email?: string | null) => {
   if (!email) return 'Email wajib diisi';
@@ -90,5 +91,29 @@ export const logOut = async () => {
     });
   } catch (err) {
     throw err;
+  }
+};
+export const register = async (
+  fullname: string,
+  email: string,
+  password: string
+) => {
+  const hashedPassword = await hashPassword(password);
+  try {
+    const res = await db
+      .insert(users)
+      .values({ email, password: hashedPassword, address: '', fullname })
+      .returning({
+        id: users.id,
+        email: users.email,
+        fullname: users.fullname,
+      });
+    return res;
+  } catch (error) {
+    if (error instanceof DatabaseError) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+    throw new Error(error as string);
   }
 };

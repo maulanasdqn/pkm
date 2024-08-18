@@ -3,26 +3,10 @@ import { FormAuth, FormAuthFooter, ControlledTextField } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import * as z from 'zod';
-import { registerTourism } from '@pkm/libs/auth';
-
-const RegisterSchema = z.object({
-  fullname: z.string().min(1, {
-    message: 'fullname is required!',
-  }),
-  email: z.string().email({
-    message: 'email is required!',
-  }),
-  password: z.string().min(6, {
-    message: 'password must be at least 6 characters!',
-  }),
-  confirmPassword: z.string().min(6, {
-    message: 'confirm password must be at least 6 characters!',
-  }),
-});
-
-type TRegisterSchema = z.infer<typeof RegisterSchema>;
+import { RegisterSchema, TRegisterSchema } from '@pkm/libs/entities';
+import { register } from 'libs/auth/src/lib/tourism/util';
+// import { register } from '@pkm/libs/auth/tourism';
+// import { registerTourism } from '@pkm/libs/auth';
 
 export const RegisterModule: FC = (): ReactElement => {
   const form = useForm<TRegisterSchema>({
@@ -38,7 +22,8 @@ export const RegisterModule: FC = (): ReactElement => {
 
   const onSubmit = (data: TRegisterSchema) => {
     const { email, fullname, password } = data;
-    return registerTourism(fullname, email, password);
+    // return registerTourism(fullname, email, password);
+    register(fullname, email, password);
   };
 
   return (
@@ -57,7 +42,7 @@ export const RegisterModule: FC = (): ReactElement => {
       <fieldset className="w-full flex flex-col gap-4 font-montserrat">
         <ControlledTextField
           placeholder="Nama Lengkap"
-          {...form.register('fullname')}
+          name="fullname"
           errorMessage={form.formState.errors.fullname?.message}
           variant={
             form.formState.errors.fullname
@@ -70,7 +55,7 @@ export const RegisterModule: FC = (): ReactElement => {
         />
         <ControlledTextField
           placeholder="Email"
-          {...form.register('email')}
+          name="email"
           errorMessage={form.formState.errors.email?.message}
           variant={
             form.formState.errors.email
@@ -84,7 +69,7 @@ export const RegisterModule: FC = (): ReactElement => {
         <ControlledTextField
           type="password"
           placeholder="Buat password"
-          {...form.register('password')}
+          name="password"
           errorMessage={form.formState.errors.password?.message}
           variant={
             form.formState.errors.password
@@ -98,7 +83,7 @@ export const RegisterModule: FC = (): ReactElement => {
         <ControlledTextField
           type="password"
           placeholder="Ulangi password"
-          {...form.register('confirmPassword')}
+          name="confirmPassword"
           errorMessage={form.formState.errors.confirmPassword?.message}
           variant={
             form.formState.errors.confirmPassword
