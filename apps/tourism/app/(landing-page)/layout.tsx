@@ -1,4 +1,5 @@
 // import { Navbar } from '@pkm/ui'; navbar belum fix
+import { Footer } from '@pkm/ui';
 import { ReactElement, ReactNode } from 'react';
 
 export default function MainLayout({
@@ -10,6 +11,7 @@ export default function MainLayout({
     <main className="w-full h-screen flex flex-col">
       {/* <Navbar title="Wisata Desa Bojongsari" apps="tourism" /> */}
       {children}
+      <Footer />
     </main>
   );
 }
