@@ -70,7 +70,7 @@ export const LandingPageModule: FC = (): ReactElement => {
           </Carousel>
         </div>
       </section>
-      <section className="w-full h-full font-source-sans-pro">
+      <section className="w-full h-full font-source-sans-pro my-16">
         <div className="container mx-auto pb-16">
           <h1 className="px-14 mb-8 text-4xl font-semibold text-primary-70%">
             Informasi Tentang Wisata Desa
@@ -81,7 +81,6 @@ export const LandingPageModule: FC = (): ReactElement => {
               loop: true,
               dragFree: true,
             }}
-            showDotNavigator
             className="w-full max-w-full"
           >
             <CarouselContent>
