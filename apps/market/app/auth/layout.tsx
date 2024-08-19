@@ -1,4 +1,4 @@
-import { NavbarAuth } from '@pkm/ui';
+import { Navbar } from '@pkm/ui';
 
 export default function AuthLayout({
   children,
@@ -7,7 +7,7 @@ export default function AuthLayout({
 }) {
   return (
     <main className="w-full h-screen flex flex-col">
-      <NavbarAuth apps="market" title="Digitalisasi Pasar Desa" />
+      <Navbar apps="market" title="Digitalisasi Pasar Desa" page="auth" />
 
       <section className="w-full h-full bg-[url('/images/desa-bg.webp')] bg-cover">
         <div className="w-full h-full flex justify-center items-center bg-black bg-opacity-70">

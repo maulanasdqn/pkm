@@ -1,4 +1,4 @@
-import { NavbarAuth } from '@pkm/ui';
+import { Navbar } from '@pkm/ui';
 import { ReactElement } from 'react';
 
 export default function AuthLayout({
@@ -8,7 +8,7 @@ export default function AuthLayout({
 }): ReactElement {
   return (
     <main className="w-full h-screen flex flex-col">
-      <NavbarAuth apps="tourism" title="Wisata Desa Bojongsari" />
+      <Navbar apps="tourism" title="Wisata Desa Bojongsari" page="auth" />
 
       <section className="w-full h-full bg-[url('/images/desa-bg.webp')] bg-cover">
         <div className="w-full h-full flex justify-center items-center bg-black bg-opacity-70">

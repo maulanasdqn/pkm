@@ -2,7 +2,7 @@
 
 import { cn } from '@pkm/libs/clsx';
 import { cva, VariantProps } from 'class-variance-authority';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect } from 'react';
 import { TAlert } from './type';
 import {
   CheckCircleOutlined,

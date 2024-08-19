@@ -15,13 +15,26 @@ const size = {
 const className =
   'inline-flex gap-1 items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
 
+const primaryVariantColors = {
+  secondary:
+    'data-[color=secondary]:bg-secondary data-[color=secondary]:hover:bg-secondary-60% data-[color=secondary]:active:bg-secondary-70% data-[color=secondary]:focus:bg-secondary-60% data-[color=secondary]:text-white',
+
+  red: 'data-[color=red]:bg-red data-[color=red]:hover:bg-red-60% data-[color=red]:active:bg-red-70% data-[color=red]:focus:bg-red-60%',
+};
+
+const secondaryVariantColors = {
+  secondary:
+    'data-[color=secondary]:border-secondary data-[color=secondary]:hover:bg-secondary-20% data-[color=secondary]:active:bg-secondary-40% data-[color=secondary]:focus:bg-secondary-20% data-[color=secondary]:text-secondary-60%',
+
+  red: 'data-[color=red]:text-red data-[color=red]:border-red-50% data-[color=red]:hover:bg-red-20% data-[color=red]:active:bg-red-40% data-[color=red]:focus:bg-red-20%',
+};
+
 const btnClassName = cva(className, {
   variants: {
     variant: {
-      primary:
-        'bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white data-[color=secondary]:bg-secondary data-[color=secondary]:hover:bg-secondary-60% data-[color=secondary]:active:bg-secondary-70% data-[color=secondary]:focus:bg-secondary-60% data-[color=secondary]:text-white',
-      secondary:
-        'border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary  data-[color=secondary]:border-secondary data-[color=secondary]:hover:bg-secondary-20% data-[color=secondary]:active:bg-secondary-40% data-[color=secondary]:focus:bg-secondary-20% data-[color=secondary]:text-secondary-60%',
+      primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,
+      secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red}`,
+
       text: 'text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70%',
     },
     size,
