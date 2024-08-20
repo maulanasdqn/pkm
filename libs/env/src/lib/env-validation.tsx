@@ -14,6 +14,8 @@ const zodEnv = z.object({
   DB_PASSWORD: z.string().min(1),
   DB_NAME: z.string().min(1),
   DB_PORT: z.string().min(1),
+  DB_URL: z.string().url().min(1),
+  DB_URL_POOLER: z.string().url().min(1),
 });
 
 declare global {
