@@ -25,6 +25,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.32.1",
+    "embla-carousel": "^8.1.8",
+    "embla-carousel-react": "^8.1.8",
     "framer-motion": "^11.3.27",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.20",
