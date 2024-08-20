@@ -8,7 +8,7 @@ export default function MainLayout({
   children: ReactNode;
 }): ReactElement {
   return (
-    <main className="w-full h-screen flex flex-col">
+    <main className="w-full min-h-screen flex flex-col">
       {/* <Navbar title="Wisata Desa Bojongsari" apps="tourism" /> */}
       {children}
       <FooterTourism />

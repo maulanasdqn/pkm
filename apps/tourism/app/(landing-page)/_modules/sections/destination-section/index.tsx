@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
-import { Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
+import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 
 const destinations = [
   {
@@ -16,16 +16,8 @@ const destinations = [
     category: 'Pertunjukan',
   },
   {
-    img: '/images/lake.png',
-    category: 'Danau',
-  },
-  {
-    img: '/images/angklung.png',
-    category: 'Pertunjukan',
-  },
-  {
-    img: '/images/lake.png',
-    category: 'Danau',
+    img: '/images/rice-field.jpeg',
+    category: 'Pesawahan',
   },
 ];
 
@@ -43,9 +35,19 @@ export const DestinationSection: FC = (): ReactElement => {
         className="absolute bottom-0 left-0 "
       />
       <div className="pb-20">
-        <h1 className="container mx-auto px-14 mb-10 text-4xl font-semibold text-primary-70%">
-          Destinasi Desa Wisata
-        </h1>
+        <div className="container mx-auto px-14 mb-10 flex justify-between items-center">
+          <h1 className="text-4xl font-semibold text-primary-70%">
+            Destinasi Wisata
+          </h1>
+          <Button
+            size="lg"
+            variant="text"
+            href="#"
+            className="p-0 hover:underline text-lg"
+          >
+            Destinasi lainnya
+          </Button>
+        </div>
         <Carousel
           opts={{
             align: 'start',
@@ -68,7 +70,7 @@ export const DestinationSection: FC = (): ReactElement => {
                       quality={100}
                       className="h-[300px] w-full aspect-video rounded"
                     />
-                    <div className="absolute z-10 -bottom-5 left-[40%] rounded py-2 px-5 text-primary-80% bg-white">
+                    <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
                       {item.category}
                     </div>
                   </div>
