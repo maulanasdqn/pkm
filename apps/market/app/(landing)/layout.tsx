@@ -1,4 +1,4 @@
-import { Navbar } from '@pkm/ui';
+import { FooterMarket, Navbar } from '@pkm/ui';
 
 export default function LandingLayout({
   children,
@@ -14,6 +14,8 @@ export default function LandingLayout({
       />
 
       {children}
+
+      <FooterMarket />
     </main>
   );
 }

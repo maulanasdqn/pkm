@@ -7,6 +7,7 @@ export const OurProductSection: FC = (): ReactElement => {
         <h3 className="text-4xl">Produk Kami</h3>
 
         <Button
+          href="/products"
           variant="text"
           size="lg"
           className="font-source-sans-pro text-2xl text-black"

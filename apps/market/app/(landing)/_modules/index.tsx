@@ -34,7 +34,7 @@ const cardsContent = [
 
 export const LandingModule: FC = (): ReactElement => {
   return (
-    <section className="flex flex-col pt-20 pb-10 justify-center items-center gap-20 container mx-auto">
+    <section className="flex flex-col pt-20 pb-16 justify-center items-center gap-20 container mx-auto">
       <div className="w-full flex flex-col px-20 gap-12">
         <div className="flex flex-col gap-10 font-source-sans-pro items-center">
           <h2 className="text-5xl">Digitalisasi Pasar Desa</h2>

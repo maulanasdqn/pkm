@@ -61,14 +61,17 @@ export const TextField: FC<
           {...props}
           className={cn(textfieldClassName({ variant, dimension }), {
             'pr-10': type === 'password',
-            'pl-10': type === 'search',
+            'pl-12': type === 'search',
           })}
         />
 
         {type === 'search' && (
-          <span className="absolute left-4 top-1/2 -translate-y-1/2">
-            <SearchOutlined className={iconClassName} />
-          </span>
+          <SearchOutlined
+            className={cn(
+              'absolute left-4 transform -translate-y-1/2 top-1/2',
+              iconClassName
+            )}
+          />
         )}
 
         {type === 'password' && (
