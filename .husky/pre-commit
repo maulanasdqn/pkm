@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/common.sh"
 
-yarn nx run-many -t build --all
+yarn nx run-many -t build --all --no-cloud
