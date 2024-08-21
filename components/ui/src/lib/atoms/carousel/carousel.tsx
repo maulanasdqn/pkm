@@ -6,12 +6,13 @@ import {
   CarouselApi,
   CarouselContextProps,
   CarouselProps,
-  PropType,
+  DotPropType,
 } from './type';
 import { cn } from '@pkm/libs/clsx';
 import { EmblaCarouselType } from 'embla-carousel';
 import { Button } from '../button';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import Image from 'next/image';
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
@@ -38,6 +39,8 @@ const Carousel = React.forwardRef<
       className,
       children,
       showDotNavigator = false,
+      showThumbnail = false,
+      imgThumbnail,
       ...props
     },
     ref
@@ -49,9 +52,29 @@ const Carousel = React.forwardRef<
       },
       plugins
     );
+    const [carouselThumbsRef, carouselThumbsApi] = useEmblaCarousel({
+      containScroll: 'keepSnaps',
+      dragFree: true,
+    });
+
+    const onThumbClick = React.useCallback(
+      (index: number) => {
+        if (!api || !carouselThumbsApi) return;
+        api.scrollTo(index);
+      },
+      [api, carouselThumbsApi]
+    );
+
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
-    const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(api);
+    const { selectedIndex, scrollSnaps, onDotButtonClick, setSelectedIndex } =
+      useDotButton(api);
+
+    const onSelectThumb = React.useCallback(() => {
+      if (!api || !carouselThumbsApi) return;
+      setSelectedIndex(api.selectedScrollSnap());
+      api.scrollTo(api.selectedScrollSnap());
+    }, [api, carouselThumbsApi, setSelectedIndex]);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -95,7 +118,7 @@ const Carousel = React.forwardRef<
       if (!api) {
         return;
       }
-
+      onSelectThumb();
       onSelect(api);
       api.on('reInit', onSelect);
       api.on('select', onSelect);
@@ -103,7 +126,7 @@ const Carousel = React.forwardRef<
       return () => {
         api?.off('select', onSelect);
       };
-    }, [api, onSelect]);
+    }, [api, onSelect, onSelectThumb]);
 
     return (
       <CarouselContext.Provider
@@ -139,6 +162,36 @@ const Carousel = React.forwardRef<
                     index === selectedIndex ? 'bg-primary' : 'bg-white'
                   )}
                 />
+              ))}
+            </div>
+          )}
+          {showThumbnail && imgThumbnail && (
+            <div
+              ref={carouselThumbsRef}
+              className="flex overflow-x-auto mt-3 w-full justify-start border-t border-b border-neutral-60%"
+            >
+              {imgThumbnail.map((item, index) => (
+                <button
+                  key={index}
+                  className="py-1"
+                  onClick={() => onThumbClick(index)}
+                >
+                  <div className="p-3 px-2">
+                    <Image
+                      src={item}
+                      alt={`thumbnail-${index + 1}`}
+                      width={250}
+                      height={150}
+                      quality={100}
+                      className={cn(
+                        'h-[150px] w-[250px] aspect-video rounded ring',
+                        index === selectedIndex
+                          ? 'ring-primary-90%'
+                          : 'ring-neutral-60%'
+                      )}
+                    />
+                  </div>
+                </button>
               ))}
             </div>
           )}
@@ -197,6 +250,7 @@ type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
+  setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const useDotButton = (emblaApi: CarouselApi): UseDotButtonType => {
@@ -231,10 +285,11 @@ const useDotButton = (emblaApi: CarouselApi): UseDotButtonType => {
     selectedIndex,
     scrollSnaps,
     onDotButtonClick,
+    setSelectedIndex,
   };
 };
 
-const CarouselDot: React.FC<PropType> = (props) => {
+const CarouselDot: React.FC<DotPropType> = (props) => {
   const { children, ...restProps } = props;
 
   return (

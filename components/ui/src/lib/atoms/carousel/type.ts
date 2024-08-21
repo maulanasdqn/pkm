@@ -6,13 +6,15 @@ export type CarouselApi = UseEmblaCarouselType[1];
 export type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 export type CarouselOptions = UseCarouselParameters[0];
 export type CarouselPlugin = UseCarouselParameters[1];
-export type PropType = ComponentPropsWithRef<'button'>;
+export type DotPropType = ComponentPropsWithRef<'button'>;
 
 export type CarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: 'horizontal' | 'vertical';
   showDotNavigator?: boolean;
+  showThumbnail?: boolean;
+  imgThumbnail?: string[];
   setApi?: (api: CarouselApi) => void;
 };
 
