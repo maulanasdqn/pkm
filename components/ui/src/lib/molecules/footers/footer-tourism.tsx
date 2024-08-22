@@ -19,14 +19,14 @@ export const FooterTourism: FC = (): ReactElement => {
                 className="bg-gradient-to-tr from-yellow-300 via-red to-fuchsia-400 hover:from-yellow-400 hover:via-red-60% hover:to-fuchsia-500"
                 href="https://www.instagram.com"
               >
-                <InstagramOutlined className="text-3xl ml-0.5" />
+                <InstagramOutlined className="text-3xl" />
               </Button>
               <Button
                 size="icon"
                 className="bg-red hover:bg-red-60% active:bg-red-70% focus:bg-red-60%"
                 href="https://www.youtube.com"
               >
-                <YoutubeOutlined className="text-3xl mr-0.5" />
+                <YoutubeOutlined className="text-3xl" />
               </Button>
               <Button
                 size="icon"
