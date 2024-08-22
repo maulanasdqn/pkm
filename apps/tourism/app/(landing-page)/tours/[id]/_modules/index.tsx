@@ -30,7 +30,7 @@ const imgThumbnails = [
 ];
 export const TourDetailModule: FC = (): ReactElement => {
   return (
-    <div className="container mx-auto my-10 space-y-7">
+    <section className="container mx-auto my-10 space-y-7">
       <h1 className="text-4xl font-bold text-primary-70%">
         Wisata Danau Desa Bojongsari Kabupaten Bandung
       </h1>
@@ -70,7 +70,7 @@ export const TourDetailModule: FC = (): ReactElement => {
             ingin melarikan diri dari hiruk-pikuk kehidupan kota.
           </p>
         </div>
-        <div className="rounded border border-neutral-60% flex flex-col gap-3 p-4 space-y-8">
+        <aside className="rounded border border-neutral-60% flex flex-col gap-3 p-4 space-y-8">
           <div className="flex flex-col gap-4 justify-center items-center">
             <h1 className="text-2xl">Reservasi Sekarang</h1>
             <Button size="lg">Reservasi</Button>
@@ -110,8 +110,8 @@ export const TourDetailModule: FC = (): ReactElement => {
               </div>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
-    </div>
+    </section>
   );
 };

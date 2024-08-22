@@ -42,7 +42,7 @@ const tours = [
 
 export const ToursPageModule: FC = (): ReactElement => {
   return (
-    <div className="min-h-screen relative w-full flex flex-col items-center">
+    <section className="min-h-screen relative w-full flex flex-col items-center">
       <Image
         src="/images/bg-lake.webp"
         alt="bg-lake"
@@ -85,6 +85,6 @@ export const ToursPageModule: FC = (): ReactElement => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };

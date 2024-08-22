@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
-import { Button } from '../../atoms';
+import { Button, NavLinks } from '../../atoms';
 import { TNavbarAuthProps } from './type';
 import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
@@ -32,7 +32,14 @@ export const Navbar: FC<TNavbarAuthProps> = ({
         })
         .exhaustive();
     })
-    .otherwise(() => null);
+    .otherwise(() => {
+      return match(page)
+        .with('public', () => {
+          return <NavLinks component="navbar" apps="tourism" />;
+        })
+        .with('auth', () => null)
+        .exhaustive();
+    });
 
   const navbarClassName = cn('py-3 bg-white', {
     'px-10 shadow-sm border-b border-neutral-20%': page === 'public',

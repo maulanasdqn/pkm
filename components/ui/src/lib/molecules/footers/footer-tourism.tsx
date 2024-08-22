@@ -6,6 +6,7 @@ import {
   WhatsAppOutlined,
   YoutubeOutlined,
 } from '@ant-design/icons';
+import { NavLinks } from '../../atoms';
 export const FooterTourism: FC = (): ReactElement => {
   return (
     <>
@@ -45,12 +46,7 @@ export const FooterTourism: FC = (): ReactElement => {
             </div>
           </div>
           <div className="w-full flex items-center justify-center">
-            <ul className="flex flex-col items-left gap-4 text-lg">
-              <li>Tentang Kami</li>
-              <li>Kontak Kami</li>
-              <li>Wisata</li>
-              <li>Berita</li>
-            </ul>
+            <NavLinks component="footer" apps="tourism" />
           </div>
           <div className="flex flex-col w-full gap-8">
             <h1 className="text-2xl font-semibold">Alamat</h1>
