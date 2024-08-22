@@ -1,4 +1,3 @@
-import { CaretDownOutlined } from '@ant-design/icons';
 import { Button } from '@pkm/ui';
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
@@ -47,19 +46,19 @@ export const LandingModule: FC = (): ReactElement => {
           </p>
         </div>
 
-        <div className='bg-[url("/images/big-card-market.webp")] bg-center bg-cover w-full flex flex-col items-center justify-center h-[400px] font-source-sans-pro gap-4 pt-16'>
-          <p className="text-white text-2xl">
-            Daftarkan produkmu dan raih lebih banyak pelanggan!
-          </p>
-          <Button
-            href="/auth/register"
-            color="red"
-            className="px-16 font-normal text-base"
-          >
-            <CaretDownOutlined className="text-[9px]" />
-            Daftar Sekarang
-            <CaretDownOutlined className="text-[9px]" />
-          </Button>
+        <div className='bg-[url("/images/big-card-market.webp")] bg-center bg-cover w-full h-[400px]'>
+          <div className="bg-black bg-opacity-25 w-full min-h-full flex flex-col items-center justify-center gap-4 font-source-sans-pro pt-16">
+            <p className="text-white text-2xl">
+              Daftarkan produkmu dan raih lebih banyak pelanggan!
+            </p>
+            <Button
+              href="/auth/register"
+              color="red"
+              className="px-16 font-normal text-xl"
+            >
+              Daftar Sekarang
+            </Button>
+          </div>
         </div>
 
         <div className="w-full flex flex-col gap-12 items-center mt-4">

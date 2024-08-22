@@ -1,5 +1,6 @@
-import { Button, CardMarket } from '@pkm/ui';
+import { Button } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
+import { ProductCarousel } from './products';
 export const OurProductSection: FC = (): ReactElement => {
   return (
     <div className="w-full flex flex-col font-source-sans-pro mt-8 gap-12">
@@ -16,26 +17,7 @@ export const OurProductSection: FC = (): ReactElement => {
         </Button>
       </div>
 
-      <div className="w-full flex justify-around">
-        <CardMarket
-          href="#"
-          name="Kopi"
-          price={15000}
-          imageUrl="/images/kopi.webp"
-        />
-        <CardMarket
-          href="#"
-          name="Kopi"
-          price={15000}
-          imageUrl="/images/kopi.webp"
-        />
-        <CardMarket
-          href="#"
-          name="Kopi"
-          price={15000}
-          imageUrl="/images/kopi.webp"
-        />
-      </div>
+      <ProductCarousel />
     </div>
   );
 };

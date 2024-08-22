@@ -15,5 +15,5 @@ export type TButton = DetailedHTMLProps<
     href?: string;
     variant?: 'primary' | 'secondary' | 'text';
     size?: 'sm' | 'md' | 'lg' | 'icon';
-    color?: 'primary' | 'secondary' | 'red';
+    color?: 'primary' | 'secondary' | 'red' | 'black';
   };

@@ -1,15 +1,43 @@
+'use client';
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { Button } from '../../atoms';
 import { TNavbarAuthProps } from './type';
 import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const navList = [
+  {
+    name: 'Beranda',
+    link: '/',
+  },
+  {
+    name: 'Kategori',
+    link: '/categories',
+  },
+  {
+    name: 'Produk',
+    link: '/products',
+  },
+  {
+    name: 'Tentang Kami',
+    link: '/about',
+  },
+  {
+    name: 'Kontak Kami',
+    link: '/contact',
+  },
+];
 
 export const Navbar: FC<TNavbarAuthProps> = ({
   apps,
   title,
   page,
 }): ReactElement => {
+  const pathname = usePathname();
+
   const navbarMatching = match(apps)
     .with('market', () => {
       return match(page)
@@ -25,9 +53,29 @@ export const Navbar: FC<TNavbarAuthProps> = ({
         })
         .with('public', () => {
           return (
-            <Button href="/auth/login" size="lg" className="font-normal">
-              Login
-            </Button>
+            <div className="flex items-center gap-16">
+              <nav className="flex items-center gap-12">
+                {navList?.map((item, i) => (
+                  <Link
+                    key={i}
+                    href={item.link}
+                    className={cn(
+                      'text-xl font-normal font-source-sans-pro transition-all duration-200',
+                      {
+                        'text-neutral-60% hover:text-black':
+                          pathname !== item.link,
+                        'hover:text-neutral-70%': pathname === item.link,
+                      }
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+              <Button href="/auth/login" size="lg" className="font-normal">
+                Login
+              </Button>
+            </div>
           );
         })
         .exhaustive();
@@ -51,16 +99,18 @@ export const Navbar: FC<TNavbarAuthProps> = ({
             'gap-4': page === 'public',
           })}
         >
-          <Image
-            src="/images/logo-desa.webp"
-            alt="logo desa"
-            width={500}
-            height={500}
-            quality={100}
-            className={cn('w-16', {
-              'w-20': page === 'public',
-            })}
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo-desa.webp"
+              alt="logo desa"
+              width={500}
+              height={500}
+              quality={100}
+              className={cn('w-16', {
+                'w-20': page === 'public',
+              })}
+            />
+          </Link>
 
           <h1
             className={cn('font-source-sans-pro', {

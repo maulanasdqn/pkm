@@ -3,7 +3,7 @@ import { FooterMarket, Navbar } from '@pkm/ui';
 export default function LandingLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: Readonly<React.ReactNode>;
 }) {
   return (
     <main className="w-full min-h-screen flex flex-col">

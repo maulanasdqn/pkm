@@ -6,7 +6,7 @@
     "ui:story": "nx storybook ui",
     "ui:story:build": "nx build-storybook ui --no-cloud",
     "market:prod": "nx start market --no-cloud",
-    "market:dev": "nx dev market",
+    "market:dev": "nx dev market --no-cloud",
     "market:build": "nx build market --no-cloud",
     "market:db:gen": "drizzle-kit generate --config libs/drizzle/src/lib/market/config.ts",
     "market:db:push": "drizzle-kit push --config libs/drizzle/src/lib/market/config.ts",
