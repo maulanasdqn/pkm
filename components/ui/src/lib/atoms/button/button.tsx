@@ -27,15 +27,23 @@ const secondaryVariantColors = {
     'data-[color=secondary]:border-secondary data-[color=secondary]:hover:bg-secondary-20% data-[color=secondary]:active:bg-secondary-40% data-[color=secondary]:focus:bg-secondary-20% data-[color=secondary]:text-secondary-60%',
 
   red: 'data-[color=red]:text-red data-[color=red]:border-red-50% data-[color=red]:hover:bg-red-20% data-[color=red]:active:bg-red-40% data-[color=red]:focus:bg-red-20%',
+
+  black:
+    'data-[color=black]:text-black data-[color=black]:border-black data-[color=black]:hover:bg-neutral-20% data-[color=black]:active:bg-neutral-40% data-[color=black]:focus:bg-neutral-20%',
+};
+
+const textVariantColors = {
+  black:
+    'data-[color=black]:text-black data-[color=black]:hover:text-neutral-90% data-[color=black]:active:text-neutral-70% data-[color=black]:focus:text-neutral-80%',
 };
 
 const btnClassName = cva(className, {
   variants: {
     variant: {
       primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,
-      secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red}`,
+      secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red} ${secondaryVariantColors.black}`,
 
-      text: 'text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70%',
+      text: `text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70% ${textVariantColors.black}`,
     },
     size,
   },
