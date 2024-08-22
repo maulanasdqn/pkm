@@ -8,6 +8,7 @@ export const CardMarket: FC<TCardMarket> = (props): ReactElement => {
     <Link
       href={props.href}
       className="max-w-[327px] max-h-[425px] flex flex-col gap-4 p-3.5 rounded-xl shadow-md font-source-sans-pro transition-all duration-300 hover:scale-105"
+      scroll={true}
     >
       <Image
         alt="images"
