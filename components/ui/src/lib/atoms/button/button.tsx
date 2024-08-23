@@ -37,7 +37,7 @@ const textVariantColors = {
     'data-[color=black]:text-black data-[color=black]:hover:text-neutral-90% data-[color=black]:active:text-neutral-70% data-[color=black]:focus:text-neutral-80%',
 };
 
-const btnClassName = cva(className, {
+export const btnClassName = cva(className, {
   variants: {
     variant: {
       primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,

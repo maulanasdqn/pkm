@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react';
-import { Button, TextField } from '@pkm/ui';
+import { Button, DatePicker, TextField } from '@pkm/ui';
 import { cn } from '@pkm/libs/clsx';
 import Image from 'next/image';
 
@@ -25,26 +25,29 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
           <h4 className="text-xl text-primary-60%">Rp. 10.000</h4>
         </div>
       </div>
-      <div className="rounded-lg w-full flex flex-col p-5 gap-8 border border-neutral-60% shadow-md bg-white">
-        <form className="space-y-5">
-          <fieldset className="flex gap-3">
+      <div className="rounded-lg w-full flex flex-col items-center justify-center p-5 gap-8 border border-neutral-60% shadow-md bg-white">
+        <form className="space-y-5 w-full">
+          <DatePicker/>
+          <div className="flex gap-3 items-center">
             <span>Pukul : </span>
-            <TextField
-              name="hour"
-              type="text"
-              dimension="lg"
-              placeholder="00"
-              className="w-5"
-            />
+            <div className="max-w-12">
+              <TextField
+                name="hour"
+                type="text"
+                dimension="lg"
+                placeholder="00"
+              />
+            </div>
             <span> : </span>
-            <TextField
-              name="minute"
-              type="text"
-              dimension="lg"
-              placeholder="00"
-              className="w-5"
-            />
-          </fieldset>
+            <div className="max-w-12">
+              <TextField
+                name="minute"
+                type="text"
+                dimension="lg"
+                placeholder="00"
+              />
+            </div>
+          </div>
           <TextField
             name="name"
             type="text"
