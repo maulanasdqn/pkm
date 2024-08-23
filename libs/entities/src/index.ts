@@ -3,3 +3,4 @@
 export * from './lib/user';
 export * from './lib/token';
 export * from './lib/tourism';
+export * from './lib/market';

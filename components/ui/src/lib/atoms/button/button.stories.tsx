@@ -27,6 +27,9 @@ const meta: Meta<typeof Button> = {
       options: ['sm', 'md', 'lg', 'icon'],
       control: { type: 'radio' },
     },
+    isLoading: {
+      control: { type: 'boolean' },
+    },
   },
 };
 

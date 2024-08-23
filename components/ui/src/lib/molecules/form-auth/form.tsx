@@ -7,6 +7,7 @@ export const FormAuth: FC<TFormAuth> = ({
   footer,
   subtitle,
   buttonName,
+  buttonLoading,
   ...props
 }): ReactElement => {
   return (
@@ -25,7 +26,12 @@ export const FormAuth: FC<TFormAuth> = ({
       <fieldset className="w-full flex flex-col gap-8 font-montserrat">
         {props.children}
       </fieldset>
-      <Button type="submit" size="md" className="w-[70%]">
+      <Button
+        type="submit"
+        size="md"
+        className="w-[70%]"
+        isLoading={buttonLoading}
+      >
         {buttonName}
       </Button>
 

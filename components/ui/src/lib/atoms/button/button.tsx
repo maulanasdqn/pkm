@@ -59,14 +59,19 @@ export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
   href,
   variant,
   color = 'primary',
+  isLoading,
   ...props
 }): ReactElement => {
+  const btnLoading = {
+    'bg-neutral-40% text-neutral-80% animate-pulse cursor-wait hover:bg-neutral-50% active:bg-neutral-60% focus:bg-neutral-50%':
+      isLoading,
+  };
   return match(href)
     .with(P.string, (link) => (
       <Link href={link}>
         <button
           data-color={color}
-          className={cn(btnClassName({ variant, className, size }))}
+          className={cn(btnClassName({ variant, className, size }), btnLoading)}
           {...props}
         >
           {props.children}
@@ -76,7 +81,7 @@ export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
     .otherwise(() => (
       <button
         data-color={color}
-        className={cn(btnClassName({ variant, className, size }))}
+        className={cn(btnClassName({ variant, className, size }), btnLoading)}
         {...props}
       >
         {props.children}

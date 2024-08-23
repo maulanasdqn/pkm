@@ -1,5 +1,5 @@
 {
-  "id": "8243bf78-8d72-4c99-a559-7dd054cc2fa3",
+  "id": "4de41792-37e6-463f-8a40-a127692841aa",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -47,7 +47,7 @@
       "columns": {
         "role_id": {
           "name": "role_id",
-          "type": "uuid",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -96,10 +96,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -159,7 +158,7 @@
         },
         "role_id": {
           "name": "role_id",
-          "type": "uuid",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },

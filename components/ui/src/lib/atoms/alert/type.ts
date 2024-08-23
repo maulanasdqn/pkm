@@ -2,6 +2,6 @@ export type TAlert = {
   message: string;
   y?: number;
   timer?: number;
-  onHide: () => void;
+  onHide?: () => void;
   show: boolean;
 };

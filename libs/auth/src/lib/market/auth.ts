@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!isUserExist) {
           await db.insert(users).values({
             email: String(user?.email),
-            roleId: '1',
+            roleId: 2,
             fullname: String(user?.name),
             image: String(user?.image),
             emailVerifiedAt: new Date(),

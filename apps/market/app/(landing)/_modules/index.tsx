@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { OurProductSection } from './sections';
 import { ActivitySection } from './sections/activity';
+import Link from 'next/link';
 
 const cardsContent = [
   {
@@ -65,7 +66,8 @@ export const LandingModule: FC = (): ReactElement => {
           <h3 className="text-4xl">Kategori Produk</h3>
           <div className="w-full flex justify-evenly items-center">
             {cardsContent?.map((item, index) => (
-              <button
+              <Link
+                href={`/categories/${index + 1}`}
                 key={index}
                 className="py-3 px-6 flex flex-col items-center justify-center gap-1 bg-primary-20% rounded-2xl max-w-[120px] max-h-[120px] transition-all duration-300 hover:scale-110"
               >
@@ -78,7 +80,7 @@ export const LandingModule: FC = (): ReactElement => {
                   className="w-14"
                 />
                 <p className="text-lg">{item.name}</p>
-              </button>
+              </Link>
             ))}
           </div>
         </div>

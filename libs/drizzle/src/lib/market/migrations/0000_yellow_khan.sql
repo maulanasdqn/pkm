@@ -6,12 +6,12 @@ CREATE TABLE IF NOT EXISTS "app_permissions" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "app_role_permissions" (
-	"role_id" uuid,
+	"role_id" integer,
 	"permission_id" uuid
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "app_roles" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" integer PRIMARY KEY NOT NULL,
 	"name" varchar NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_At" timestamp DEFAULT now()
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "app_users" (
 	"otp" varchar,
 	"email" varchar NOT NULL,
 	"image" text DEFAULT 'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png',
-	"role_id" uuid,
+	"role_id" integer,
 	"address" text NOT NULL,
 	"fullname" varchar NOT NULL,
 	"password" varchar NOT NULL,

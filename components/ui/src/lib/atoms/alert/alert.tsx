@@ -53,7 +53,7 @@ export const Alert: FC<TAlert & VariantProps<typeof alertClassName>> = ({
 
   useEffect(() => {
     const hideTimeout = setTimeout(() => {
-      onHide();
+      onHide?.();
     }, timer + 500);
 
     return () => {
