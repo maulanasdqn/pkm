@@ -67,7 +67,7 @@ const Button = forwardRef<HTMLButtonElement, TButton>(
           <button
             data-color={color}
             ref={ref}
-            className={cn(btnClassName({ variant, className, size }))}
+            className={cn(btnClassName({ variant, className, size }), btnLoading)}
             {...props}
           >
             {props.children}
