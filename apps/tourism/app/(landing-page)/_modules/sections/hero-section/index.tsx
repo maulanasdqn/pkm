@@ -7,13 +7,20 @@ export const HeroSection: FC = (): ReactElement => {
       id="hero"
       className="w-full flex flex-col gap-10 pb-20 2xl:container 2xl:mx-auto font-source-sans-pro"
     >
-      <Image
-        src="/images/hero-img.webp"
-        alt="hero"
-        quality={100}
-        width={1536}
-        height={575}
-      />
+      <div className="relative">
+        <Image
+          src="/images/heroImg.webp"
+          alt="reservation page"
+          width={1536}
+          height={575}
+          className="aspect-auto max-h-[575px]"
+        />
+        <div className="absolute z-10 bottom-1/2 left-1/2 -translate-x-1/2 flex flex-col justify-center items-center text-center gap-8 text-white">
+          <h1 className="text-4xl font-bold">
+            Temukan Pesona Tersembunyi di Desa Bojongsari
+          </h1>
+        </div>
+      </div>
 
       <div className="px-14 space-y-8 container mx-auto py-16">
         <h1 className="text-4xl font-bold text-primary-70%">
