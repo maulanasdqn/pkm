@@ -8,6 +8,7 @@ export type TFormAuth = DetailedHTMLProps<
   buttonName: string;
   footer?: ReactNode;
   subtitle?: string;
+  buttonLoading?: boolean;
 };
 
 export type TFormFooter = {

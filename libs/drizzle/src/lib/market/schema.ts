@@ -1,5 +1,12 @@
 import { relations } from 'drizzle-orm';
-import { timestamp, pgTable, text, uuid, varchar } from 'drizzle-orm/pg-core';
+import {
+  timestamp,
+  pgTable,
+  text,
+  uuid,
+  varchar,
+  integer,
+} from 'drizzle-orm/pg-core';
 
 export const defaultImage =
   'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png';
@@ -12,7 +19,9 @@ export const users = pgTable('app_users', {
   otp: varchar('otp'),
   email: varchar('email').notNull().unique(),
   image: text('image').default(defaultImage),
-  roleId: uuid('role_id').references(() => roles.id, { onDelete: 'cascade' }),
+  roleId: integer('role_id').references(() => roles.id, {
+    onDelete: 'cascade',
+  }),
   address: text('address').notNull(),
   fullname: varchar('fullname').notNull(),
   password: varchar('password').notNull(),
@@ -32,7 +41,7 @@ export const userRelations = relations(users, ({ one }) => ({
  * Role
  */
 export const roles = pgTable('app_roles', {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: integer('id').primaryKey().notNull(),
   name: varchar('name').notNull(),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_At', { mode: 'date' }).defaultNow(),
@@ -66,7 +75,9 @@ export type Permission = typeof permissions.$inferSelect;
  * Role Permission
  */
 export const rolePermissions = pgTable('app_role_permissions', {
-  roleId: uuid('role_id').references(() => roles.id, { onDelete: 'cascade' }),
+  roleId: integer('role_id').references(() => roles.id, {
+    onDelete: 'cascade',
+  }),
   permissionId: uuid('permission_id').references(() => permissions.id, {
     onDelete: 'cascade',
   }),

@@ -14,10 +14,6 @@ const navList = [
     link: '/',
   },
   {
-    name: 'Kategori',
-    link: '/categories',
-  },
-  {
     name: 'Produk',
     link: '/products',
   },

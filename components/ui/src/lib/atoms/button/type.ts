@@ -16,4 +16,5 @@ export type TButton = DetailedHTMLProps<
     variant?: 'primary' | 'secondary' | 'text';
     size?: 'sm' | 'md' | 'lg' | 'icon';
     color?: 'primary' | 'secondary' | 'red' | 'black';
+    isLoading?: boolean;
   };

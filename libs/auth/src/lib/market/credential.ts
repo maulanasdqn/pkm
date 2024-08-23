@@ -48,7 +48,7 @@ export const credentialProvider = () =>
         return {
           ...userData,
           role: {
-            id: userData?.roles?.id as string,
+            id: userData?.roles?.id,
             name: userData?.roles?.name as string,
             permissions: userData?.roles?.rolePermissions?.map(
               (rolePermission) => rolePermission.permission?.name
