@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
-import { VariantProps, cva } from 'class-variance-authority';
+import { forwardRef, ReactElement } from 'react';
+import { cva } from 'class-variance-authority';
 import { cn } from '@pkm/libs/clsx';
 import { TButton } from './type';
 import { P, match } from 'ts-pattern';
@@ -37,12 +37,11 @@ const textVariantColors = {
     'data-[color=black]:text-black data-[color=black]:hover:text-neutral-90% data-[color=black]:active:text-neutral-70% data-[color=black]:focus:text-neutral-80%',
 };
 
-export const btnClassName = cva(className, {
+const btnClassName = cva(className, {
   variants: {
     variant: {
       primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,
       secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red} ${secondaryVariantColors.black}`,
-
       text: `text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70% ${textVariantColors.black}`,
     },
     size,
@@ -53,38 +52,40 @@ export const btnClassName = cva(className, {
   },
 });
 
-export const Button: FC<TButton & VariantProps<typeof btnClassName>> = ({
-  size,
-  className,
-  href,
-  variant,
-  color = 'primary',
-  isLoading,
-  ...props
-}): ReactElement => {
-  const btnLoading = {
-    'bg-neutral-40% text-neutral-80% animate-pulse cursor-wait hover:bg-neutral-50% active:bg-neutral-60% focus:bg-neutral-50%':
-      isLoading,
-  };
-  return match(href)
-    .with(P.string, (link) => (
-      <Link href={link}>
+const Button = forwardRef<HTMLButtonElement, TButton>(
+  (
+    { size, className, href, variant, color = 'primary', isLoading, ...props },
+    ref
+  ): ReactElement => {
+    const btnLoading = {
+      'bg-neutral-40% text-neutral-80% animate-pulse cursor-wait hover:bg-neutral-50% active:bg-neutral-60% focus:bg-neutral-50%':
+        isLoading,
+    };
+    return match(href)
+      .with(P.string, (link) => (
+        <Link href={link}>
+          <button
+            data-color={color}
+            ref={ref}
+            className={cn(btnClassName({ variant, className, size }), btnLoading)}
+            {...props}
+          >
+            {props.children}
+          </button>
+        </Link>
+      ))
+      .otherwise(() => (
         <button
           data-color={color}
+          ref={ref}
           className={cn(btnClassName({ variant, className, size }), btnLoading)}
           {...props}
         >
           {props.children}
         </button>
-      </Link>
-    ))
-    .otherwise(() => (
-      <button
-        data-color={color}
-        className={cn(btnClassName({ variant, className, size }), btnLoading)}
-        {...props}
-      >
-        {props.children}
-      </button>
-    ));
-};
+      ));
+  }
+);
+Button.displayName = 'Button';
+
+export { Button, btnClassName };

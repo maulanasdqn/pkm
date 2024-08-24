@@ -10,31 +10,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../atoms';
-import { cn } from '@pkm/libs/clsx';
+import { id } from 'date-fns/locale/id';
 
-export function DatePicker() {
+export const DatePicker: React.FC = (): React.ReactElement => {
   const [date, setDate] = React.useState<Date>();
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button
-          className={cn(
-            'w-[280px] justify-start text-left font-normal',
-            !date && 'text-muted-foreground'
-          )}
-        >
+        <Button variant="secondary">
           <CalendarFilled className="mr-2 text-base" />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
-        </button>
+          {date ? (
+            format(date, 'PPP', { locale: id })
+          ) : (
+            <span>Pilih Tanggal</span>
+          )}
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-        />
+        <Calendar mode="single" selected={date} onSelect={setDate} />
       </PopoverContent>
     </Popover>
   );
-}
+};
