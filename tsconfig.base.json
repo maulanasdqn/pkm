@@ -16,6 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@pkm/libs": ["libs/src/index.ts"],
+      "@pkm/libs/actions": ["libs/actions/src/index.ts"],
+      "@pkm/libs/actions/server": ["libs/actions/src/server.ts"],
       "@pkm/libs/auth": ["libs/auth/src/index.ts"],
       "@pkm/libs/auth/market": ["libs/auth/src/market.ts"],
       "@pkm/libs/auth/tourism": ["libs/auth/src/tourism.ts"],
