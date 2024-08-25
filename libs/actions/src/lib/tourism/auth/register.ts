@@ -1,10 +1,10 @@
 'use server';
-
+import 'server-only';
+import { hashPassword } from '@pkm/libs/auth';
 import { db, users } from '@pkm/libs/drizzle/tourism';
-import { hashPassword } from './password';
 import { DatabaseError } from 'pg';
 
-export const registerTourism = async (
+export const register = async (
   fullname: string,
   email: string,
   password: string
@@ -23,6 +23,9 @@ export const registerTourism = async (
   } catch (error) {
     if (error instanceof DatabaseError) {
       console.error(error);
+      if (error.constraint === 'app_users_email_unique') {
+        throw new Error('Email telah digunakan, silahkan gunakan email lain');
+      }
       throw new Error(error.message);
     }
     throw new Error(error as string);

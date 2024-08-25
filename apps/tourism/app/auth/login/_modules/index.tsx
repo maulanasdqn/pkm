@@ -1,14 +1,19 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormAuth, FormAuthFooter, ControlledTextField } from '@pkm/ui';
+import { FormAuth, FormAuthFooter, ControlledTextField, Alert } from '@pkm/ui';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LoginSchema, TLoginSchema } from '@pkm/libs/entities';
-import { signIn } from 'next-auth/react';
+import { login } from '@pkm/libs/actions/tourism';
 
 export const LoginModule: FC = (): ReactElement => {
-  const form = useForm<TLoginSchema>({
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+  } = useForm<TLoginSchema>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
@@ -16,17 +21,31 @@ export const LoginModule: FC = (): ReactElement => {
     },
     mode: 'all',
   });
+  const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
 
-  const onSubmit = (data: TLoginSchema) => {
-    const { email, password } = data;
-    signIn('login', { email, password });
+  const onSubmit = async (data: TLoginSchema) => {
+    try {
+      await login(data);
+    } catch (error) {
+      console.error(error);
+      setError('root', {
+        type: 'alert',
+        message: `${error}`,
+      });
+    }
   };
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      setIsSuccess(isSubmitSuccessful);
+    }
+  }, [isSubmitSuccessful]);
   return (
     <FormAuth
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       title="Masuk Akun"
       buttonName="Masuk"
+      buttonLoading={isSubmitting}
       footer={
         <FormAuthFooter
           title="Belum punya akun"
@@ -39,14 +58,10 @@ export const LoginModule: FC = (): ReactElement => {
         <ControlledTextField
           placeholder="Email"
           name="email"
-          control={form.control}
-          errorMessage={form.formState.errors.email?.message}
+          control={control}
+          errorMessage={errors.email?.message}
           variant={
-            form.formState.errors.email
-              ? 'error'
-              : form.formState.dirtyFields.email
-              ? 'success'
-              : 'default'
+            errors.email ? 'error' : isSubmitSuccessful ? 'success' : 'default'
           }
         />
         <div className="flex flex-col gap-2">
@@ -54,12 +69,12 @@ export const LoginModule: FC = (): ReactElement => {
             type="password"
             placeholder="Password"
             name="password"
-            control={form.control}
-            errorMessage={form.formState.errors.password?.message}
+            control={control}
+            errorMessage={errors.password?.message}
             variant={
-              form.formState.errors.password
+              errors.password
                 ? 'error'
-                : form.formState.dirtyFields.password
+                : isSubmitSuccessful
                 ? 'success'
                 : 'default'
             }
@@ -72,6 +87,25 @@ export const LoginModule: FC = (): ReactElement => {
           </Link>
         </div>
       </fieldset>
+      <Alert
+        show={isSuccess}
+        onHide={() => setIsSuccess(false)}
+        message="Login Berhasil"
+        variant="success"
+        timer={3000}
+      />
+      <Alert
+        show={errors.root?.type === 'alert' ? true : false}
+        onHide={() =>
+          setError('root', {
+            type: '',
+            message: '',
+          })
+        }
+        message={errors.root?.message as string}
+        variant="error"
+        timer={3000}
+      />
     </FormAuth>
   );
 };

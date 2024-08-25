@@ -12,6 +12,14 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images:{
+    remotePatterns:[
+      {
+        protocol:"https",
+        hostname:"w7.pngwing.com"
+      }
+    ]
+  }
 };
 
 const plugins = [
