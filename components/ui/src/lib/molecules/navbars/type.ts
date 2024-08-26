@@ -1,5 +1,5 @@
 export type TNavbarAuthProps = {
   apps: 'market' | 'tourism';
   title: string;
-  page: 'auth' | 'public';
+  page: 'auth' | 'public' | 'dashboard';
 };

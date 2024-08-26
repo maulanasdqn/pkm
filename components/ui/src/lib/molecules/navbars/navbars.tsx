@@ -7,6 +7,7 @@ import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { BellOutlined } from '@ant-design/icons';
 
 const navList = [
   {
@@ -74,6 +75,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
             </div>
           );
         })
+        .with('dashboard', () => null)
         .exhaustive();
     })
     .otherwise(() => {
@@ -82,24 +84,31 @@ export const Navbar: FC<TNavbarAuthProps> = ({
           return <NavLinks component="navbar" apps="tourism" />;
         })
         .with('auth', () => null)
+        .with('dashboard', () => (
+          <Button variant="text" size="lg" className="text-2xl p-0 mr-20">
+            <BellOutlined />
+          </Button>
+        ))
         .exhaustive();
     });
 
   const navbarClassName = cn('py-3 bg-white', {
     'px-10 shadow-sm border-b border-neutral-20%': page === 'public',
     'px-12 container mx-auto': page === 'auth',
+    'px-10 shadow-md border-b border-neutral-40%': page === 'dashboard',
+    'sticky top-0': page === 'dashboard' && apps === 'tourism',
   });
 
   return (
     <header className={navbarClassName}>
       <div
         className={cn('w-full flex items-center justify-between', {
-          'container mx-auto': page === 'public',
+          'container mx-auto': page === 'public' || page === 'dashboard',
         })}
       >
         <div
           className={cn('flex gap-6 items-center', {
-            'gap-4': page === 'public',
+            'gap-4': page === 'public' || page === 'dashboard',
           })}
         >
           <Link href="/">
@@ -117,7 +126,8 @@ export const Navbar: FC<TNavbarAuthProps> = ({
 
           <h1
             className={cn('font-source-sans-pro', {
-              'text-primary text-xl w-[190px] text-center': page === 'public',
+              'text-primary text-xl w-[190px] text-center':
+                page === 'public' || page === 'dashboard',
               'text-3xl': page === 'auth',
             })}
           >
