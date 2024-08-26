@@ -96,6 +96,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
     'px-10 shadow-sm border-b border-neutral-20%': page === 'public',
     'px-12 container mx-auto': page === 'auth',
     'px-10 shadow-md border-b border-neutral-40%': page === 'dashboard',
+    'sticky top-0': page === 'dashboard' && apps === 'tourism',
   });
 
   return (
