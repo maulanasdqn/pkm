@@ -22,8 +22,8 @@ const source_sans_3 = Source_Sans_3({
 });
 
 export const metadata = {
-  title: 'Wisata Indonesia',
-  description: 'Wisata Indonesia by PKM',
+  title: 'Wisata Desa Bojongsari',
+  description: 'Wisata Desa Bojongsari Kabupaten Bandung',
 };
 
 export default function RootLayout({
