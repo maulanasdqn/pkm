@@ -10,7 +10,7 @@ export const Sidebar: FC<TSidebarProps> = ({
   imgSrc,
 }): ReactElement => {
   return (
-    <aside className="sticky left-0 top-[5.1rem] max-w-[18rem] w-full h-[90dvh] flex flex-col justify-between gap-14 py-10 px-5 shadow-sm border-r border-primary-20%">
+    <aside className="sticky left-0 top-[5rem] -z-10 max-w-[18rem] w-full h-[88dvh] flex flex-col justify-between gap-14 py-10 px-5 shadow-sm border-r border-primary-20%">
       <div className="w-full flex gap-5 justify-center items-center">
         <Image
           src={imgSrc || '/images/profile.webp'}

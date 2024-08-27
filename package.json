@@ -39,6 +39,7 @@
     "react-day-picker": "^9.0.8",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.52.2",
+    "recharts": "^2.12.7",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.4.0",
     "ts-pattern": "^5.2.0",
