@@ -27,11 +27,11 @@ export const metadata = {
     'Pasar Digital adalah sebuah platform digital yang menyediakan layanan jual beli online',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): ReactElement {
+}): Promise<ReactElement> {
   return (
     <html
       lang="en"

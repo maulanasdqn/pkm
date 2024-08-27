@@ -32,12 +32,18 @@ const textareaClassName = cva(
 
 export const Textarea: FC<
   TTextArea & VariantProps<typeof textareaClassName>
-> = ({ variant, dimension, errorMessage, ...props }): ReactElement => {
+> = ({
+  variant,
+  dimension,
+  errorMessage,
+  className,
+  ...props
+}): ReactElement => {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1.5 font-montserrat">
       <textarea
         {...props}
-        className={cn(textareaClassName({ variant, dimension }))}
+        className={cn(textareaClassName({ variant, dimension }), className)}
       ></textarea>
       {errorMessage && variant === 'error' && (
         <p className="text-red-50% text-[10px]">{errorMessage}</p>

@@ -13,6 +13,12 @@ export const register = async (
   password: string
 ) => {
   try {
+    const isUserExist = await checkEmail(email);
+
+    if (isUserExist) {
+      throw new Error('Terjadi Kesalahan');
+    }
+
     const hashedPassword = await hashPassword(password);
 
     const newUser = await db
@@ -23,6 +29,7 @@ export const register = async (
         password: hashedPassword,
         address: '',
         roleId: 2,
+        emailVerifiedAt: new Date(),
       })
       .returning({
         id: users.id,

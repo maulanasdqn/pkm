@@ -7,7 +7,7 @@ export type TUser = {
   address?: string | null;
   password: string;
   role: {
-    id: string;
+    id: string | number;
     name: string;
     permissions: string[];
   };

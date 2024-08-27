@@ -1,10 +1,18 @@
+import { auth } from '@pkm/libs/auth/market';
 import { Navbar } from '@pkm/ui';
+import { redirect } from 'next/navigation';
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (session) {
+    redirect('/');
+  }
+
   return (
     <main className="w-full h-screen flex flex-col">
       <Navbar apps="market" title="Digitalisasi Pasar Desa" page="auth" />
