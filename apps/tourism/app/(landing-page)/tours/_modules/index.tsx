@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 
 const tours = [
@@ -64,9 +65,10 @@ export const ToursPageModule: FC = (): ReactElement => {
       </h1>
       <div className="grid grid-cols-2 container mx-auto px-16 gap-8 pb-[10rem]">
         {tours.map((item, index) => (
-          <div
+          <Link
+            href={`/tours/${index + 1}`}
             key={index}
-            className="p-5 bg-white shadow-md rounded cursor-pointer"
+            className="p-5 bg-white shadow-md rounded cursor-pointer hover:scale-105 transition-all duration-300"
           >
             <div className="relative">
               <Image
@@ -77,12 +79,12 @@ export const ToursPageModule: FC = (): ReactElement => {
                 quality={100}
                 className="h-[300px] w-full aspect-video rounded"
               />
-              <span className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-lg font-semibold text-primary-80% bg-white shadow-md capitalize">
+              <span className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-lg font-semibold text-primary-80% bg-white hover:text-primary-60% shadow-md capitalize">
                 {item.category}
               </span>
             </div>
             <p className="text-lg mt-5 line-clamp-5">{item.description}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

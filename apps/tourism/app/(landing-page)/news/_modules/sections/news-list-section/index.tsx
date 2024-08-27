@@ -1,5 +1,6 @@
 import { cn } from '@pkm/libs/clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 
 const news = [
@@ -64,7 +65,9 @@ export const NewsListSection: FC<{ className?: string }> = ({
       )}
     >
       {news.map((item, index) => (
-        <div
+        <Link
+          href={`/news/${index + 1}`}
+          title={item.title}
           key={index}
           className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer bg-white"
         >
@@ -86,7 +89,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
               <p className="line-clamp-4">{item.content}</p>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </section>
   );

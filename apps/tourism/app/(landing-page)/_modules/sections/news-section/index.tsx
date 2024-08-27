@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from '@pkm/ui';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const news = [
   {
@@ -61,7 +62,7 @@ export const NewsSection: FC = (): ReactElement => {
           <CarouselContent>
             {news.map((item, index) => (
               <CarouselItem key={index} className="basis-1/3 ">
-                <div className="p-1">
+                <Link href={`/news/${index + 1}`} className="p-1">
                   <div className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer bg-white">
                     <Image
                       src={item.img}
@@ -82,7 +83,7 @@ export const NewsSection: FC = (): ReactElement => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -90,7 +91,7 @@ export const NewsSection: FC = (): ReactElement => {
           <CarouselNext />
         </Carousel>
         <div className="flex w-full justify-center">
-          <Button size="lg" variant="secondary">
+          <Button href="/news" size="lg" variant="secondary">
             Informasi Lainnya
           </Button>
         </div>

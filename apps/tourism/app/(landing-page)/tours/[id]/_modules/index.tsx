@@ -28,6 +28,9 @@ const imgThumbnails = [
   '/images/lake-3.png',
   '/images/lake-4.png',
 ];
+
+const TOUR_ID = 1;
+
 export const TourDetailModule: FC = (): ReactElement => {
   return (
     <section className="container mx-auto my-10 space-y-7">
@@ -73,7 +76,9 @@ export const TourDetailModule: FC = (): ReactElement => {
         <aside className="rounded border border-neutral-60% flex flex-col gap-3 p-4 space-y-8">
           <div className="flex flex-col gap-4 justify-center items-center">
             <h1 className="text-2xl">Reservasi Sekarang</h1>
-            <Button size="lg">Reservasi</Button>
+            <Button href={`/reservation/${TOUR_ID}`} title='reservasi tiket' size="lg">
+              Pesan Reservasi
+            </Button>
           </div>
           <div className="flex flex-col justify-center items-center border-t border-neutral-60% py-5">
             <h1 className="text-2xl mb-5">Kontak Desa Wisata</h1>
