@@ -8,7 +8,7 @@ import { match } from 'ts-pattern';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BellOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const navList = [
   {
@@ -79,7 +79,17 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                       <Link href="/carts">
                         <ShoppingCartOutlined className="text-3xl" />
                       </Link>
-                      <Button color="red" size="lg" className="font-normal">
+                      <Button
+                        onClick={async () =>
+                          await signOut({
+                            redirect: true,
+                            callbackUrl: '/auth/login',
+                          })
+                        }
+                        color="red"
+                        size="lg"
+                        className="font-normal"
+                      >
                         Logout
                       </Button>
                     </div>

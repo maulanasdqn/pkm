@@ -21,6 +21,10 @@ export const LoginModule: FC = (): ReactElement => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await Login(data);
+
+      if (typeof window !== 'undefined') {
+        window.location.reload();
+      }
     } catch (error) {
       setError('root', {
         message: `${error}`,
