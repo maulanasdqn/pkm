@@ -33,7 +33,7 @@ export const DestinationSection: FC = (): ReactElement => {
         alt="grass-bg"
         width={1536}
         height={295}
-        className="absolute bottom-0 left-0 aspect-video"
+        className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px]"
       />
       <div className="pb-20">
         <div className="container mx-auto px-14 mb-10 flex justify-between items-center">

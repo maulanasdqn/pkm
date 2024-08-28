@@ -8,3 +8,5 @@ export * from './auto-slider';
 export * from './popover';
 export * from './calendar';
 export * from './charts';
+export * from './table';
+export * from './dialog'
