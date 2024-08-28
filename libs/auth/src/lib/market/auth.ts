@@ -43,15 +43,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === 'login') {
         const userData = user as TUser;
         token.user = {
-          id: userData.id,
-          fullname: userData.fullname,
-          image: userData.image,
-          email: userData.email,
-          emailVerified: userData.emailVerified,
-          address: userData.address,
-          role: userData.role,
-          createdAt: userData.createdAt,
-          updatedAt: userData.updatedAt,
+          id: userData?.id,
+          fullname: userData?.fullname,
+          image: userData?.image,
+          email: userData?.email,
+          emailVerified: userData?.emailVerified,
+          address: userData?.address,
+          role: userData?.role,
+          createdAt: userData?.createdAt,
+          updatedAt: userData?.updatedAt,
         };
       }
 
@@ -72,7 +72,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token }) {
-      session.user = token.user as TUser;
+      const user = token.user as TUser;
+
+      session.user = user;
       return session;
     },
   },

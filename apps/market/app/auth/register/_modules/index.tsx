@@ -23,14 +23,22 @@ export const RegisterModule: FC = (): ReactElement => {
   const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
 
   const onSubmit = handleSubmit(async (data) => {
-    if (data.password !== data.confirmPassword) {
-      return setError('confirmPassword', {
-        type: 'manual',
-        message: 'Password tidak sama',
-      });
-    }
+    try {
+      if (data.password !== data.confirmPassword) {
+        return setError('confirmPassword', {
+          type: 'manual',
+          message: 'Password tidak sama',
+        });
+      }
 
-    await register(data.fullname, data.email, data.password);
+      await register(data.fullname, data.email, data.password);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError('root', {
+          message: `${error.message}`,
+        });
+      }
+    }
   });
 
   useEffect(() => {
@@ -118,6 +126,14 @@ export const RegisterModule: FC = (): ReactElement => {
         onHide={() => setIsSuccess(false)}
         message="Registrasi Berhasil"
         variant="success"
+        timer={3000}
+      />
+
+      <Alert
+        show={!!errors?.root?.message}
+        onHide={() => setError('root', { message: '' })}
+        message={errors?.root?.message as string}
+        variant="error"
         timer={3000}
       />
     </Fragment>

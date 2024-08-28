@@ -7,7 +7,8 @@ import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BellOutlined } from '@ant-design/icons';
+import { BellOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { signOut, useSession } from 'next-auth/react';
 
 const navList = [
   {
@@ -34,6 +35,8 @@ export const Navbar: FC<TNavbarAuthProps> = ({
   page,
 }): ReactElement => {
   const pathname = usePathname();
+
+  const { data: session } = useSession();
 
   const navbarMatching = match(apps)
     .with('market', () => {
@@ -69,9 +72,40 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                   </Link>
                 ))}
               </nav>
-              <Button href="/auth/login" size="lg" className="font-normal">
-                Login
-              </Button>
+              {match(!!session)
+                .with(true, () => {
+                  return (
+                    <div className="flex gap-8 items-center">
+                      <Link href="/carts">
+                        <ShoppingCartOutlined className="text-3xl" />
+                      </Link>
+                      <Button
+                        onClick={async () =>
+                          await signOut({
+                            redirect: true,
+                            callbackUrl: '/auth/login',
+                          })
+                        }
+                        color="red"
+                        size="lg"
+                        className="font-normal"
+                      >
+                        Logout
+                      </Button>
+                    </div>
+                  );
+                })
+                .otherwise(() => {
+                  return (
+                    <Button
+                      href="/auth/login"
+                      size="lg"
+                      className="font-normal"
+                    >
+                      Login
+                    </Button>
+                  );
+                })}
             </div>
           );
         })
