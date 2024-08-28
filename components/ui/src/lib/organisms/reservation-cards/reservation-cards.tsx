@@ -21,11 +21,11 @@ export const ReservationCards: FC<TReservationCardsProp> = ({
           <div className="flex gap-5 w-full items-center justify-center">
             <div className={cn('space-y-2 text-center', item.color)}>
               <h5 className="text-xl">Terlewat</h5>
-              <h1 className="text-2xl font-bold">{item.missedCount}</h1>
+              <h1 className="text-5xl font-bold">{item.missedCount}</h1>
             </div>
             <div className={cn('space-y-2 text-center', item.color)}>
               <h5 className="text-xl">Akan datang</h5>
-              <h1 className="text-2xl font-bold">{item.incomingCount}</h1>
+              <h1 className="text-5xl font-bold">{item.incomingCount}</h1>
             </div>
           </div>
         </div>

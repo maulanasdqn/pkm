@@ -136,7 +136,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
   return (
     <header className={navbarClassName}>
       <div
-        className={cn('w-full flex items-center justify-between', {
+        className={cn('w-full flex items-center justify-between z-10', {
           'container mx-auto': page === 'public' || page === 'dashboard',
         })}
       >

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
+import Link from 'next/link';
 
 const destinations = [
   {
@@ -32,7 +33,7 @@ export const DestinationSection: FC = (): ReactElement => {
         alt="grass-bg"
         width={1536}
         height={295}
-        className="absolute bottom-0 left-0 "
+        className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px]"
       />
       <div className="pb-20">
         <div className="container mx-auto px-14 mb-10 flex justify-between items-center">
@@ -42,7 +43,7 @@ export const DestinationSection: FC = (): ReactElement => {
           <Button
             size="lg"
             variant="text"
-            href="#"
+            href="/tours"
             className="p-0 hover:underline text-lg"
           >
             Destinasi lainnya
@@ -61,7 +62,7 @@ export const DestinationSection: FC = (): ReactElement => {
             {destinations.map((item, index) => (
               <CarouselItem key={index} className="basis-1/3 pl-0">
                 <div className="p-5">
-                  <div className="relative">
+                  <Link href={`/tours/${index + 1}`} className="relative">
                     <Image
                       src={item.img}
                       alt={item.category}
@@ -73,7 +74,7 @@ export const DestinationSection: FC = (): ReactElement => {
                     <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
                       {item.category}
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </CarouselItem>
             ))}
