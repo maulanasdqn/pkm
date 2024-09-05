@@ -5,7 +5,7 @@ export type TTextField = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
-  type?: 'text' | 'email' | 'password' | 'search';
+  type?: 'text' | 'email' | 'password' | 'search' | 'file';
   errorMessage?: string;
 };
 

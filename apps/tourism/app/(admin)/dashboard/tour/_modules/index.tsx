@@ -4,7 +4,7 @@ import { TourListSection } from './sections';
 
 export const TourModule: FC = (): ReactElement => {
   return (
-    <div className="overflow-y-auto w-full">
+    <div className="overflow-y-auto w-full bg-neutral-20%">
       <DashboardHeader
         imgSrc="/images/tour.webp"
         title="manajemen wisata"
