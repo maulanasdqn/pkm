@@ -19,9 +19,11 @@ export const users = pgTable('app_users', {
   otp: varchar('otp'),
   email: varchar('email').notNull().unique(),
   image: text('image').default(defaultImage),
-  roleId: integer('role_id').references(() => roles.id, {
-    onDelete: 'cascade',
-  }),
+  roleId: integer('role_id')
+    .references(() => roles.id, {
+      onDelete: 'cascade',
+    })
+    .notNull(),
   address: text('address').notNull(),
   fullname: varchar('fullname').notNull(),
   password: varchar('password').notNull(),
@@ -34,6 +36,10 @@ export const userRelations = relations(users, ({ one }) => ({
   roles: one(roles, {
     fields: [users.roleId],
     references: [roles.id],
+  }),
+  carts: one(carts, {
+    fields: [users.id],
+    references: [carts.userId],
   }),
 }));
 
@@ -98,3 +104,95 @@ export const rolePermissionRelations = relations(
 );
 
 export type RolePermission = typeof rolePermissions.$inferSelect;
+
+/*
+ * Categories (Products)
+ */
+
+export const category = pgTable('app_categories', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const categoryRelations = relations(category, ({ many }) => ({
+  products: many(products),
+}));
+
+/*
+ * Products
+ */
+
+export const products = pgTable('app_products', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name').notNull(),
+  description: text('description').notNull(),
+  image: text('image').notNull(),
+  price: integer('price').notNull(),
+  stock: integer('stocks').notNull(),
+  sold: integer('sold'),
+  categoryId: uuid('category_id').references(() => category.id, {
+    onDelete: 'cascade',
+  }),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const productRelations = relations(products, ({ one, many }) => ({
+  category: one(category, {
+    fields: [products.categoryId],
+    references: [category.id],
+  }),
+}));
+
+export type Products = typeof products.$inferSelect;
+
+/*
+ * Carts
+ */
+
+export const cartItems = pgTable('app_cart_items', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  cartId: uuid('cart_id').references(() => carts.id, {
+    onDelete: 'cascade',
+  }),
+  productId: uuid('product_id').references(() => products.id, {
+    onDelete: 'cascade',
+  }),
+  quantity: integer('quantity').notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const cartItemRelations = relations(cartItems, ({ one }) => ({
+  cart: one(carts, {
+    fields: [cartItems.cartId],
+    references: [carts.id],
+  }),
+  product: one(products, {
+    fields: [cartItems.productId],
+    references: [products.id],
+  }),
+}));
+
+export const carts = pgTable('app_carts', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id, {
+    onDelete: 'cascade',
+  }),
+  status: varchar('status').notNull(),
+  totalPrice: integer('total_price'),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const cartRelations = relations(carts, ({ one, many }) => ({
+  user: one(users, {
+    fields: [carts.userId],
+    references: [users.id],
+  }),
+  cartItems: many(cartItems),
+}));
+
+export type Carts = typeof carts.$inferSelect;
