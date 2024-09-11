@@ -9,6 +9,7 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
   className,
 }): ReactElement => {
   const [qty, setQty] = useState<number>(0);
+  const [date, setDate] = useState<Date | undefined>();
   return (
     <section className={cn('container mx-auto px-40 flex gap-10', className)}>
       <div className="rounded-lg w-full flex flex-col p-5 gap-8 border border-neutral-60% shadow-md bg-white">
@@ -32,7 +33,7 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
         <form className="space-y-5 w-full">
           <div className="flex gap-3 items-center">
             <span>Tanggal : </span>
-            <DatePicker />
+            <DatePicker date={date} setDate={setDate} />
           </div>
           <div className="flex gap-3 items-center">
             <span>Pukul : </span>
