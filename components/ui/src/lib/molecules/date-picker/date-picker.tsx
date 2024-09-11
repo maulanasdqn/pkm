@@ -11,10 +11,14 @@ import {
   PopoverTrigger,
 } from '../../atoms';
 import { id } from 'date-fns/locale/id';
+import { TDatePickerProps } from './type';
 
-export const DatePicker: React.FC = (): React.ReactElement => {
-  const [date, setDate] = React.useState<Date>();
-
+export const DatePicker: React.FC<TDatePickerProps> = ({
+  date,
+  setDate,
+  disableDayBeforeToday = false,
+}): React.ReactElement => {
+  const disableDate = (date: Date) => date < new Date();
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -28,7 +32,12 @@ export const DatePicker: React.FC = (): React.ReactElement => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          disabled={disableDayBeforeToday ? disableDate : false}
+        />
       </PopoverContent>
     </Popover>
   );

@@ -14,6 +14,7 @@ function Calendar({
   return (
     <DayPicker
       locale={id}
+      disabled={props.disabled}
       showOutsideDays={showOutsideDays}
       className={cn('p-3 max-w-sm', className)}
       classNames={{
@@ -38,8 +39,8 @@ function Calendar({
         today:
           'bg-primary-30% text-white rounded hover:text-primary-70% aria-selected:bg-primary',
         outside:
-          'day-outside text-neutral-60% aria-selected:bg-primary-30% aria-selected:text-primary-60% ',
-        disabled: 'text-neutral-60%',
+          'day-outside text-neutral-70% aria-selected:bg-primary-30% aria-selected:text-primary-60% ',
+        disabled: 'text-neutral-40% cursor-not-allowed hover:bg-transparent',
         range_middle: 'aria-selected:bg-primary-30# aria-selected:text-white',
         hidden: 'invisible',
         ...classNames,

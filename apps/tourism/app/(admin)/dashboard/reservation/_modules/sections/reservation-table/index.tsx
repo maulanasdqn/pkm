@@ -1,5 +1,4 @@
 import {
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -8,6 +7,7 @@ import {
   TableRow,
 } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
+import { EditReservationFormTrigger } from './edit-reservation-form';
 
 const reservations = [
   {
@@ -98,7 +98,7 @@ export const ReservationTable: FC = (): ReactElement => {
               </TableCell>
               <TableCell>{reservation.status}</TableCell>
               <TableCell className="text-right">
-                <Button>Edit</Button>
+                <EditReservationFormTrigger />
               </TableCell>
             </TableRow>
           ))}
