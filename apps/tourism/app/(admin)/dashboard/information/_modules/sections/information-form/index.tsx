@@ -33,7 +33,7 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
         <div className="flex flex-col gap-5 w-full h-[60dvh] border-y border-neutral-60% p-10 overflow-y-auto">
           <TextField placeholder="Masukan judul informasi" />
           <TextField placeholder="Lokasi informasi" />
-          <TextField type="file" multiple placeholder="Masukan gambar" />
+          <TextField type="file" placeholder="Masukan gambar" />
           <div className="flex flex-col gap-2">
             <h2>File yang diunggah</h2>
             <div className="flex justify-center items-center w-full rounded border border-neutral-60% p-5 min-h-[100px]">
