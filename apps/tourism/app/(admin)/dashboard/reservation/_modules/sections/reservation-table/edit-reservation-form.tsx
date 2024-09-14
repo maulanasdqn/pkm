@@ -36,7 +36,7 @@ export const EditReservationFormTrigger: React.FC = (): React.ReactElement => {
         </DialogHeader>
         <div className="flex flex-col gap-3 w-full h-[60dvh] border-y border-neutral-60% p-10 overflow-y-auto">
           <Select placeholder="Pilih Status">
-            <SelectOption value="confirm">Dikonfirmasi</SelectOption>
+            <SelectOption value="confirmed">Dikonfirmasi</SelectOption>
             <SelectOption value="reschedule">Dijadwal ulang</SelectOption>
             <SelectOption value="cancel">Dibatalkan</SelectOption>
           </Select>
