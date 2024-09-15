@@ -11,6 +11,9 @@
       "configurations": {
         "market-seed": {
           "commands": ["tsx libs/drizzle/src/lib/market/seed.ts"]
+        },
+        "tourism-seed": {
+          "commands": ["tsx libs/drizzle/src/lib/tourism/seed.ts"]
         }
       }
     }
