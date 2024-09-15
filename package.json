@@ -12,6 +12,7 @@
     "market:db:push": "drizzle-kit push --config libs/drizzle/src/lib/market/config.ts",
     "market:db:drop": "drizzle-kit drop --config libs/drizzle/src/lib/market/config.ts",
     "market:db:studio": "drizzle-kit studio --config libs/drizzle/src/lib/market/config.ts",
+    "market:db:seed": "nx run drizzle:seeds:market-seed",
     "tourism:prod": "nx start tourism --no-cloud",
     "tourism:dev": "nx dev tourism",
     "tourism:build": "nx build tourism --no-cloud",
@@ -48,6 +49,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.0.1",
     "@nx/eslint": "19.5.6",
     "@nx/eslint-plugin": "19.5.6",
     "@nx/jest": "19.5.6",
@@ -102,6 +104,7 @@
     "tailwindcss": "3.4.3",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "tsx": "^4.19.1",
     "typescript": "~5.5.2"
   }
 }
