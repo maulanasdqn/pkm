@@ -109,8 +109,8 @@ export const destinations = pgTable('app_destinations', {
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });
 
-export const destinationRelations = relations(destinations, ({ one }) => ({
-  reservations: one(reservations),
+export const destinationRelations = relations(destinations, ({ many }) => ({
+  reservations: many(reservations),
 }));
 
 export type Destinations = typeof destinations.$inferSelect;
@@ -122,11 +122,11 @@ export const reservations = pgTable('app_reservations', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: varchar('name').notNull(),
   email: varchar('email').notNull(),
-  phoneNumber: integer('phone_number').notNull(),
+  phoneNumber: varchar('phone_number').notNull(),
   date: timestamp('date', { mode: 'date' }).notNull(),
-  time: timestamp('time', { mode: 'string' }).notNull(),
+  time: text('time').notNull(),
   quantity: integer('quantity').notNull(),
-  destinationId: uuid('id').references(() => destinations.id, {
+  destinationId: uuid('destination_id').references(() => destinations.id, {
     onDelete: 'cascade',
   }),
 });

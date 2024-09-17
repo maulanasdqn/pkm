@@ -1,12 +1,12 @@
 'use client';
 
 import { cva, VariantProps } from 'class-variance-authority';
-import { FC, ReactElement } from 'react';
-import type { TControlledTextarea, TTextArea } from './type';
+import { forwardRef, ReactElement } from 'react';
+import type { TControlledTextarea, TTextAreaProps } from './type';
 import { cn } from '@pkm/libs/clsx';
 import { FieldValues, useController } from 'react-hook-form';
 
-const textareaClassName = cva(
+export const textareaClassName = cva(
   'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
   {
     variants: {
@@ -30,27 +30,26 @@ const textareaClassName = cva(
   }
 );
 
-export const Textarea: FC<
-  TTextArea & VariantProps<typeof textareaClassName>
-> = ({
-  variant,
-  dimension,
-  errorMessage,
-  className,
-  ...props
-}): ReactElement => {
-  return (
-    <div className="flex flex-col gap-1.5 font-montserrat">
-      <textarea
-        {...props}
-        className={cn(textareaClassName({ variant, dimension }), className)}
-      ></textarea>
-      {errorMessage && variant === 'error' && (
-        <p className="text-red-50% text-[10px]">{errorMessage}</p>
-      )}
-    </div>
-  );
-};
+export const Textarea = forwardRef<HTMLTextAreaElement, TTextAreaProps>(
+  (
+    { variant, dimension, errorMessage, className, ...props },
+    ref
+  ): ReactElement => {
+    return (
+      <div className="flex flex-col gap-1.5 font-montserrat">
+        <textarea
+          ref={ref}
+          {...props}
+          className={cn(textareaClassName({ variant, dimension }), className)}
+        ></textarea>
+        {errorMessage && variant === 'error' && (
+          <p className="text-red-50% text-[10px]">{errorMessage}</p>
+        )}
+      </div>
+    );
+  }
+);
+Textarea.displayName = 'Textarea';
 
 export const ControlledTextarea = <T extends FieldValues>({
   ...props
