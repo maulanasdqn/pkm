@@ -62,63 +62,61 @@ export const RegisterModule: FC = (): ReactElement => {
           />
         }
       >
-        <fieldset className="w-full flex flex-col gap-6 font-montserrat">
-          <ControlledTextField
-            name="fullname"
-            placeholder="Nama Lengkap"
-            variant={
-              errors?.fullname?.message
-                ? 'error'
-                : isSubmitSuccessful
-                ? 'success'
-                : 'default'
-            }
-            control={control}
-            errorMessage={errors?.fullname?.message}
-          />
-          <ControlledTextField
-            name="email"
-            placeholder="Email"
-            type="email"
-            variant={
-              errors?.email?.message
-                ? 'error'
-                : isSubmitSuccessful
-                ? 'success'
-                : 'default'
-            }
-            control={control}
-            errorMessage={errors?.email?.message}
-          />
-          <ControlledTextField
-            name="password"
-            type="password"
-            variant={
-              errors?.password?.message
-                ? 'error'
-                : isSubmitSuccessful
-                ? 'success'
-                : 'default'
-            }
-            placeholder="Buat password"
-            control={control}
-            errorMessage={errors?.password?.message}
-          />
-          <ControlledTextField
-            name="confirmPassword"
-            variant={
-              errors?.confirmPassword?.message
-                ? 'error'
-                : isSubmitSuccessful
-                ? 'success'
-                : 'default'
-            }
-            type="password"
-            placeholder="Ulangi password"
-            control={control}
-            errorMessage={errors?.confirmPassword?.message}
-          />
-        </fieldset>
+        <ControlledTextField
+          name="fullname"
+          placeholder="Nama Lengkap"
+          variant={
+            errors?.fullname?.message
+              ? 'error'
+              : isSubmitSuccessful
+              ? 'success'
+              : 'default'
+          }
+          control={control}
+          errorMessage={errors?.fullname?.message}
+        />
+        <ControlledTextField
+          name="email"
+          placeholder="Email"
+          type="email"
+          variant={
+            errors?.email?.message
+              ? 'error'
+              : isSubmitSuccessful
+              ? 'success'
+              : 'default'
+          }
+          control={control}
+          errorMessage={errors?.email?.message}
+        />
+        <ControlledTextField
+          name="password"
+          type="password"
+          variant={
+            errors?.password?.message
+              ? 'error'
+              : isSubmitSuccessful
+              ? 'success'
+              : 'default'
+          }
+          placeholder="Buat password"
+          control={control}
+          errorMessage={errors?.password?.message}
+        />
+        <ControlledTextField
+          name="confirmPassword"
+          variant={
+            errors?.confirmPassword?.message
+              ? 'error'
+              : isSubmitSuccessful
+              ? 'success'
+              : 'default'
+          }
+          type="password"
+          placeholder="Ulangi password"
+          control={control}
+          errorMessage={errors?.confirmPassword?.message}
+        />
       </FormAuth>
 
       <Alert

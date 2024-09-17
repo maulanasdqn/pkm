@@ -12,3 +12,9 @@
   cursor: pointer;
   transition: background-color 0.35s ease;
 }
+
+@layer base {
+  .scroll-bar-none {
+    scrollbar-width: none;
+  }
+}

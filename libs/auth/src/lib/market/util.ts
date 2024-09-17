@@ -115,8 +115,6 @@ export const getUserDataWithRoles = async (email?: string | null) => {
       },
     });
 
-    console.log(user);
-
     return user;
   } catch (err) {
     throw err;

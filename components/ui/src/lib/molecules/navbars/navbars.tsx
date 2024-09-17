@@ -60,7 +60,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                     key={i}
                     href={item.link}
                     className={cn(
-                      'text-xl font-normal font-source-sans-pro transition-all duration-200',
+                      'xl:text-xl md:text-base font-normal font-source-sans-pro transition-all duration-200',
                       {
                         'text-neutral-60% hover:text-black':
                           pathname !== item.link,
@@ -141,7 +141,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
         })}
       >
         <div
-          className={cn('flex gap-6 items-center', {
+          className={cn('flex xl:gap-6 md:gap-0 items-center', {
             'gap-4': page === 'public' || page === 'dashboard',
           })}
         >
@@ -160,7 +160,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
 
           <h1
             className={cn('font-source-sans-pro', {
-              'text-primary text-xl w-[190px] text-center':
+              'text-primary xl:text-xl md:text-base w-[190px] text-center':
                 page === 'public' || page === 'dashboard',
               'text-3xl': page === 'auth',
             })}

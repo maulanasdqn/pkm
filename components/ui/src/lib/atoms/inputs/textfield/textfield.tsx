@@ -12,7 +12,7 @@ import {
 import { FieldValues, useController } from 'react-hook-form';
 
 const textfieldClassName = cva(
-  'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
+  'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium font-montserrat disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
   {
     variants: {
       variant: {
@@ -24,7 +24,7 @@ const textfieldClassName = cva(
 
       dimension: {
         md: 'text-[10px] py-2',
-        lg: 'text-[13px]',
+        lg: '2xl:text-[13px] text-xs',
       },
     },
 
@@ -42,6 +42,7 @@ export const TextField: FC<
   variant,
   dimension,
   errorMessage,
+  className,
   ...props
 }): ReactElement => {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,7 +60,7 @@ export const TextField: FC<
         <input
           type={showPassword ? 'text' : type}
           {...props}
-          className={cn(textfieldClassName({ variant, dimension }), {
+          className={cn(textfieldClassName({ variant, dimension }), className, {
             'pr-10': type === 'password',
             'pl-12': type === 'search',
           })}

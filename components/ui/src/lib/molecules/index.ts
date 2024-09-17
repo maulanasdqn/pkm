@@ -4,3 +4,4 @@ export * from './footers';
 export * from './date-picker';
 export * from './sidebars';
 export * from './card-cart';
+export * from './accordion';
