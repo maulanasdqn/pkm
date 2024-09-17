@@ -24,6 +24,7 @@ export const productsSeeder = async (db: TDBMarketDrizzle) => {
     }
 
     await db.insert(products).values(dummyProducts).returning();
+
     console.log('Products Market has been seeded!\n');
   } catch (error) {
     console.error(error);

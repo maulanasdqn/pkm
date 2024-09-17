@@ -15,6 +15,20 @@
       "when": 1726253971463,
       "tag": "0001_loving_sprite",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726430543271,
+      "tag": "0002_colossal_black_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1726430809046,
+      "tag": "0003_brown_cyclops",
+      "breakpoints": true
     }
   ]
 }
