@@ -6,6 +6,13 @@ import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
 export const DestinationSection: FC = async (): Promise<ReactElement> => {
   const { data } = await getAllDestinations();
+  if (!data) {
+    return (
+      <section className="w-full h-full relative 2xl:container 2xl:mx-auto font-source-sans-pro">
+        <h1>Destinasi wisata tidak ada</h1>
+      </section>
+    );
+  }
   return (
     <section
       id="destination"
@@ -42,33 +49,25 @@ export const DestinationSection: FC = async (): Promise<ReactElement> => {
           className="w-full max-w-full"
         >
           <CarouselContent>
-            {data ? (
-              data.map((item) => (
-                <CarouselItem key={item.id} className="basis-1/3 pl-0">
-                  <div className="p-5">
-                    <Link href={`/tours/${item.id}`} className="relative">
-                      <Image
-                        src={item.images[0]}
-                        alt={item.name}
-                        width={560}
-                        height={300}
-                        quality={100}
-                        className="h-[300px] w-full aspect-video rounded"
-                      />
-                      <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
-                        {item.name}
-                      </div>
-                    </Link>
-                  </div>
-                </CarouselItem>
-              ))
-            ) : (
-              <CarouselItem className="basis-1/3 pl-0">
-                <div className="p-5 h-[300px]">
-                  <h2>Data destinasi wisata tidak tersedia</h2>
+            {data.map((item) => (
+              <CarouselItem key={item.id} className="basis-1/3 pl-0">
+                <div className="p-5">
+                  <Link href={`/tours/${item.id}`} className="relative">
+                    <Image
+                      src={item.images[0]}
+                      alt={item.name}
+                      width={560}
+                      height={300}
+                      quality={100}
+                      className="h-[300px] w-full aspect-video rounded"
+                    />
+                    <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
+                      {item.name}
+                    </div>
+                  </Link>
                 </div>
               </CarouselItem>
-            )}
+            ))}
           </CarouselContent>
         </Carousel>
       </div>

@@ -1,18 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC, ReactElement } from 'react';
-import { getAllDestinations } from '@pkm/libs/actions/tourism';
+import { TDestinationSchema } from '@pkm/libs/entities';
 
-export const ToursPageModule: FC = async (): Promise<ReactElement> => {
-  const { data } = await getAllDestinations();
-  if (!data) {
-    return (
-      <section className="container mx-auto my-10 space-y-7">
-        <h1>Terjadi kesalahan,data destinasi belum ada/tidak ditemukan!</h1>
-        <Link href="/">Kembali ke beranda</Link>
-      </section>
-    );
-  }
+interface TToursPageModuleProps {
+  data: TDestinationSchema[];
+}
+
+export const ToursPageModule: FC<TToursPageModuleProps> = ({
+  data,
+}): ReactElement => {
   return (
     <section className="min-h-screen relative w-full flex flex-col items-center">
       <Image
