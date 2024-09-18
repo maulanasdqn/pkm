@@ -18,6 +18,7 @@ export const Sidebar: FC<TSidebarProps> = ({
           width={77}
           height={77}
           className="aspect-square rounded-full"
+          priority
         />
         <div className="font-semibold">
           <h1 className="text-3xl">{name || 'Administrator'}</h1>

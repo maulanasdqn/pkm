@@ -10,9 +10,12 @@ export const destinationSchema = z.object({
   }),
   images: z.string().array(),
   ticketPrice: z.coerce.number().min(0).int().nonnegative(),
-  status: z.enum(['active', 'inactive'], {
-    message: 'Pilih status destinasi!',
-  }),
+  status: z
+    .string({ required_error: 'status is required!' })
+    .transform((val) => val.toLowerCase())
+    .refine((val) => ['active', 'inactive'].includes(val), {
+      message: 'status must be active or inactive',
+    }),
 });
 
 export const createDestinationSchema = z.object({

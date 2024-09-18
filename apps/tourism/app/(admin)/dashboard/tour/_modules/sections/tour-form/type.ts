@@ -1,4 +1,4 @@
 export type TTourFormProps = {
-  id?: number;
+  id?: string;
   text: string;
 };

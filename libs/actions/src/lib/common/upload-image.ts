@@ -5,10 +5,11 @@ import { join } from 'path';
 
 export const uploadImage = async (data: FormData, folderName: string) => {
   try {
-    const files = data.getAll('images') as File[];
+    const files = data?.getAll('images') as File[];
 
     if (files.length === 0) {
-      throw new Error('No files uploaded');
+      console.log('No files uploaded');
+      return;
     }
 
     const results = await Promise.all(

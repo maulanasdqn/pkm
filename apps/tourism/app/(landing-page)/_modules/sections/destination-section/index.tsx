@@ -2,27 +2,29 @@ import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import Link from 'next/link';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-const destinations = [
-  {
-    img: '/images/angklung.png',
-    category: 'Pertunjukan',
-  },
-  {
-    img: '/images/lake.png',
-    category: 'Danau',
-  },
-  {
-    img: '/images/angklung.png',
-    category: 'Pertunjukan',
-  },
-  {
-    img: '/images/rice-field.jpeg',
-    category: 'Pesawahan',
-  },
-];
+// const destinations = [
+//   {
+//     img: '/images/angklung.png',
+//     category: 'Pertunjukan',
+//   },
+//   {
+//     img: '/images/lake.png',
+//     category: 'Danau',
+//   },
+//   {
+//     img: '/images/angklung.png',
+//     category: 'Pertunjukan',
+//   },
+//   {
+//     img: '/images/rice-field.jpeg',
+//     category: 'Pesawahan',
+//   },
+// ];
 
-export const DestinationSection: FC = (): ReactElement => {
+export const DestinationSection: FC = async (): Promise<ReactElement> => {
+  const { data } = await getAllDestinations();
   return (
     <section
       id="destination"
@@ -59,20 +61,20 @@ export const DestinationSection: FC = (): ReactElement => {
           className="w-full max-w-full"
         >
           <CarouselContent>
-            {destinations.map((item, index) => (
-              <CarouselItem key={index} className="basis-1/3 pl-0">
+            {data.map((item) => (
+              <CarouselItem key={item.id} className="basis-1/3 pl-0">
                 <div className="p-5">
-                  <Link href={`/tours/${index + 1}`} className="relative">
+                  <Link href={`/tours/${item.id}`} className="relative">
                     <Image
-                      src={item.img}
-                      alt={item.category}
+                      src={item.images[0]}
+                      alt={item.name}
                       width={560}
                       height={300}
                       quality={100}
                       className="h-[300px] w-full aspect-video rounded"
                     />
                     <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
-                      {item.category}
+                      {item.name}
                     </div>
                   </Link>
                 </div>

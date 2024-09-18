@@ -23,6 +23,7 @@ export const DashboardHeader: FC<TDashboardHeaderProps> = ({
             'aspect-video min-h-[17rem] max-w-[400px] shrink-0',
             imgClassName
           )}
+          priority
         />
       </div>
     </div>
