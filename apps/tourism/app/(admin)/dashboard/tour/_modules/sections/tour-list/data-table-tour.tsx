@@ -87,7 +87,7 @@ export const DataTableTour = <TData extends TDestinationSchema, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                Belum ada data/Data tidak ditemukan.
               </TableCell>
             </TableRow>
           )}

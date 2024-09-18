@@ -4,34 +4,6 @@ import Image from 'next/image';
 import React, { FC, ReactElement } from 'react';
 import { TTourDetailProps } from './type';
 
-// const images = [
-//   {
-//     img: '/images/lake.png',
-//     category: 'Danau',
-//   },
-//   {
-//     img: '/images/lake-2.png',
-//     category: 'danau',
-//   },
-//   {
-//     img: '/images/lake-3.png',
-//     category: 'danau',
-//   },
-//   {
-//     img: '/images/lake-4.png',
-//     category: 'danau',
-//   },
-// ];
-
-// const imgThumbnails = [
-//   '/images/lake.png',
-//   '/images/lake-2.png',
-//   '/images/lake-3.png',
-//   '/images/lake-4.png',
-// ];
-
-// const TOUR_ID = 1;
-
 export const TourDetailModule: FC<TTourDetailProps> = ({
   id,
   images,
