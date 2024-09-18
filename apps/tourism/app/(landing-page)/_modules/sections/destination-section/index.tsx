@@ -1,18 +1,16 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
-import Link from 'next/link';
-import { getAllDestinations } from '@pkm/libs/actions/tourism';
+import { TDestinationSchema } from '@pkm/libs/entities';
 
-export const DestinationSection: FC = async (): Promise<ReactElement> => {
-  const { data } = await getAllDestinations();
-  if (!data) {
-    return (
-      <section className="w-full h-full relative 2xl:container 2xl:mx-auto font-source-sans-pro">
-        <h1>Destinasi wisata tidak ada</h1>
-      </section>
-    );
-  }
+interface TDestinationSectionProps {
+  data: TDestinationSchema[];
+}
+
+export const DestinationSection: FC<TDestinationSectionProps> = ({
+  data,
+}): ReactElement => {
   return (
     <section
       id="destination"
