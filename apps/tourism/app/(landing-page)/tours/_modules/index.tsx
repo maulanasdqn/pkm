@@ -1,15 +1,22 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { TDestinationSchema } from '@pkm/libs/entities';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-interface TToursPageModuleProps {
-  data: TDestinationSchema[];
-}
+export const ToursPageModule: FC = (): ReactElement => {
+  const [data, setData] = useState<TDestinationSchema[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const destinations = await getAllDestinations();
 
-export const ToursPageModule: FC<TToursPageModuleProps> = ({
-  data,
-}): ReactElement => {
+      if (destinations.status.ok) {
+        setData(destinations.data);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <section className="min-h-screen relative w-full flex flex-col items-center">
       <Image
