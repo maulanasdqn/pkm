@@ -8,13 +8,7 @@ export const LandingPageModule: FC = async (): Promise<ReactElement> => {
   return (
     <>
       <HeroSection />
-      {destinations ? (
-        <DestinationSection data={destinations.data} />
-      ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          Loading...
-        </div>
-      )}
+      <DestinationSection data={destinations.data} />
       <NewsSection />
     </>
   );

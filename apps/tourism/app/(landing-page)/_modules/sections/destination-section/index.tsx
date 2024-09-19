@@ -47,25 +47,31 @@ export const DestinationSection: FC<TDestinationSectionProps> = ({
           className="w-full max-w-full"
         >
           <CarouselContent>
-            {data.map((item) => (
-              <CarouselItem key={item.id} className="basis-1/3 pl-0">
-                <div className="p-5">
-                  <Link href={`/tours/${item.id}`} className="relative">
-                    <Image
-                      src={item.images[0]}
-                      alt={item.name}
-                      width={560}
-                      height={300}
-                      quality={100}
-                      className="h-[300px] w-full aspect-video rounded"
-                    />
-                    <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
-                      {item.name}
-                    </div>
-                  </Link>
-                </div>
-              </CarouselItem>
-            ))}
+            {data ? (
+              data.map((item) => (
+                <CarouselItem key={item.id} className="basis-1/3 pl-0">
+                  <div className="p-5">
+                    <Link href={`/tours/${item.id}`} className="relative">
+                      <Image
+                        src={item.images[0]}
+                        alt={item.name}
+                        width={560}
+                        height={300}
+                        quality={100}
+                        className="h-[300px] w-full aspect-video rounded"
+                      />
+                      <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
+                        {item.name}
+                      </div>
+                    </Link>
+                  </div>
+                </CarouselItem>
+              ))
+            ) : (
+              <div className="h-[300px] w-full aspect-video rounded">
+                <p className="text-center">Tidak ada destinasi</p>
+              </div>
+            )}
           </CarouselContent>
         </Carousel>
       </div>
