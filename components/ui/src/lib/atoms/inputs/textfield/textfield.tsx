@@ -12,7 +12,7 @@ import {
 import { FieldValues, useController } from 'react-hook-form';
 
 export const textfieldClassName = cva(
-  'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
+  'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium font-montserrat disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
   {
     variants: {
       variant: {
@@ -24,7 +24,7 @@ export const textfieldClassName = cva(
 
       dimension: {
         md: 'text-[10px] py-2',
-        lg: 'text-[13px]',
+        lg: '2xl:text-[13px] text-xs',
       },
     },
 
@@ -37,7 +37,7 @@ export const textfieldClassName = cva(
 
 export const TextField = forwardRef<HTMLInputElement, TTextFieldProps>(
   (
-    { type = 'text', variant, dimension, errorMessage, ...props },
+    { type = 'text', variant, dimension, errorMessage, className, ...props },
     ref
   ): ReactElement => {
     const [showPassword, setShowPassword] = useState(false);
@@ -56,10 +56,14 @@ export const TextField = forwardRef<HTMLInputElement, TTextFieldProps>(
             ref={ref}
             type={showPassword ? 'text' : type}
             {...props}
-            className={cn(textfieldClassName({ variant, dimension }), {
-              'pr-10': type === 'password',
-              'pl-12': type === 'search',
-            })}
+            className={cn(
+              textfieldClassName({ variant, dimension }),
+              className,
+              {
+                'pr-10': type === 'password',
+                'pl-12': type === 'search',
+              }
+            )}
           />
 
           {type === 'search' && (

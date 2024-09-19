@@ -5,7 +5,7 @@ import { TFormFooter } from './types';
 export const FormAuthFooter: FC<TFormFooter> = (props): ReactElement => {
   return (
     <div className="flex gap-1 items-center font-source-sans-pro">
-      <p className="text-sm">{props.title}</p>
+      <p className="2xl:text-sm text-xs">{props.title}</p>
       <Button
         variant="text"
         size="sm"

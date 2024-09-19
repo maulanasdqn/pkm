@@ -19,7 +19,7 @@ export default async function AuthLayout({
 
       <section className="w-full h-full bg-[url('/images/desa-bg.webp')] bg-cover">
         <div className="w-full h-full flex justify-center items-center bg-black bg-opacity-70">
-          <div className="bg-white flex flex-col justify-center items-center rounded-xl min-h-[520px] max-w-[500px] py-6 min-w-[480px]">
+          <div className="bg-white flex flex-col justify-center items-center rounded-xl 2xl:min-h-[520px] max-w-[500px] py-6 min-w-[480px]">
             {children}
           </div>
         </div>
