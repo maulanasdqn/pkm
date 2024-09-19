@@ -12,8 +12,6 @@ interface DestinationSectionProps {
 export const DestinationSection: FC<DestinationSectionProps> = ({
   data,
 }): ReactElement => {
-  // const { data, setData } = useState<TDestinationSchema[]>([]);
-
   return (
     <section
       id="destination"
