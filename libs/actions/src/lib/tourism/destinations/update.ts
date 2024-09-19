@@ -1,35 +1,42 @@
 'use server';
 import { db, destinations } from '@pkm/libs/drizzle/tourism';
-import { TCreateDestinationSchema } from '@pkm/libs/entities';
+import { TUpdateDestinationSchema } from '@pkm/libs/entities';
+import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { DatabaseError } from 'pg';
 
-export const createDestination = async ({
+export const updateDestination = async ({
+  id,
   name,
   description,
   images,
   status,
   ticketPrice,
-}: TCreateDestinationSchema) => {
+}: TUpdateDestinationSchema) => {
   try {
     const res = await db
-      .insert(destinations)
-      .values({
+      .update(destinations)
+      .set({
         name,
         description,
         images,
         status,
         ticketPrice,
       })
+      .where(eq(destinations.id, id))
       .returning({
         id: destinations.id,
         name: destinations.name,
         description: destinations.description,
         createdAt: destinations.createdAt,
       });
+
     revalidatePath('/dashboard/tour');
 
-    return { message: 'Destinasi berhasil ditambahkan', data: res };
+    return {
+      message: `destination ${res[0].name} updated successfully!`,
+      data: res,
+    };
   } catch (error) {
     if (error instanceof DatabaseError) {
       console.error(error);

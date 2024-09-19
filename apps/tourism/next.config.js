@@ -23,6 +23,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'w7.pngwing.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'loremflickr.com',
+      },
     ],
   },
 };

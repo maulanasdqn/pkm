@@ -8,7 +8,7 @@ export const TourModule: FC = (): ReactElement => {
       <DashboardHeader
         imgSrc="/images/tour.webp"
         title="manajemen wisata"
-        imgClassName="max-w-[320px]"
+        imgClassName="max-w-[300px]"
       />
       <TourListSection />
     </div>

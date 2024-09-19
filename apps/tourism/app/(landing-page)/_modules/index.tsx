@@ -1,11 +1,16 @@
 import { FC, ReactElement } from 'react';
 import { DestinationSection, HeroSection, NewsSection } from './sections';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-export const LandingPageModule: FC = (): ReactElement => {
+export const LandingPageModule: FC = async (): Promise<ReactElement> => {
+  // const destinations = await getAllDestinations();
+
   return (
     <>
       <HeroSection />
-      <DestinationSection />
+      {/* {destinations.data ? (
+        <DestinationSection data={destinations.data} />
+      ) : null} */}
       <NewsSection />
     </>
   );

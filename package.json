@@ -27,6 +27,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-popover": "^1.1.1",
+    "@tanstack/react-table": "^8.20.5",
     "argon2-wasm-edge": "^1.0.23",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
