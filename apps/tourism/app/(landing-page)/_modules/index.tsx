@@ -3,14 +3,18 @@ import { DestinationSection, HeroSection, NewsSection } from './sections';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
 export const LandingPageModule: FC = async (): Promise<ReactElement> => {
-  // const destinations = await getAllDestinations();
+  const destinations = await getAllDestinations();
 
   return (
     <>
       <HeroSection />
-      {/* {destinations.data ? (
+      {destinations ? (
         <DestinationSection data={destinations.data} />
-      ) : null} */}
+      ) : (
+        <div className="w-full h-full flex justify-center items-center">
+          Loading...
+        </div>
+      )}
       <NewsSection />
     </>
   );
