@@ -2,15 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC, ReactElement } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
-import { TDestinationSchema } from '@pkm/libs/entities';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-interface TDestinationSectionProps {
-  data: TDestinationSchema[];
-}
+export const DestinationSection: FC = async (): Promise<ReactElement> => {
+  const { data } = await getAllDestinations();
 
-export const DestinationSection: FC<TDestinationSectionProps> = ({
-  data,
-}): ReactElement => {
   return (
     <section
       id="destination"
