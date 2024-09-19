@@ -6,10 +6,6 @@ import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-// interface DestinationSectionProps {
-//   data: TDestinationSchema[];
-// }
-
 export const DestinationSection: FC = (): ReactElement => {
   const [data, setData] = useState<TDestinationSchema[]>([]);
 
