@@ -1,17 +1,28 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-interface DestinationSectionProps {
-  data: TDestinationSchema[];
-}
+// interface DestinationSectionProps {
+//   data: TDestinationSchema[];
+// }
 
-export const DestinationSection: FC<DestinationSectionProps> = ({
-  data,
-}): ReactElement => {
+export const DestinationSection: FC = (): ReactElement => {
+  const [data, setData] = useState<TDestinationSchema[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const destinations = await getAllDestinations();
+
+      if (destinations.status.ok) {
+        setData(destinations.data);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <section
       id="destination"
