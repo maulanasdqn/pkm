@@ -31,16 +31,16 @@ export const DestinationSection: FC = (): ReactElement => {
         height={295}
         className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px]"
       />
-      <div className="pb-20">
-        <div className="container mx-auto px-14 mb-10 flex justify-between items-center">
-          <h1 className="text-4xl font-semibold text-primary-70%">
+      <div className="pb-10 md:pb-14 lg:pb-20">
+        <div className="container mx-auto px-4 md:px-8 lg:px-14 mb-5 md:mb-10 flex justify-between items-center">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary-70%">
             Destinasi Wisata
           </h1>
           <Button
             size="lg"
             variant="text"
             href="/tours"
-            className="p-0 hover:underline text-lg"
+            className="p-0 hover:underline text-sm md:text-base lg:text-lg"
           >
             Destinasi lainnya
           </Button>
@@ -57,7 +57,10 @@ export const DestinationSection: FC = (): ReactElement => {
           <CarouselContent>
             {data ? (
               data.map((item) => (
-                <CarouselItem key={item.id} className="basis-1/3 pl-0">
+                <CarouselItem
+                  key={item.id}
+                  className="basis-full md:basis-1/2 lg:basis-1/3 pl-0"
+                >
                   <div className="p-5">
                     <Link href={`/tours/${item.id}`} className="relative">
                       <Image

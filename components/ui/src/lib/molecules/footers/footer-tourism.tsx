@@ -10,9 +10,9 @@ import { NavLinks } from '../../atoms';
 export const FooterTourism: FC = (): ReactElement => {
   return (
     <>
-      <footer className="bg-primary-90% w-full text-white p-14">
-        <div className="grid grid-cols-3 gap-4 container mx-auto py-8">
-          <div className="flex flex-col justify-start items-center w-full gap-8">
+      <footer className="bg-primary-90% w-full text-white px-5 py-10 md:p-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 container mx-auto py-8">
+          <div className="flex flex-col justify-start items-start md:items-center w-full gap-8">
             <h1 className="text-3xl font-semibold">Terhubung dengan kami</h1>
             <div className="flex gap-3">
               <Button
@@ -45,7 +45,8 @@ export const FooterTourism: FC = (): ReactElement => {
               </Button>
             </div>
           </div>
-          <div className="w-full flex items-center justify-center">
+          <div className="w-full flex flex-col md:flex-row gap-4 md:items-center md:justify-center">
+            <h1 className="text-2xl font-semibold md:sr-only">Menu cepat</h1>
             <NavLinks component="footer" apps="tourism" />
           </div>
           <div className="flex flex-col w-full gap-8">

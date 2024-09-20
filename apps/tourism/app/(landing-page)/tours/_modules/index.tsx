@@ -27,10 +27,10 @@ export const ToursPageModule: FC = (): ReactElement => {
         quality={100}
         className="h-[600px] absolute top-0 -z-10"
       />
-      <h1 className="text-4xl font-bold text-white py-40">
+      <h1 className="text-3xl md:text-4xl font-bold text-white px-8 md:px-0 py-20 md:py-40">
         Destinasi Wisata Desa Bojongsari
       </h1>
-      <div className="grid grid-cols-2 container mx-auto px-16 gap-8 pb-[10rem]">
+      <div className="grid grid-cols-1 md:grid-cols-2 container mx-auto px-10 md:px-16 gap-8 pb-20 md:pb-[10rem]">
         {data ? (
           data.map((item) => (
             <Link

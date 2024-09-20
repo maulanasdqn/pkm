@@ -104,6 +104,7 @@
     "storybook": "7.6.20",
     "swc-loader": "0.1.15",
     "tailwindcss": "3.4.3",
+    "tailwindcss-animate": "^1.0.7",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tsx": "^4.19.1",
