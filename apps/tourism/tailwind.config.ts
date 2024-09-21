@@ -13,6 +13,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+        },
+      },
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],
         'source-sans-pro': ['var(--font-source-sans-3)'],
@@ -21,7 +28,7 @@ const config: Config = {
       colors,
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
 
 export default config;

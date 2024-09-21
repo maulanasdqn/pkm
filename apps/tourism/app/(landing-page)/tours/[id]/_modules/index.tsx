@@ -11,8 +11,10 @@ export const TourDetailModule: FC<TTourDetailProps> = ({
   name,
 }): ReactElement => {
   return (
-    <section className="container mx-auto my-10 space-y-7">
-      <h1 className="text-4xl font-bold text-primary-70%">{name}</h1>
+    <section className="container mx-auto my-7 md:my-10 space-y-5 md:space-y-7">
+      <h1 className="text-3xl md:text-4xl font-bold text-primary-70%">
+        {name}
+      </h1>
       <Carousel
         opts={{
           align: 'start',
@@ -22,10 +24,10 @@ export const TourDetailModule: FC<TTourDetailProps> = ({
         showThumbnail
         className="w-full max-w-full"
       >
-        <CarouselContent>
+        <CarouselContent className="m-0">
           {images.map((item, index) => (
-            <CarouselItem key={index} className="pl-0">
-              <div className="p-5">
+            <CarouselItem key={index} className="p-0">
+              <div className="p-2 sm:p-5">
                 <Image
                   src={item}
                   alt={item}
@@ -39,11 +41,11 @@ export const TourDetailModule: FC<TTourDetailProps> = ({
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="grid grid-cols-4 gap-5">
-        <div className="col-span-3">
+      <div className="lg:grid grid-cols-4 gap-5">
+        <div className="lg:col-span-2 xl:col-span-3 pb-10 pt-7 lg:py-0">
           <p className="text-lg">{description}</p>
         </div>
-        <aside className="rounded border border-neutral-60% flex flex-col gap-3 p-4 space-y-8">
+        <aside className="rounded border border-neutral-60% flex flex-col gap-3 p-4 space-y-8 col-span-2 xl:col-span-1">
           <div className="flex flex-col gap-4 justify-center items-center">
             <h1 className="text-2xl">Reservasi Sekarang</h1>
             <Button

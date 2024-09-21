@@ -127,10 +127,11 @@ export const Navbar: FC<TNavbarAuthProps> = ({
     });
 
   const navbarClassName = cn('py-3 bg-white', {
-    'px-10 shadow-sm border-b border-neutral-20%': page === 'public',
+    'px-4 md:px-10 shadow-sm border-b border-neutral-20%': page === 'public',
     'px-12 container mx-auto': page === 'auth',
     'px-10 shadow-md border-b border-neutral-40%': page === 'dashboard',
-    'sticky top-0 z-50': page === 'dashboard' && apps === 'tourism',
+    'sticky top-0 z-50':
+      page === 'dashboard' || (page === 'public' && apps === 'tourism'),
   });
 
   return (
@@ -160,7 +161,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
 
           <h1
             className={cn('font-source-sans-pro', {
-              'text-primary xl:text-xl md:text-base w-[190px] text-center':
+              'text-primary xl:text-xl md:text-base w-fit md:w-[190px] text-center':
                 page === 'public' || page === 'dashboard',
               'text-3xl': page === 'auth',
             })}

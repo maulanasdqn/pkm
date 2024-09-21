@@ -21,7 +21,9 @@ export const HeroSection: FC<{ className?: string }> = ({
           className="aspect-auto max-h-[350px]"
         />
         <div className="absolute z-10 bottom-1/2 left-1/2 -translate-x-1/2 flex flex-col justify-center items-center text-center gap-8 text-white">
-          <h1 className="text-4xl font-bold">Cek Reservasi</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            Cek Reservasi
+          </h1>
         </div>
       </div>
     </section>

@@ -7,9 +7,9 @@ export const VisiMisiSection: FC<{ className?: string }> = ({
 }): ReactElement => {
   return (
     <section
-      className={cn('w-full flex flex-col container mx-auto px-20', className)}
+      className={cn('w-full flex flex-col container lg:px-20', className)}
     >
-      <div className="grid grid-cols-3 place-items-center gap-10">
+      <div className="grid grid-cols-3 place-items-center gap-7 lg:gap-10">
         <Image
           src="/images/visi.webp"
           alt="visi"
@@ -17,18 +17,22 @@ export const VisiMisiSection: FC<{ className?: string }> = ({
           height={250}
           className="aspect-square"
         />
-        <div className="col-span-2 w-full flex flex-col gap-4 text-center">
-          <h2 className="text-3xl">Visi</h2>
-          <p className="text-xl">
+        <div className="col-span-2 w-full flex flex-col gap-4">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-center font-bold">
+            Visi
+          </h2>
+          <p className="text-base md:text-xl text-left">
             Menjadikan Desa Bojongsari sebagai destinasi wisata unggulan yang
             menawarkan pengalaman otentik, berkelanjutan, dan berbudaya, serta
             mendukung kesejahteraan masyarakat lokal melalui pariwisata yang
             ramah lingkungan dan inklusif.
           </p>
         </div>
-        <div className="col-span-2 w-full flex flex-col gap-4 text-center">
-          <h2 className="text-3xl">Misi</h2>
-          <p className="text-xl">
+        <div className="col-span-2 w-full flex flex-col gap-4">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-center font-bold">
+            Misi
+          </h2>
+          <p className="text-base md:text-xl text-left">
             Misi kami adalah mempromosikan keindahan dan keunikan desa melalui
             pariwisata berkelanjutan yang memberdayakan masyarakat lokal dan
             melestarikan warisan budaya serta lingkungan.

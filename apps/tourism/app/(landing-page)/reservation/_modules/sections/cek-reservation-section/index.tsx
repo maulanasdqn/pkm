@@ -8,10 +8,10 @@ export const CekReservationSection: FC<{ className?: string }> = ({
   className,
 }): ReactElement => {
   return (
-    <section className={cn('container mx-auto space-y-8 px-40', className)}>
+    <section className={cn('container mx-auto space-y-8 lg:px-40', className)}>
       <div className="flex p-5 gap-3 rounded-lg border border-neutral-60% bg-white shadow-md">
         <ExclamationCircleOutlined className="text-xl shrink-0" />
-        <div className="flex flex-col">
+        <div className="flex flex-col text-sm md:text-base">
           <span>Pastikan anda telah memesan reservasi terlebih dahulu!</span>
           <span>
             jika anda belum memesan reservasi, silahkan{' '}
@@ -26,7 +26,9 @@ export const CekReservationSection: FC<{ className?: string }> = ({
         </div>
       </div>
       <div className="rounded-lg w-full flex flex-col p-5 gap-8 border border-neutral-60% shadow-md bg-white">
-        <h1 className="text-2xl font-semibold">Form Cek Reservasi</h1>
+        <h1 className="text-xl md:text-2xl font-semibold">
+          Form Cek Reservasi
+        </h1>
         <form className="space-y-5">
           <TextField
             name="name"

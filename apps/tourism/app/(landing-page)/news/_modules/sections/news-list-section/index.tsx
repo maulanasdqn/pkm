@@ -60,7 +60,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
   return (
     <section
       className={cn(
-        'container mx-auto px-14 grid grid-cols-2 gap-6',
+        'container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6',
         className
       )}
     >
@@ -69,7 +69,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
           href={`/news/${index + 1}`}
           title={item.title}
           key={index}
-          className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer bg-white"
+          className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer hover:scale-105 transition-all duration-500 bg-white"
         >
           <Image
             src={item.img}

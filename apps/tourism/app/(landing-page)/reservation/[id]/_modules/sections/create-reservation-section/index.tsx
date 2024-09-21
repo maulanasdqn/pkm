@@ -11,22 +11,30 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
   const [qty, setQty] = useState<number>(0);
   const [date, setDate] = useState<Date | undefined>();
   return (
-    <section className={cn('container mx-auto px-40 flex gap-10', className)}>
+    <section
+      className={cn(
+        'container mx-auto lg:px-20 flex flex-col md:flex-row gap-7',
+        className
+      )}
+    >
       <div className="rounded-lg w-full flex flex-col p-5 gap-8 border border-neutral-60% shadow-md bg-white">
         <Image
           src="/images/lake.png"
           alt="danau"
-          width={350}
-          height={200}
-          className="aspect-auto w-full"
+          width={250}
+          height={250}
+          className="max-h-[40dvh] aspect-auto w-full"
+          priority
         />
-        <div className="space-y-3">
-          <h1 className="text-3xl">Danau</h1>
-          <h3 className="text-xl">Wisata Desa</h3>
+        <div className="space-y-1 md:space-y-3">
+          <h1 className="text-xl md:text-2xl lg:text-3xl">Danau</h1>
+          <h3 className="text-base md:text-lg lg:text-xl">Wisata Desa</h3>
         </div>
-        <div className="border-t-2 space-y-3 pt-8">
-          <h3 className="text-xl">Harga Tiket</h3>
-          <h4 className="text-xl text-primary-60%">Rp. {qty * 10000}</h4>
+        <div className="border-t-2 space-y-3 pt-8 border-neutral-50%">
+          <h3 className="text-base md:text-lg lg:text-xl">Harga Tiket</h3>
+          <h4 className="text-xl md:text-2xl lg:text-3xl text-primary-60%">
+            Rp. {qty * 10000}
+          </h4>
         </div>
       </div>
       <div className="rounded-lg w-full flex flex-col items-center justify-center p-5 gap-8 border border-neutral-60% shadow-md bg-white">
@@ -37,23 +45,12 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
           </div>
           <div className="flex gap-3 items-center">
             <span>Pukul : </span>
-            <div className="max-w-12">
-              <TextField
-                name="hour"
-                type="text"
-                dimension="lg"
-                placeholder="00"
-              />
-            </div>
-            <span> : </span>
-            <div className="max-w-12">
-              <TextField
-                name="minute"
-                type="text"
-                dimension="lg"
-                placeholder="00"
-              />
-            </div>
+            <TextField
+              name="time"
+              type="time"
+              dimension="lg"
+              placeholder="00"
+            />
           </div>
           <TextField
             name="name"
@@ -74,43 +71,45 @@ export const CreateReservationSection: FC<{ className?: string }> = ({
             placeholder="Nomor Telepon"
           />
           <div className="flex justify-between">
-            <div className="flex gap-1 items-center">
+            <div className="flex flex-col sm:flex-row gap-1 items-left sm:items-center">
               <p>Jumlah :</p>
-              <Button
-                type="button"
-                variant="text"
-                size="icon"
-                color="black"
-                className="text-sm"
-                onClick={() => {
-                  setQty((prev) => prev - 1);
-                }}
-                disabled={qty === 0}
-              >
-                <MinusOutlined />
-              </Button>
-              <div className="max-w-20">
-                <TextField
-                  name="qty"
-                  type="text"
-                  dimension="lg"
-                  placeholder="00"
-                  value={qty}
-                  onChange={(e) => setQty(parseInt(e.target.value))}
-                />
+              <div className="flex gap-1 items-center">
+                <Button
+                  type="button"
+                  variant="text"
+                  size="icon"
+                  color="black"
+                  className="text-sm"
+                  onClick={() => {
+                    setQty((prev) => prev - 1);
+                  }}
+                  disabled={qty === 0}
+                >
+                  <MinusOutlined />
+                </Button>
+                <div className="min-w-10 md:max-w-20">
+                  <TextField
+                    name="qty"
+                    type="text"
+                    dimension="lg"
+                    placeholder="00"
+                    value={qty}
+                    onChange={(e) => setQty(parseInt(e.target.value))}
+                  />
+                </div>
+                <Button
+                  type="button"
+                  variant="text"
+                  size="icon"
+                  color="black"
+                  className="text-sm"
+                  onClick={() => {
+                    setQty((prev) => prev + 1);
+                  }}
+                >
+                  <PlusOutlined />
+                </Button>
               </div>
-              <Button
-                type="button"
-                variant="text"
-                size="icon"
-                color="black"
-                className="text-sm"
-                onClick={() => {
-                  setQty((prev) => prev + 1);
-                }}
-              >
-                <PlusOutlined />
-              </Button>
             </div>
             <Button type="submit">Pesan Tiket</Button>
           </div>

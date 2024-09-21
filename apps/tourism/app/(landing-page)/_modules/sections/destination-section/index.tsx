@@ -1,16 +1,24 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
+import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
-interface TDestinationSectionProps {
-  data: TDestinationSchema[];
-}
+export const DestinationSection: FC = (): ReactElement => {
+  const [data, setData] = useState<TDestinationSchema[]>([]);
 
-export const DestinationSection: FC<TDestinationSectionProps> = ({
-  data,
-}): ReactElement => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const destinations = await getAllDestinations();
+
+      if (destinations.status.ok) {
+        setData(destinations.data);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <section
       id="destination"
@@ -23,16 +31,16 @@ export const DestinationSection: FC<TDestinationSectionProps> = ({
         height={295}
         className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px]"
       />
-      <div className="pb-20">
-        <div className="container mx-auto px-14 mb-10 flex justify-between items-center">
-          <h1 className="text-4xl font-semibold text-primary-70%">
+      <div className="pb-10 md:pb-14 lg:pb-20">
+        <div className="container mx-auto px-4 md:px-8 lg:px-14 mb-5 md:mb-10 flex justify-between items-center">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary-70%">
             Destinasi Wisata
           </h1>
           <Button
             size="lg"
             variant="text"
             href="/tours"
-            className="p-0 hover:underline text-lg"
+            className="p-0 hover:underline text-sm md:text-base lg:text-lg"
           >
             Destinasi lainnya
           </Button>
@@ -47,25 +55,34 @@ export const DestinationSection: FC<TDestinationSectionProps> = ({
           className="w-full max-w-full"
         >
           <CarouselContent>
-            {data.map((item) => (
-              <CarouselItem key={item.id} className="basis-1/3 pl-0">
-                <div className="p-5">
-                  <Link href={`/tours/${item.id}`} className="relative">
-                    <Image
-                      src={item.images[0]}
-                      alt={item.name}
-                      width={560}
-                      height={300}
-                      quality={100}
-                      className="h-[300px] w-full aspect-video rounded"
-                    />
-                    <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
-                      {item.name}
-                    </div>
-                  </Link>
-                </div>
-              </CarouselItem>
-            ))}
+            {data ? (
+              data.map((item) => (
+                <CarouselItem
+                  key={item.id}
+                  className="basis-full md:basis-1/2 lg:basis-1/3 pl-0"
+                >
+                  <div className="p-5">
+                    <Link href={`/tours/${item.id}`} className="relative">
+                      <Image
+                        src={item.images[0]}
+                        alt={item.name}
+                        width={560}
+                        height={300}
+                        quality={100}
+                        className="h-[300px] w-full aspect-video rounded"
+                      />
+                      <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
+                        {item.name}
+                      </div>
+                    </Link>
+                  </div>
+                </CarouselItem>
+              ))
+            ) : (
+              <div className="h-[300px] w-full aspect-video rounded">
+                <p className="text-center">Tidak ada destinasi</p>
+              </div>
+            )}
           </CarouselContent>
         </Carousel>
       </div>

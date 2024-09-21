@@ -166,33 +166,37 @@ const Carousel = React.forwardRef<
             </div>
           )}
           {showThumbnail && imgThumbnail && (
-            <div
-              ref={carouselThumbsRef}
-              className="flex overflow-x-auto mt-3 w-full justify-start border-t border-b border-neutral-60%"
-            >
-              {imgThumbnail.map((item, index) => (
-                <button
-                  key={index}
-                  className="py-1"
-                  onClick={() => onThumbClick(index)}
-                >
-                  <div className="p-3 px-2">
-                    <Image
-                      src={item}
-                      alt={`thumbnail-${index + 1}`}
-                      width={250}
-                      height={150}
-                      quality={100}
-                      className={cn(
-                        'h-[150px] w-[250px] aspect-video rounded ring',
-                        index === selectedIndex
-                          ? 'ring-primary-90%'
-                          : 'ring-neutral-60%'
-                      )}
-                    />
-                  </div>
-                </button>
-              ))}
+            <div className="mt-3">
+              <div
+                ref={carouselThumbsRef}
+                className="overflow-hidden border-y border-neutral-60%"
+              >
+                <div className="flex w-full justify-start">
+                  {imgThumbnail.map((item, index) => (
+                    <button
+                      key={index}
+                      className="px-2 sm:px-0 py-1 min-w-0 shrink-0 grow-0 sr-only sm:not-sr-only basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                      onClick={() => onThumbClick(index)}
+                    >
+                      <div className="p-3 px-2 w-full">
+                        <Image
+                          src={item}
+                          alt={`thumbnail-${index + 1}`}
+                          width={250}
+                          height={150}
+                          quality={100}
+                          className={cn(
+                            'h-[150px] w-full aspect-video rounded ring',
+                            index === selectedIndex
+                              ? 'ring-primary-90%'
+                              : 'ring-neutral-60%'
+                          )}
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -311,7 +315,7 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         'absolute h-8 w-8 rounded-full inline-flex justify-center items-center border border-neutral-60% disabled:border-neutral disabled:text-neutral-60%',
         orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
+          ? '-left-10 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
@@ -338,7 +342,7 @@ const CarouselNext = React.forwardRef<
       className={cn(
         'absolute h-8 w-8 rounded-full inline-flex justify-center items-center border border-neutral-60% disabled:border-neutral disabled:text-neutral-60%',
         orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
+          ? '-right-10 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
