@@ -41,8 +41,8 @@ const btnClassName = cva(className, {
   variants: {
     variant: {
       primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,
-      secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red} ${secondaryVariantColors.black}`,
-      text: `text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70% ${textVariantColors.black}`,
+      secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% disabled:text-primary-40% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red} ${secondaryVariantColors.black}`,
+      text: `text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% disabled:text-primary-40% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70% ${textVariantColors.black}`,
     },
     size,
   },
@@ -67,7 +67,10 @@ const Button = forwardRef<HTMLButtonElement, TButton>(
           <button
             data-color={color}
             ref={ref}
-            className={cn(btnClassName({ variant, className, size }), btnLoading)}
+            className={cn(
+              btnClassName({ variant, className, size }),
+              btnLoading
+            )}
             {...props}
           >
             {props.children}

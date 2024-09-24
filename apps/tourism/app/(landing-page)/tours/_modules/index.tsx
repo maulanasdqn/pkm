@@ -31,7 +31,7 @@ export const ToursPageModule: FC = (): ReactElement => {
         Destinasi Wisata Desa Bojongsari
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 container mx-auto px-10 md:px-16 gap-8 pb-20 md:pb-[10rem]">
-        {data ? (
+        {data.length > 0 ? (
           data.map((item) => (
             <Link
               key={item.id}
@@ -55,10 +55,18 @@ export const ToursPageModule: FC = (): ReactElement => {
             </Link>
           ))
         ) : (
-          <div className="h-[300px] w-full rounded">
-            <p>Data tidak ditemukan! silahkan coba lagi</p>
-            <Link href="/">Kembali ke beranda</Link>
-          </div>
+          <>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-[300px] w-full rounded animate-pulse"
+              >
+                <div className="h-20 w-1/2 bg-neutral-50% rounded"></div>
+                <div className="h-5 w-1/2 bg-neutral-50% rounded mt-3"></div>
+                <div className="h-5 w-full bg-neutral-50% rounded mt-3"></div>
+              </div>
+            ))}
+          </>
         )}
       </div>
     </section>

@@ -1,62 +1,27 @@
+'use client';
+import { getAllInformations } from '@pkm/libs/actions/tourism';
 import { cn } from '@pkm/libs/clsx';
+import { TInformationSchema } from '@pkm/libs/entities';
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale/id';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
-
-const news = [
-  {
-    img: '/images/news.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-  {
-    img: '/images/news-2.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-  {
-    img: '/images/news-3.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-  {
-    img: '/images/news-4.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-  {
-    img: '/images/news.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-  {
-    img: '/images/mountain.png',
-    createdAt: '15 Agustus 2024',
-    location: 'Bandung',
-    title: 'Keindahan Desa Wisata Bojongsari Menarik Wisatawan Lokal',
-    content:
-      'Desa Wisata Bojongsari, yang terletak di Kabupaten Bandung, Jawa Barat, semakin mendapatkan perhatian sebagai destinasi wisata unggulan di Indonesia. Desa ini menawarkan berbagai daya tarik, mulai dari pemandangan alam yang memukau...',
-  },
-];
+import { FC, ReactElement, useEffect, useState } from 'react';
 
 export const NewsListSection: FC<{ className?: string }> = ({
   className,
 }): ReactElement => {
+  const [data, setData] = useState<TInformationSchema[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const destinations = await getAllInformations();
+
+      if (destinations.status.ok) {
+        setData(destinations.data);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <section
       className={cn(
@@ -64,33 +29,56 @@ export const NewsListSection: FC<{ className?: string }> = ({
         className
       )}
     >
-      {news.map((item, index) => (
-        <Link
-          href={`/news/${index + 1}`}
-          title={item.title}
-          key={index}
-          className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer hover:scale-105 transition-all duration-500 bg-white"
-        >
-          <Image
-            src={item.img}
-            alt={item.title}
-            width={515}
-            height={250}
-            className="h-[250px] w-full aspect-video rounded-lg"
-          />
-          <div className="flex flex-col gap-3 items-center justify-center p-6">
-            <h1 className="text-xl text-primary-70%">
-              <span>{item.location},</span>
-              <span> {item.createdAt}</span>
-              <span> - </span>
-              <span>{item.title}</span>
-            </h1>
-            <div className="pt-3 border-t border-neutral-60% text-lg">
-              <p className="line-clamp-4">{item.content}</p>
+      {data.length > 0 ? (
+        data.map((item) => {
+          const date = new Date(item?.createdAt as Date);
+          const value = format(date, 'dd MMMM yyyy', { locale: id });
+          return (
+            <Link
+              key={item.id}
+              href={`/news/${item.id}`}
+              title={item.title}
+              className="border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer hover:scale-105 transition-all duration-500 bg-white"
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={515}
+                height={250}
+                className="h-[250px] w-full aspect-video rounded-lg"
+              />
+              <div className="flex flex-col gap-3 items-center justify-center p-6">
+                <h1 className="text-xl text-primary-70%">
+                  <span>{item.location},</span>
+                  <span> {value}</span>
+                  <span> - </span>
+                  <span>{item.title}</span>
+                </h1>
+                <div className="pt-3 border-t border-neutral-60% text-lg">
+                  <p className="line-clamp-4">{item.description}</p>
+                </div>
+              </div>
+            </Link>
+          );
+        })
+      ) : (
+        <>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="w-full border border-neutral-60% rounded-lg shadow-md flex flex-col gap-3 cursor-pointer bg-white"
+            >
+              <div className="h-[250px] w-full aspect-video rounded-lg animate-pulse bg-neutral-50%" />
+              <div className="flex flex-col gap-3 items-center justify-center p-6">
+                <div className="h-[100px] bg-neutral-50% animate-pulse" />
+                <div className="pt-3 border-t border-neutral-60% text-lg">
+                  <p className="line-clamp-4">-</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </Link>
-      ))}
+          ))}
+        </>
+      )}
     </section>
   );
 };

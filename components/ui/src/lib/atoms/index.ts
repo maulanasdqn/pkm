@@ -9,4 +9,5 @@ export * from './popover';
 export * from './calendar';
 export * from './charts';
 export * from './table';
-export * from './dialog'
+export * from './dialog';
+export * from './pagination';
