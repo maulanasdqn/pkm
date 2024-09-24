@@ -17,6 +17,7 @@ const config: Config = {
         montserrat: ['var(--font-montserrat)'],
         'source-sans-pro': ['var(--font-source-sans-3)'],
         inter: ['var(--font-inter)'],
+        roboto: ['var(--font-roboto)'],
       },
       colors,
     },

@@ -1,6 +1,6 @@
 import { AuthProvider } from '@pkm/libs/auth';
 import './global.css';
-import { Inter, Montserrat, Source_Sans_3 } from 'next/font/google';
+import { Inter, Montserrat, Roboto, Source_Sans_3 } from 'next/font/google';
 import { ReactElement } from 'react';
 
 const inter = Inter({
@@ -21,6 +21,12 @@ const source_sans_3 = Source_Sans_3({
   variable: '--font-source-sans-3',
 });
 
+const roboto = Roboto({
+  weight: ['100', '300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-roboto',
+});
+
 export const metadata = {
   title: 'Pasar Digital',
   description:
@@ -35,7 +41,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${montserrat.variable} ${source_sans_3.variable}`}
+      className={`${inter.variable} ${montserrat.variable} ${source_sans_3.variable} ${roboto.variable}`}
     >
       <AuthProvider>
         <body>{children}</body>
