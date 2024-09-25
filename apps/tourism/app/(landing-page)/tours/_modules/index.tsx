@@ -25,7 +25,7 @@ export const ToursPageModule: FC = (): ReactElement => {
         width={1536}
         height={600}
         quality={100}
-        className="h-[600px] absolute top-0 -z-10"
+        className="h-[600px] absolute top-0 -z-10 object-cover"
       />
       <h1 className="text-3xl md:text-4xl font-bold text-white px-8 md:px-0 py-20 md:py-40">
         Destinasi Wisata Desa Bojongsari
@@ -45,7 +45,7 @@ export const ToursPageModule: FC = (): ReactElement => {
                   width={560}
                   height={300}
                   quality={100}
-                  className="h-[300px] w-full aspect-video rounded"
+                  className="h-[300px] w-full aspect-video rounded object-cover"
                 />
                 <span className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-lg font-semibold text-primary-80% bg-white hover:text-primary-60% shadow-md capitalize">
                   {item.name}

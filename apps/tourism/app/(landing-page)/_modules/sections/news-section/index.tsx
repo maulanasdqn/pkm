@@ -61,7 +61,7 @@ export const NewsSection: FC = (): ReactElement => {
                             alt={item.title}
                             width={515}
                             height={250}
-                            className="h-[250px] w-full aspect-video rounded-lg"
+                            className="h-[250px] w-full aspect-video rounded-lg object-cover"
                           />
                           <div className="flex flex-col gap-3 items-center justify-center p-6">
                             <h1 className="text-xl text-primary-70%">

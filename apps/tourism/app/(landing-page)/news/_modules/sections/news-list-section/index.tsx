@@ -1,27 +1,57 @@
 'use client';
 import { getAllInformations } from '@pkm/libs/actions/tourism';
 import { cn } from '@pkm/libs/clsx';
-import { TInformationSchema } from '@pkm/libs/entities';
+import { TInformationSchema, TMetaResponse } from '@pkm/libs/entities';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale/id';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import { Paginations } from './paginations';
+
+const useInformationPagination = () => {
+  const [dataState, setDataState] = useState<{
+    status: {
+      [key: string]: boolean;
+    };
+    data: TInformationSchema[];
+    meta?: TMetaResponse;
+  } | null>(null);
+  const searchParams = useSearchParams();
+  const pageNumberLimit = 6;
+  const currentPage = Number(searchParams?.get('page')) || 1;
+
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await getAllInformations({
+        perPage: pageNumberLimit,
+        page: currentPage,
+      });
+      setDataState(res);
+    } catch (err) {
+      console.error(err);
+      throw new Error('Something went wrong');
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return {
+    dataState,
+    pageNumberLimit,
+    currentPage,
+  };
+};
 
 export const NewsListSection: FC<{ className?: string }> = ({
   className,
 }): ReactElement => {
-  const [data, setData] = useState<TInformationSchema[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const destinations = await getAllInformations();
+  const { dataState, currentPage, pageNumberLimit } =
+    useInformationPagination();
 
-      if (destinations.status.ok) {
-        setData(destinations.data);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <section
       className={cn(
@@ -29,8 +59,8 @@ export const NewsListSection: FC<{ className?: string }> = ({
         className
       )}
     >
-      {data.length > 0 ? (
-        data.map((item) => {
+      {dataState ? (
+        dataState?.data.map((item) => {
           const date = new Date(item?.createdAt as Date);
           const value = format(date, 'dd MMMM yyyy', { locale: id });
           return (
@@ -45,7 +75,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
                 alt={item.title}
                 width={515}
                 height={250}
-                className="h-[250px] w-full aspect-video rounded-lg"
+                className="h-[250px] w-full aspect-video rounded-lg object-cover"
               />
               <div className="flex flex-col gap-3 items-center justify-center p-6">
                 <h1 className="text-xl text-primary-70%">
@@ -79,6 +109,13 @@ export const NewsListSection: FC<{ className?: string }> = ({
           ))}
         </>
       )}
+      <div className="col-span-1 sm:col-span-2 lg:col-span-3 w-full justify-center items-center">
+        <Paginations
+          currentPage={currentPage}
+          pageNumberLimit={pageNumberLimit}
+          lastPage={dataState?.meta?.totalPage}
+        />
+      </div>
     </section>
   );
 };

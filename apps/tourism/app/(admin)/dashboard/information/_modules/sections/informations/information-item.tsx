@@ -31,7 +31,7 @@ export const InformationItem: React.FC<TInformationItemProps> = ({
         alt={item.title}
         width={515}
         height={250}
-        className="h-[150px] w-full aspect-video rounded-lg"
+        className="h-[150px] w-full aspect-video rounded-lg object-cover"
       />
       <div className="flex flex-col gap-3 items-center justify-center p-4">
         <h1 className="text-base text-primary-70%">

@@ -28,7 +28,7 @@ export const NewsDetailModule: FC<InformationDetailModuleProps> = ({
             width={913}
             height={425}
             quality={100}
-            className="w-full max-h-[425px] aspect-video rounded"
+            className="w-full max-h-[425px] aspect-video rounded object-cover"
           />
           <h2 className="text-xl sm:text-2xl md:text-3xl text-primary-70%">
             <span>{location},</span>
@@ -58,7 +58,7 @@ export const NewsDetailModule: FC<InformationDetailModuleProps> = ({
                       alt={item.title}
                       width={515}
                       height={200}
-                      className="h-[200px] w-full aspect-video rounded-lg"
+                      className="h-[200px] w-full aspect-video rounded-lg object-cover"
                     />
                     <div className="flex flex-col gap-3 items-center justify-center p-3">
                       <h1 className="text-xl text-primary-70%">
