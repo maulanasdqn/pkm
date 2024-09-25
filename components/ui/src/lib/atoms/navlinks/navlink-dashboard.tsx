@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 export const NavLinkDashboard: FC<TNavLinkDashboardProps> = ({
   navItems,
 }): ReactElement => {
-    const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <nav className="w-full flex flex-col gap-3">
       {navItems.map((item, index) => (
