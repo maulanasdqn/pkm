@@ -25,13 +25,13 @@ export const ToursPageModule: FC = (): ReactElement => {
         width={1536}
         height={600}
         quality={100}
-        className="h-[600px] absolute top-0 -z-10"
+        className="h-[600px] absolute top-0 -z-10 object-cover"
       />
       <h1 className="text-3xl md:text-4xl font-bold text-white px-8 md:px-0 py-20 md:py-40">
         Destinasi Wisata Desa Bojongsari
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 container mx-auto px-10 md:px-16 gap-8 pb-20 md:pb-[10rem]">
-        {data ? (
+        {data.length > 0 ? (
           data.map((item) => (
             <Link
               key={item.id}
@@ -45,7 +45,7 @@ export const ToursPageModule: FC = (): ReactElement => {
                   width={560}
                   height={300}
                   quality={100}
-                  className="h-[300px] w-full aspect-video rounded"
+                  className="h-[300px] w-full aspect-video rounded object-cover"
                 />
                 <span className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-lg font-semibold text-primary-80% bg-white hover:text-primary-60% shadow-md capitalize">
                   {item.name}
@@ -55,10 +55,18 @@ export const ToursPageModule: FC = (): ReactElement => {
             </Link>
           ))
         ) : (
-          <div className="h-[300px] w-full rounded">
-            <p>Data tidak ditemukan! silahkan coba lagi</p>
-            <Link href="/">Kembali ke beranda</Link>
-          </div>
+          <>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-[300px] w-full rounded animate-pulse"
+              >
+                <div className="h-20 w-1/2 bg-neutral-50% rounded"></div>
+                <div className="h-5 w-1/2 bg-neutral-50% rounded mt-3"></div>
+                <div className="h-5 w-full bg-neutral-50% rounded mt-3"></div>
+              </div>
+            ))}
+          </>
         )}
       </div>
     </section>

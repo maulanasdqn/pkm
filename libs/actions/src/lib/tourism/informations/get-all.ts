@@ -1,46 +1,45 @@
 'use server';
 
-import { db, destinations } from '@pkm/libs/drizzle/tourism';
+import { db, informations } from '@pkm/libs/drizzle/tourism';
 import {
-  TDestinationSchema,
+  TInformationSchema,
   TMetaResponse,
   TQueryParams,
 } from '@pkm/libs/entities';
 import { asc, ilike } from 'drizzle-orm';
 import { DatabaseError } from 'pg';
 
-export const getAllDestinations = async (
+export const getAllInformations = async (
   params?: TQueryParams
 ): Promise<{
   status: { [key: string]: boolean };
-  data: TDestinationSchema[];
+  data: TInformationSchema[];
   meta?: TMetaResponse;
 }> => {
   try {
     const page = params?.page || 1;
-    const perPage = params?.perPage || 10;
+    const perPage = params?.perPage || 20;
     const offset = (page - 1) * perPage;
 
     const data = await db
       .select({
-        id: destinations.id,
-        name: destinations.name,
-        description: destinations.description,
-        images: destinations.images,
-        status: destinations.status,
-        ticketPrice: destinations.ticketPrice,
-        createdAt: destinations.createdAt,
-        updatedAt: destinations.updatedAt,
+        id: informations.id,
+        title: informations.title,
+        description: informations.description,
+        location: informations.location,
+        image: informations.image,
+        createdAt: informations.createdAt,
+        updatedAt: informations.updatedAt,
       })
-      .from(destinations)
-      .where(ilike(destinations.name, `%${params?.search || ''}%`))
+      .from(informations)
+      .where(ilike(informations.title, `%${params?.search || ''}%`))
       .limit(perPage)
       .offset(params?.search ? 0 : offset)
-      .orderBy(asc(destinations.createdAt));
+      .orderBy(asc(informations.createdAt));
 
     const count = await db
-      .select({ id: destinations.id })
-      .from(destinations)
+      .select({ id: informations.id })
+      .from(informations)
       .then((res) => res.length);
 
     const totalPage = Math.ceil(count / perPage);

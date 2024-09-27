@@ -10,4 +10,5 @@ export * from './calendar';
 export * from './charts';
 export * from './table';
 export * from './dialog';
+export * from './pagination';
 export * from './breadcumbs';

@@ -1,12 +1,5 @@
-export type TInformationItemProps = {
-  item: TInformation;
-};
+import { TInformationSchema } from '@pkm/libs/entities';
 
-export type TInformation = {
-  id: number;
-  img: string;
-  createdAt: string;
-  location: string;
-  title: string;
-  content: string;
+export type TInformationItemProps = {
+  item: TInformationSchema;
 };

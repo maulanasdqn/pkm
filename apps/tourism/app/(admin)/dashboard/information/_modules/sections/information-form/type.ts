@@ -1,4 +1,4 @@
 export type TInformationFormTrigger = {
-  id?: number;
+  id?: string;
   text: string;
 };

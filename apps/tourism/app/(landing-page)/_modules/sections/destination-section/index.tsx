@@ -6,12 +6,14 @@ import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
+const LIMIT_COUNT = 4;
+
 export const DestinationSection: FC = (): ReactElement => {
   const [data, setData] = useState<TDestinationSchema[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const destinations = await getAllDestinations();
+      const destinations = await getAllDestinations({ perPage: LIMIT_COUNT });
 
       if (destinations.status.ok) {
         setData(destinations.data);
@@ -29,7 +31,7 @@ export const DestinationSection: FC = (): ReactElement => {
         alt="grass-bg"
         width={1536}
         height={295}
-        className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px]"
+        className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px] object-cover"
       />
       <div className="pb-10 md:pb-14 lg:pb-20">
         <div className="container mx-auto px-4 md:px-8 lg:px-14 mb-5 md:mb-10 flex justify-between items-center">
@@ -55,7 +57,7 @@ export const DestinationSection: FC = (): ReactElement => {
           className="w-full max-w-full"
         >
           <CarouselContent>
-            {data ? (
+            {data.length > 0 ? (
               data.map((item) => (
                 <CarouselItem
                   key={item.id}
@@ -79,9 +81,18 @@ export const DestinationSection: FC = (): ReactElement => {
                 </CarouselItem>
               ))
             ) : (
-              <div className="h-[300px] w-full aspect-video rounded">
-                <p className="text-center">Tidak ada destinasi</p>
-              </div>
+              <>
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="basis-full md:basis-1/2 lg:basis-1/3 pl-0"
+                  >
+                    <div className="p-5 bg-white">
+                      <div className="h-[300px] w-full animate-pulse aspect-auto rounded bg-neutral-50%" />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </>
             )}
           </CarouselContent>
         </Carousel>
