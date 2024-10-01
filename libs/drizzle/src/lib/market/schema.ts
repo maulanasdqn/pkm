@@ -120,6 +120,8 @@ export const categoryRelations = relations(category, ({ many }) => ({
   products: many(products),
 }));
 
+export type Category = typeof category.$inferSelect;
+
 /*
  * Products
  */

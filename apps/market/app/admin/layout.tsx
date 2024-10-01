@@ -28,7 +28,7 @@ export default function AdminLayout({
           {
             href: '/admin/order',
             icon: <ShoppingCartOutlined className="text-2xl" />,
-            title: 'Dashboard',
+            title: 'Order',
           },
           {
             href: '/admin/users',
@@ -40,7 +40,7 @@ export default function AdminLayout({
         name=""
       />
 
-      <section className="w-full h-screen overflow-y-auto px-8 py-10">
+      <section className="w-full h-screen overflow-y-auto px-8 py-10 container mx-auto">
         {children}
       </section>
     </main>
