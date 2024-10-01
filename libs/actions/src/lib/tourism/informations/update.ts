@@ -32,7 +32,7 @@ export const updateInformation = async ({
     revalidatePath('/dashboard/information');
 
     return {
-      message: `destination ${res[0].title} updated successfully!`,
+      message: `information ${res[0].title} updated successfully!`,
       data: res,
     };
   } catch (error) {
