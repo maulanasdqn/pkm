@@ -2,14 +2,15 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { FC, forwardRef, ReactElement } from 'react';
 import type { TControlledSelect, TSelectProps, TSelectOption } from './type';
 import { cn } from '@pkm/libs/clsx';
-import { FieldValues, useController } from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 
 export const selectClassName = cva(
   'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',
   {
     variants: {
       variant: {
-        default: 'border-neutral-60% placeholder:text-neutral-60%',
+        default:
+          'border-neutral-60% placeholder:text-neutral-60% text-neutral-60%',
         success: 'bg-white border-primary-50% text-neutral-80%',
         info: 'bg-white border-blue-80% text-neutral-80%',
         error: 'bg-white border-red-60% text-red-50% placeholder:text-red-50%',
@@ -58,30 +59,29 @@ export const Select = forwardRef<HTMLSelectElement, TSelectProps>(
     ref
   ): ReactElement => {
     return (
-      <>
-        <div
+      <div
+        className={cn(
+          'relative inline-flex flex-col gap-1.5 font-montserrat',
+          selectChevronClassName({ variant, dimension })
+        )}
+      >
+        <select
+          ref={ref}
+          {...props}
           className={cn(
-            'inline-flex flex-col gap-1.5 font-montserrat relative',
-            selectChevronClassName({ variant, dimension })
+            'appearance-none w-full placeholder:font-bold',
+            selectClassName({ variant, dimension }),
+            className
           )}
         >
-          <select
-            ref={ref}
-            {...props}
-            className={cn(
-              'appearance-none w-full',
-              selectClassName({ variant, dimension }),
-              className
-            )}
-          >
-            <option value="">{props.placeholder}</option>
-            {props.children}
-          </select>
-        </div>
+          <option value="">{props.placeholder}</option>
+          {props.children}
+        </select>
+
         {errorMessage && variant === 'error' && (
           <p className="text-red-50% text-[10px]">{errorMessage}</p>
         )}
-      </>
+      </div>
     );
   }
 );

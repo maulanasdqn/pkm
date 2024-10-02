@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
+import { UsersAdminModule } from './_modules';
 
 const UsersPage: NextPage = () => {
-  return <>users page</>;
+  return <UsersAdminModule />;
 };
 
 export default UsersPage;

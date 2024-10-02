@@ -20,12 +20,8 @@ export const DashboardModule: FC = (): ReactElement => {
 
       <div className="flex items-center justify-between">
         <CardMarketAdmin name="Produk" amount={25} Icon={CalendarOutlined} />
-        <CardMarketAdmin
-          name="Produk"
-          amount={25}
-          Icon={ShoppingCartOutlined}
-        />
-        <CardMarketAdmin name="Produk" amount={25} Icon={ContactsOutlined} />
+        <CardMarketAdmin name="Order" amount={25} Icon={ShoppingCartOutlined} />
+        <CardMarketAdmin name="Pengguna" amount={25} Icon={ContactsOutlined} />
       </div>
 
       <ChartDashboardSection />

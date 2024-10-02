@@ -11,7 +11,7 @@ export const productsSeeder = async (db: TDBMarketDrizzle) => {
     const dummyCategories = await db.query.category.findMany();
 
     const dummyProducts = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 10; i++) {
       dummyProducts.push({
         name: faker.food.dish(),
         description: faker.food.description(),
