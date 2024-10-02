@@ -1,5 +1,5 @@
-export * from './get-all';
-export * from './create';
-export * from './delete';
-export * from './get-one';
-export * from './update';
+export { getAllCategoriesProduct, getAllProducts } from './get-all';
+export { createProduct } from './create';
+export { deleteProduct } from './delete';
+export { getOneProduct } from './get-one';
+export { updateProduct } from './update';
