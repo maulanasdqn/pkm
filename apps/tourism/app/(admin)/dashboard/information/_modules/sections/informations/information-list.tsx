@@ -1,6 +1,13 @@
 'use client';
 import { cn } from '@pkm/libs/clsx';
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  FC,
+  Fragment,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { InformationItem, InformationItemSkeleton } from './information-item';
 import { getAllInformations } from '@pkm/libs/actions/tourism';
 import { TInformationSchema, TMetaResponse } from '@pkm/libs/entities';
@@ -72,10 +79,10 @@ export const InformationListSection: FC<{ className?: string }> = ({
 
 const InformationListSkeleton: FC = (): ReactElement => {
   return (
-    <>
+    <Fragment>
       {Array.from({ length: 6 }).map((_, index) => (
         <InformationItemSkeleton key={index} />
       ))}
-    </>
+    </Fragment>
   );
 };

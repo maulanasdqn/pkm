@@ -5,8 +5,10 @@ import { TDBTourismDrizzle } from './types';
 export const usersSeeder = async (db: TDBTourismDrizzle) => {
   try {
     console.log('Seeding... Users Tourism');
-
-    await db.delete(users);
+    const existUser = await db.select({ id: users.id }).from(users);
+    if (existUser.length > 0) {
+      return;
+    }
 
     const dummyUsers = [];
     const dummyRoles = await db.query.roles.findFirst();

@@ -1,12 +1,5 @@
 'use client';
-import {
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  PaginationState,
-  useReactTable,
-} from '@tanstack/react-table';
-import { DataTableTourProps } from './type';
+import * as React from 'react';
 import {
   Button,
   Table,
@@ -16,31 +9,43 @@ import {
   TableHeader,
   TableRow,
 } from '@pkm/ui';
-import { TourFormTrigger } from '../tour-form';
-import { TDestinationSchema } from '@pkm/libs/entities';
-import { DeleteTrigger } from './delete-trigger';
-import { Fragment, useState } from 'react';
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  PaginationState,
+  SortingState,
+  useReactTable,
+} from '@tanstack/react-table';
+import { EditReservationFormTrigger } from './edit-reservation-form';
+import { TReservationSchema } from '@pkm/libs/entities';
+import { DataTableReservationProps } from './type';
 
-export const DataTableTour = <TData extends TDestinationSchema, TValue>({
+export const DataTableReservation = <TData extends TReservationSchema, TValue>({
   columns,
   data,
-}: DataTableTourProps<TData, TValue>) => {
-  const [pagination, setPagination] = useState<PaginationState>({
+}: DataTableReservationProps<TData, TValue>) => {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
     state: {
+      sorting,
       pagination,
     },
   });
   return (
-    <Fragment>
+    <>
       <Table className="-z-10">
         <TableHeader className="[&_tr]:border-b-0">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -61,7 +66,7 @@ export const DataTableTour = <TData extends TDestinationSchema, TValue>({
                   </TableHead>
                 );
               })}
-              <TableHead className="text-right pr-14">Aksi</TableHead>
+              <TableHead className="text-right">Aksi</TableHead>
             </TableRow>
           ))}
         </TableHeader>
@@ -79,8 +84,7 @@ export const DataTableTour = <TData extends TDestinationSchema, TValue>({
                   </TableCell>
                 ))}
                 <TableCell className="flex w-full gap-2 justify-end">
-                  <TourFormTrigger text="edit" id={row.original.id} />
-                  <DeleteTrigger id={row.original.id} />
+                  <EditReservationFormTrigger id={row.original.id} />
                 </TableCell>
               </TableRow>
             ))
@@ -114,6 +118,6 @@ export const DataTableTour = <TData extends TDestinationSchema, TValue>({
           Next
         </Button>
       </div>
-    </Fragment>
+    </>
   );
 };

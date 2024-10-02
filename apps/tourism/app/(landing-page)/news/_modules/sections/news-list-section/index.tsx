@@ -7,7 +7,14 @@ import { id } from 'date-fns/locale/id';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  FC,
+  Fragment,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { Paginations } from './paginations';
 
 const useInformationPagination = () => {
@@ -75,7 +82,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
                 alt={item.title}
                 width={515}
                 height={250}
-                className="h-[250px] w-full aspect-video rounded-lg object-cover"
+                className="h-[250px] w-full aspect-video rounded-lg object-cover size-auto"
               />
               <div className="flex flex-col gap-3 items-center justify-center p-6">
                 <h1 className="text-xl text-primary-70%">
@@ -92,7 +99,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
           );
         })
       ) : (
-        <>
+        <Fragment>
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
@@ -107,7 +114,7 @@ export const NewsListSection: FC<{ className?: string }> = ({
               </div>
             </div>
           ))}
-        </>
+        </Fragment>
       )}
       <div className="col-span-1 sm:col-span-2 lg:col-span-3 w-full justify-center items-center">
         <Paginations

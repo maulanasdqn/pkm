@@ -19,6 +19,7 @@ import {
 import {
   ChangeEvent,
   FC,
+  Fragment,
   ReactElement,
   useCallback,
   useEffect,
@@ -156,7 +157,7 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
     }
   }, [fetchData, id]);
   return (
-    <>
+    <Fragment>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="capitalize" size={id ? 'sm' : 'md'}>
@@ -306,6 +307,6 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
         variant="success"
         timer={3000}
       />
-    </>
+    </Fragment>
   );
 };

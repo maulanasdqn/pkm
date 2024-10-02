@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement } from 'react';
+import { FC, Fragment, ReactElement } from 'react';
 import { InformationDetailModuleProps } from './type';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale/id';
@@ -28,7 +28,7 @@ export const NewsDetailModule: FC<InformationDetailModuleProps> = ({
             width={913}
             height={425}
             quality={100}
-            className="w-full max-h-[425px] aspect-video rounded object-cover"
+            className="w-full max-h-[425px] aspect-video rounded object-cover size-auto"
           />
           <h2 className="text-xl sm:text-2xl md:text-3xl text-primary-70%">
             <span>{location},</span>
@@ -72,7 +72,7 @@ export const NewsDetailModule: FC<InformationDetailModuleProps> = ({
                 );
               })
             ) : (
-              <>
+              <Fragment>
                 {Array.from({ length: 2 }).map((_, index) => (
                   <div
                     key={index}
@@ -84,7 +84,7 @@ export const NewsDetailModule: FC<InformationDetailModuleProps> = ({
                     </div>
                   </div>
                 ))}
-              </>
+              </Fragment>
             )}
           </div>
         </aside>

@@ -1,10 +1,10 @@
-import { FC, ReactElement, Suspense } from 'react';
+import { FC, Fragment, ReactElement, Suspense } from 'react';
 import { HeroSection, NewsListSection } from './sections';
 import { LoadingOutlined } from '@ant-design/icons';
 
 export const NewsPageModule: FC = (): ReactElement => {
   return (
-    <>
+    <Fragment>
       <HeroSection className="mb-10 md:mb-20" />
       <Suspense
         fallback={
@@ -18,6 +18,6 @@ export const NewsPageModule: FC = (): ReactElement => {
       >
         <NewsListSection className="mb-10 md:mb-20" />
       </Suspense>
-    </>
+    </Fragment>
   );
 };
