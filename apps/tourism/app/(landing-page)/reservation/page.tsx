@@ -1,7 +1,8 @@
-import { FC, ReactElement } from 'react';
+import { ReactElement } from 'react';
+import { NextPage } from 'next';
 import { ReservationModule } from './_modules';
 
-const ReservationPage: FC = (): ReactElement => {
+const ReservationPage: NextPage = (): ReactElement => {
   return <ReservationModule />;
 };
 

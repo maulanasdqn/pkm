@@ -15,6 +15,7 @@ import {
 import {
   ChangeEvent,
   FC,
+  Fragment,
   ReactElement,
   useCallback,
   useEffect,
@@ -136,7 +137,7 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
   }, [fetchData, id]);
 
   return (
-    <>
+    <Fragment>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="capitalize" size={id ? 'icon' : 'md'}>
@@ -249,6 +250,6 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
         variant="success"
         timer={3000}
       />
-    </>
+    </Fragment>
   );
 };

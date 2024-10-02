@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, Fragment, ReactElement, useEffect, useState } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
@@ -71,7 +71,7 @@ export const DestinationSection: FC = (): ReactElement => {
                         width={560}
                         height={300}
                         quality={100}
-                        className="h-[300px] w-full aspect-video rounded"
+                        className="h-[300px] w-full aspect-video rounded size-auto"
                       />
                       <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
                         {item.name}
@@ -81,7 +81,7 @@ export const DestinationSection: FC = (): ReactElement => {
                 </CarouselItem>
               ))
             ) : (
-              <>
+              <Fragment>
                 {Array.from({ length: 3 }).map((_, index) => (
                   <CarouselItem
                     key={index}
@@ -92,7 +92,7 @@ export const DestinationSection: FC = (): ReactElement => {
                     </div>
                   </CarouselItem>
                 ))}
-              </>
+              </Fragment>
             )}
           </CarouselContent>
         </Carousel>

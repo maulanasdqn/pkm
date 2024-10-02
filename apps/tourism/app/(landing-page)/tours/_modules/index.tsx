@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, Fragment, ReactElement, useEffect, useState } from 'react';
 import { TDestinationSchema } from '@pkm/libs/entities';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
 
@@ -45,7 +45,7 @@ export const ToursPageModule: FC = (): ReactElement => {
                   width={560}
                   height={300}
                   quality={100}
-                  className="h-[300px] w-full aspect-video rounded object-cover"
+                  className="h-[300px] w-full aspect-video rounded object-cover size-auto"
                 />
                 <span className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-lg font-semibold text-primary-80% bg-white hover:text-primary-60% shadow-md capitalize">
                   {item.name}
@@ -55,7 +55,7 @@ export const ToursPageModule: FC = (): ReactElement => {
             </Link>
           ))
         ) : (
-          <>
+          <Fragment>
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
@@ -66,7 +66,7 @@ export const ToursPageModule: FC = (): ReactElement => {
                 <div className="h-5 w-full bg-neutral-50% rounded mt-3"></div>
               </div>
             ))}
-          </>
+          </Fragment>
         )}
       </div>
     </section>

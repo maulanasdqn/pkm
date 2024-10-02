@@ -1,5 +1,5 @@
 'use client';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, Fragment, ReactElement, useEffect, useState } from 'react';
 import {
   Button,
   Carousel,
@@ -61,7 +61,7 @@ export const NewsSection: FC = (): ReactElement => {
                             alt={item.title}
                             width={515}
                             height={250}
-                            className="h-[250px] w-full aspect-video rounded-lg object-cover"
+                            className="h-[250px] w-full aspect-video rounded-lg object-cover size-auto"
                           />
                           <div className="flex flex-col gap-3 items-center justify-center p-6">
                             <h1 className="text-xl text-primary-70%">
@@ -80,7 +80,7 @@ export const NewsSection: FC = (): ReactElement => {
                   );
                 })
               ) : (
-                <>
+                <Fragment>
                   {Array.from({ length: 3 }).map((_, index) => (
                     <CarouselItem
                       key={index}
@@ -97,7 +97,7 @@ export const NewsSection: FC = (): ReactElement => {
                       </div>
                     </CarouselItem>
                   ))}
-                </>
+                </Fragment>
               )}
             </CarouselContent>
             <CarouselPrevious />

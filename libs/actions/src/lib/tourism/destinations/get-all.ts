@@ -18,7 +18,7 @@ export const getAllDestinations = async (
 }> => {
   try {
     const page = params?.page || 1;
-    const perPage = params?.perPage || 10;
+    const perPage = params?.perPage || 100;
     const offset = (page - 1) * perPage;
 
     const data = await db

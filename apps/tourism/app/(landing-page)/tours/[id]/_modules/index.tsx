@@ -34,7 +34,7 @@ export const TourDetailModule: FC<TTourDetailProps> = ({
                   width={1440}
                   height={450}
                   quality={100}
-                  className="h-[450px] w-full aspect-video rounded object-cover"
+                  className="h-[450px] w-full aspect-video rounded object-cover size-auto"
                 />
               </div>
             </CarouselItem>

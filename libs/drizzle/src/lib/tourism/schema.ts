@@ -126,6 +126,7 @@ export const reservations = pgTable('app_reservations', {
   date: timestamp('date', { mode: 'date' }).notNull(),
   time: text('time').notNull(),
   quantity: integer('quantity').notNull(),
+  status: varchar('status').notNull(),
   destinationId: uuid('destination_id').references(() => destinations.id, {
     onDelete: 'cascade',
   }),
