@@ -21,6 +21,9 @@ import Image from 'next/image';
 import { AddProductButton, DeleteProductButton } from './buttons';
 import { EditProductButton } from './buttons/edit';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export const ProductTable = <TData extends TProductTable, TValue>({
   data,
   columns,
