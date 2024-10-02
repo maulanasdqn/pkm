@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { FC, forwardRef, ReactElement } from 'react';
 import type { TControlledSelect, TSelectProps, TSelectOption } from './type';
 import { cn } from '@pkm/libs/clsx';
-import { FieldValues, useController } from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 
 export const selectClassName = cva(
   'w-full border px-4 py-2.5 rounded-[4px] focus:outline-none font-medium disabled:cursor-not-allowed disabled:border-neutral-60% disabled:text-neutral-50% disabled:bg-neutral-10% disabled:placeholder:text-neutral-50%',

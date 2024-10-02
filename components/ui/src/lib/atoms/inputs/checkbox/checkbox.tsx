@@ -1,8 +1,8 @@
 import { FC, Fragment, ReactElement } from 'react';
 import { TCheckBox, TControlledCheckBox } from './type';
-import { FieldValues, useController } from 'react-hook-form';
 import { cn } from '@pkm/libs/clsx';
 import { cva, VariantProps } from 'class-variance-authority';
+import { type FieldValues, useController } from 'react-hook-form';
 
 const checkboxClassName = cva(
   'size-8 rounded-full border-2 peer-checked:bg-black transition-all duration-200',
