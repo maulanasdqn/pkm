@@ -1,5 +1,5 @@
 {
-  "id": "3b5020ab-4775-431a-9cab-9fd0f57f9fa7",
+  "id": "ffc5973d-f62e-4cef-9455-eeb06436e8c4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -443,6 +443,19 @@
           "primaryKey": false,
           "notNull": true
         },
+        "gender": {
+          "name": "gender",
+          "type": "gender",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(13)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "email_verified_at": {
           "name": "email_verified_at",
           "type": "timestamp",
@@ -492,7 +505,16 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "public.gender": {
+      "name": "gender",
+      "schema": "public",
+      "values": [
+        "male",
+        "female"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "_meta": {

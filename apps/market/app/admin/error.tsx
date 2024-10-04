@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <section className="w-full h-screen flex flex-col justify-between items-center p-20">
+    <section className="w-full h-screen flex flex-col justify-center items-center p-20 gap-10">
       {error.digest && (
         <p className="text-red-500 text-center">{error.digest}</p>
       )}

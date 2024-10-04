@@ -18,6 +18,8 @@ export const seederUsers = async (db: TDBMarketDrizzle) => {
         address: faker.location.country(),
         roleId: 2,
         emailVerifiedAt: new Date(),
+        gender: faker.helpers.arrayElement(['male', 'female']),
+        phoneNumber: faker.phone.number({ style: 'international' }),
       });
     }
 

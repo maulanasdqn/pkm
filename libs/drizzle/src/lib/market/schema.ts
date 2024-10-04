@@ -6,10 +6,13 @@ import {
   uuid,
   varchar,
   integer,
+  pgEnum,
 } from 'drizzle-orm/pg-core';
 
 export const defaultImage =
   'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png';
+
+export const genderEnum = pgEnum('gender', ['male', 'female']);
 
 /*
  * User
@@ -27,6 +30,8 @@ export const users = pgTable('app_users', {
   address: text('address').notNull(),
   fullname: varchar('fullname').notNull(),
   password: varchar('password').notNull(),
+  gender: genderEnum('gender'),
+  phoneNumber: varchar('phone_number', { length: 13 }),
   emailVerifiedAt: timestamp('email_verified_at', { mode: 'date' }),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
@@ -42,6 +47,8 @@ export const userRelations = relations(users, ({ one }) => ({
     references: [carts.userId],
   }),
 }));
+
+export type Users = typeof users.$inferSelect;
 
 /*
  * Role

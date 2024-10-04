@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."gender" AS ENUM('male', 'female');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "app_cart_items" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"cart_id" uuid,
@@ -64,6 +70,8 @@ CREATE TABLE IF NOT EXISTS "app_users" (
 	"address" text NOT NULL,
 	"fullname" varchar NOT NULL,
 	"password" varchar NOT NULL,
+	"gender" "gender",
+	"phone_number" varchar(13),
 	"email_verified_at" timestamp,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
