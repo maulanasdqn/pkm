@@ -30,6 +30,11 @@ const nextConfig = {
         hostname: 'img.freepik.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'w7.pngwing.com',
+        port: '',
+      },
     ],
   },
   redirects: async () => {

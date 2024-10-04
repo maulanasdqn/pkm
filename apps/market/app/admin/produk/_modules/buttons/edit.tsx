@@ -221,7 +221,7 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
                 width={100}
                 height={100}
                 quality={100}
-                className="rounded-[4px] object-cover object-center"
+                className="max-h-[100px] max-w-[100px] rounded-[4px] object-cover object-center"
               />
               <TextField
                 name="image"
