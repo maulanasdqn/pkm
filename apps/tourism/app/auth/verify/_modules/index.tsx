@@ -1,45 +1,50 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { sendOtp } from '@pkm/libs/actions/tourism';
+import { verifyOtp } from '@pkm/libs/actions/tourism';
 import { Alert, ControlledTextField, FormAuth } from '@pkm/ui';
 import Link from 'next/link';
 import { FC, ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useForgotPasswordContext } from './context';
 import { useRouter } from 'next/navigation';
+import { useForgotPasswordContext } from '../../forgot-password/_modules/context';
 
-const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: 'Email tidak valid' }),
+const verifyOtpSchema = z.object({
+  otp: z.string().regex(/^[0-9]+$/, 'Kode Otp hanya berisi angka!'),
 });
 
-export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
-export const ForgotPasswordModule: FC = (): ReactElement => {
+export type TVerifyOtpSchema = z.infer<typeof verifyOtpSchema>;
+export const VerifyModule: FC = (): ReactElement => {
   const router = useRouter();
   const {
     control,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm<TForgotPasswordSchema>({
-    resolver: zodResolver(forgotPasswordSchema),
+  } = useForm<TVerifyOtpSchema>({
+    resolver: zodResolver(verifyOtpSchema),
     defaultValues: {
-      email: '',
+      otp: '',
     },
     mode: 'all',
   });
   const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
   const [message, setMessage] = useState('');
-  const { setData } = useForgotPasswordContext();
+  const { data } = useForgotPasswordContext();
 
-  const onSubmit = async (data: TForgotPasswordSchema) => {
+  const onSubmit = async (value: TVerifyOtpSchema) => {
     try {
-      const res = await sendOtp(data.email);
-      if (res.message) {
-        setMessage(res.message);
-        setData({ email: data.email, isForgotPassword: true });
-        setIsSuccess(true);
-        router.push('/auth/verify');
+      if (!data) {
+        router.push('/auth/login');
+        return;
+      }
+      if (data.isForgotPassword) {
+        const res = await verifyOtp(data?.email as string, value.otp);
+        if (res.message) {
+          setMessage(res.message);
+          setIsSuccess(true);
+          router.push('/auth/reset-password');
+        }
       }
     } catch (error) {
       console.error(error);
@@ -54,22 +59,22 @@ export const ForgotPasswordModule: FC = (): ReactElement => {
     <FormAuth
       onSubmit={handleSubmit(onSubmit)}
       buttonName="Kirim"
-      title="Lupa Password?"
-      subtitle="Jangan khawatir! Cukup masukkan email Anda, dan kami akan membantu Anda."
+      title="Verifikasi Otp"
+      subtitle="Check Pesan email anda, kami telah kirimkan kode otp ke email anda."
       buttonLoading={isSubmitting}
     >
       <div className="flex flex-col gap-2">
         <ControlledTextField
-          placeholder="Masukan Email"
-          name="email"
+          placeholder="Masukan Otp"
+          name="otp"
           control={control}
-          errorMessage={errors.email?.message}
+          errorMessage={errors.otp?.message}
           variant={
-            errors.email ? 'error' : isSubmitSuccessful ? 'success' : 'default'
+            errors.otp ? 'error' : isSubmitSuccessful ? 'success' : 'default'
           }
         />
         <Link href="/auth/forgot-password" className="text-xs text-neutral-60%">
-          kirim ulang email?
+          kirim ulang otp?
         </Link>
       </div>
       <Alert

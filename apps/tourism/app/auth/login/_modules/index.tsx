@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormAuth, FormAuthFooter, ControlledTextField, Alert } from '@pkm/ui';
+import { FormAuth, ControlledTextField, Alert } from '@pkm/ui';
 import Link from 'next/link';
 import { FC, ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,13 +46,6 @@ export const LoginModule: FC = (): ReactElement => {
       title="Masuk Akun"
       buttonName="Masuk"
       buttonLoading={isSubmitting}
-      footer={
-        <FormAuthFooter
-          title="Belum punya akun"
-          link="/auth/register"
-          linkName="Daftar"
-        />
-      }
     >
       <fieldset className="w-full flex flex-col gap-8 font-montserrat">
         <ControlledTextField

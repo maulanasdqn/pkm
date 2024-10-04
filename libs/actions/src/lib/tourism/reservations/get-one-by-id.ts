@@ -21,6 +21,7 @@ export const getOneReservation = async (
         date: reservations.date,
         time: reservations.time,
         status: reservations.status,
+        total: reservations.total,
         quantity: reservations.quantity,
         destination: {
           id: destinations.id,

@@ -11,7 +11,6 @@ export const RegisterModule: FC = (): ReactElement => {
     control,
     handleSubmit,
     setError,
-
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<TRegisterSchema>({
     resolver: zodResolver(RegisterSchema),

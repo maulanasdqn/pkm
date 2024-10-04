@@ -29,6 +29,27 @@
       "when": 1726430809046,
       "tag": "0003_brown_cyclops",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1727914302626,
+      "tag": "0004_deep_sugar_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1728001033792,
+      "tag": "0005_mean_captain_universe",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1728055298912,
+      "tag": "0006_cool_ser_duncan",
+      "breakpoints": true
     }
   ]
 }
