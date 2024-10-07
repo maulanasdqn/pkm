@@ -13,6 +13,7 @@ export const updateReservation = async ({
   date,
   time,
   status,
+  total,
   quantity,
   destinationId,
 }: TUpdateReservationSchema) => {
@@ -27,6 +28,7 @@ export const updateReservation = async ({
         time,
         status,
         quantity,
+        total,
         destinationId,
       })
       .where(eq(reservations.id, id))

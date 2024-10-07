@@ -11,6 +11,7 @@ export const createReservation = async ({
   date,
   time,
   status,
+  total,
   quantity,
   destinationId,
 }: TCreateReservationSchema) => {
@@ -24,6 +25,7 @@ export const createReservation = async ({
         date,
         time,
         status,
+        total,
         quantity,
         destinationId,
       })

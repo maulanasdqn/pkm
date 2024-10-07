@@ -41,6 +41,7 @@ const reservationDataEmpty: TReservationSchema = {
   time: '',
   quantity: 0,
   status: '',
+  total: 0,
   destination: {
     id: '',
     name: '',
@@ -107,6 +108,7 @@ export const EditReservationFormTrigger: React.FC<TReservationForm> = ({
         time: data.time,
         quantity: data.quantity,
         status: data.status,
+        total: data.total,
         destination: {
           id: data.destination?.id as string,
           name: data.destination?.name as string,
@@ -122,10 +124,12 @@ export const EditReservationFormTrigger: React.FC<TReservationForm> = ({
       setValue('time', data.time);
       setValue('quantity', data.quantity);
       setValue('status', data.status);
+      setValue('total', data.total);
       setValue('destinationId', data.destination?.id as string);
     }
   }, [id, setValue]);
 
+  console.log(errors);
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       setIsSuccess(isSubmitSuccessful);
@@ -276,6 +280,12 @@ export const EditReservationFormTrigger: React.FC<TReservationForm> = ({
                   </Button>
                 </div>
               </span>
+            </div>
+            <div className="grid grid-cols-5 gap-2">
+              <p>Total harga:</p>
+              <h2 className="col-span-4">
+                <span className="mr-2">:</span> {reservationData.total}
+              </h2>
             </div>
           </form>
           <DialogFooter className="p-5 pt-2.5 justify-end">

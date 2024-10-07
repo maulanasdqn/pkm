@@ -1,13 +1,17 @@
 'use server';
-
 import { db, destinations, reservations } from '@pkm/libs/drizzle/tourism';
 import { TReservationSchema } from '@pkm/libs/entities';
-import { asc, eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { DatabaseError } from 'pg';
 
-export const getAllReservations = async (): Promise<{
+export const getOneReservationByName = async (
+  name: string,
+  email: string,
+  phoneNumber: string
+): Promise<{
   status: { [key: string]: boolean };
-  data: TReservationSchema[];
+  data: TReservationSchema;
+  message: string;
 }> => {
   try {
     const data = await db
@@ -18,8 +22,8 @@ export const getAllReservations = async (): Promise<{
         phoneNumber: reservations.phoneNumber,
         date: reservations.date,
         time: reservations.time,
-        quantity: reservations.quantity,
         status: reservations.status,
+        quantity: reservations.quantity,
         total: reservations.total,
         destination: {
           id: destinations.id,
@@ -28,11 +32,22 @@ export const getAllReservations = async (): Promise<{
       })
       .from(reservations)
       .leftJoin(destinations, eq(destinations.id, reservations.destinationId))
-      .orderBy(asc(reservations.date));
+      .where(
+        and(
+          eq(reservations.name, name),
+          eq(reservations.email, email),
+          eq(reservations.phoneNumber, phoneNumber)
+        )
+      )
+      .then((res) => res.at(0));
 
+    if (!data) {
+      throw new Error('reservasi tidak ditemukan');
+    }
     return {
       status: { ok: true },
       data: data,
+      message: 'reservasi ditemukan!',
     };
   } catch (error) {
     if (error instanceof DatabaseError) {

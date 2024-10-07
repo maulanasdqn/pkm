@@ -38,6 +38,7 @@ export const reservationsSeeder = async (db: TDBTourismDrizzle) => {
         time: formattedTime,
         quantity: faker.number.int(100),
         status: dummyStatus[faker.number.int({ min: 0, max: 2 })],
+        total: faker.number.int({ min: 1000, max: 20000 }),
         destinationId:
           dummyDestinations[faker.number.int({ min: 0, max: 2 })].id,
       });

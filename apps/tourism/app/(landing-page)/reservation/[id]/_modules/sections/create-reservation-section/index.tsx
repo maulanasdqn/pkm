@@ -49,6 +49,7 @@ export const CreateReservationSection: FC<CreateReservationSectionProps> = ({
       email: '',
       quantity: 0,
       time: '',
+      total: 0,
     },
     mode: 'all',
   });
@@ -61,6 +62,7 @@ export const CreateReservationSection: FC<CreateReservationSectionProps> = ({
       await createReservation({
         ...values,
         date: date as Date,
+        total: qty * dataDestination.ticketPrice,
         quantity: qty,
       });
     } catch (error) {

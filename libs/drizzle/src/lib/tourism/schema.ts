@@ -17,6 +17,7 @@ export const defaultImage =
 export const users = pgTable('app_users', {
   id: uuid('id').defaultRandom().primaryKey(),
   otp: varchar('otp'),
+  otpExp: timestamp('otp_expired', { mode: 'date' }),
   email: varchar('email').notNull().unique(),
   image: text('image').default(defaultImage),
   roleId: uuid('role_id').references(() => roles.id, { onDelete: 'cascade' }),
@@ -127,6 +128,7 @@ export const reservations = pgTable('app_reservations', {
   time: text('time').notNull(),
   quantity: integer('quantity').notNull(),
   status: varchar('status').notNull(),
+  total: integer('total').notNull(),
   destinationId: uuid('destination_id').references(() => destinations.id, {
     onDelete: 'cascade',
   }),

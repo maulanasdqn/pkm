@@ -1,0 +1,1 @@
+ALTER TABLE "app_reservations" ADD COLUMN "status" varchar NOT NULL;

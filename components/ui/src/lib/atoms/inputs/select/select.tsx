@@ -10,7 +10,7 @@ export const selectClassName = cva(
     variants: {
       variant: {
         default:
-          'border-neutral-60% placeholder:text-neutral-60% text-neutral-60%',
+          'border-neutral-60% placeholder:text-neutral-80% text-neutral-80%',
         success: 'bg-white border-primary-50% text-neutral-80%',
         info: 'bg-white border-blue-80% text-neutral-80%',
         error: 'bg-white border-red-60% text-red-50% placeholder:text-red-50%',
