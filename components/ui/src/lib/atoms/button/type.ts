@@ -18,6 +18,6 @@ export type TButton = DetailedHTMLProps<
     variant?: 'primary' | 'secondary' | 'text';
     size?: 'sm' | 'md' | 'lg' | 'icon';
     href?: string;
-    color?: 'primary' | 'secondary' | 'red' | 'black';
+    color?: 'primary' | 'secondary' | 'red' | 'black' | 'blue';
     isLoading?: boolean;
   };

@@ -7,7 +7,11 @@ import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BellOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import {
+  BellOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { signOut, useSession } from 'next-auth/react';
 
 const navList = [
@@ -79,6 +83,10 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                       <Link href="/carts">
                         <ShoppingCartOutlined className="text-3xl" />
                       </Link>
+                      <Link href="/profile">
+                        <UserOutlined className="text-3xl" />
+                      </Link>
+
                       <Button
                         onClick={async () =>
                           await signOut({

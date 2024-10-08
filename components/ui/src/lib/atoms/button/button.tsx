@@ -20,6 +20,8 @@ const primaryVariantColors = {
     'data-[color=secondary]:bg-secondary data-[color=secondary]:hover:bg-secondary-60% data-[color=secondary]:active:bg-secondary-70% data-[color=secondary]:focus:bg-secondary-60% data-[color=secondary]:text-white',
 
   red: 'data-[color=red]:bg-red data-[color=red]:hover:bg-red-60% data-[color=red]:active:bg-red-70% data-[color=red]:focus:bg-red-60%',
+
+  blue: 'data-[color=blue]:bg-blue data-[color=blue]:hover:bg-blue-60% data-[color=blue]:active:bg-blue-70% data-[color=blue]:focus:bg-blue-60%',
 };
 
 const secondaryVariantColors = {
@@ -40,7 +42,7 @@ const textVariantColors = {
 const btnClassName = cva(className, {
   variants: {
     variant: {
-      primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red}`,
+      primary: `bg-primary hover:bg-primary-60% active:bg-primary-80% focus:bg-primary-60% text-white ${primaryVariantColors.secondary} ${primaryVariantColors.red} ${primaryVariantColors.blue}`,
       secondary: `border border-primary bg-transparent hover:bg-primary-20% active:bg-primary-40% focus:bg-primary-20% disabled:text-primary-40% text-primary ${secondaryVariantColors.secondary} ${secondaryVariantColors.red} ${secondaryVariantColors.black}`,
       text: `text-primary hover:text-primary-60% active:text-primary-70% focus:text-primary-60% disabled:text-primary-40% data-[color=secondary]:text-secondary-60% data-[color=secondary]:hover:text-secondary-70% data-[color=secondary]:active:text-secondary-80% data-[color=secondary]:focus:text-secondary-70% ${textVariantColors.black}`,
     },
