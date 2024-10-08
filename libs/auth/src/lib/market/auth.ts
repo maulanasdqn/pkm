@@ -48,6 +48,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           image: userData?.image,
           email: userData?.email,
           emailVerified: userData?.emailVerified,
+          gender: userData?.gender,
+          phoneNumber: userData?.phoneNumber,
           address: userData?.address,
           role: userData?.role,
           createdAt: userData?.createdAt,

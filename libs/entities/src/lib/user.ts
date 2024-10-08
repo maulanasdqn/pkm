@@ -2,6 +2,8 @@ export type TUser = {
   id: string;
   fullname?: string | null;
   image?: string | null;
+  phoneNumber?: string | null;
+  gender?: 'male' | 'female' | null;
   email: string;
   emailVerified: Date | null;
   address?: string | null;
