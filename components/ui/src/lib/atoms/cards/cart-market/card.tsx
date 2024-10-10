@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { TCardMarket, TCardMarketAdmin } from './type';
 import Link from 'next/link';
-import { CalendarOutlined } from '@ant-design/icons';
 
 export const CardMarket: FC<TCardMarket> = (props): ReactElement => {
   return (
@@ -17,10 +16,10 @@ export const CardMarket: FC<TCardMarket> = (props): ReactElement => {
         width={500}
         height={500}
         quality={100}
-        className="min-w-[300px] min-h-[300px] rounded-[4px] object-cover object-center"
+        className="min-w-[300px] max-w-[300px] min-h-[300px] max-h-[300px] rounded-[4px] object-cover object-center"
       />
 
-      <div className="flex flex-col gap-1 text-2xl font-medium">
+      <div className="flex flex-col gap-1 text-xl font-medium">
         <p>{props.name}</p>
         <p className="text-red-80%">
           Rp. {props.price.toLocaleString('id-ID')}

@@ -1,3 +1,4 @@
+'use client';
 import { FC, Fragment, ReactElement } from 'react';
 import { TCheckBox, TControlledCheckBox } from './type';
 import { cn } from '@pkm/libs/clsx';

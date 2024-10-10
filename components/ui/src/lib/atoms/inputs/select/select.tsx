@@ -1,3 +1,4 @@
+'use client';
 import { cva, VariantProps } from 'class-variance-authority';
 import { FC, forwardRef, ReactElement } from 'react';
 import type { TControlledSelect, TSelectProps, TSelectOption } from './type';

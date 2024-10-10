@@ -42,6 +42,7 @@ export const AutoImageSlider: FC<TAutoSlider> = ({
             alt={`activity-${index + 1}`}
             fill
             quality={100}
+            className="object-cover object-center"
           />
         </div>
       ))}

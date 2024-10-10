@@ -19,6 +19,9 @@
     "tourism:db:gen": "drizzle-kit generate --config libs/drizzle/src/lib/tourism/config.ts",
     "tourism:db:push": "drizzle-kit push --config libs/drizzle/src/lib/tourism/config.ts",
     "tourism:db:seed": "nx run drizzle:seeds:tourism-seed",
+    "backoffice:prod": "nx start backoffice --no-cloud",
+    "backoffice:dev": "nx dev backoffice --no-cloud",
+    "backoffice:build": "nx build backoffice --no-cloud",
     "prepare": "husky"
   },
   "private": true,

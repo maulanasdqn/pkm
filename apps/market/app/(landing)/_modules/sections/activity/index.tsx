@@ -2,9 +2,9 @@ import { FC, ReactElement } from 'react';
 import { AutoImageSlider } from '@pkm/ui';
 
 const images = [
-  '/images/sample-activity.webp',
-  '/images/sample-activity-2.webp',
-  '/images/sample-activity-3.webp',
+  '/images/market-activity.webp',
+  '/images/market-activity-2.webp',
+  '/images/market-activity-3.webp',
 ];
 
 export const ActivitySection: FC = (): ReactElement => {

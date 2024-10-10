@@ -1,7 +1,10 @@
+import { getAllProducts } from '@pkm/libs/actions/market';
 import { CardMarket, HeroMarket, TextField } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
 
-export const ProductsModule: FC = (): ReactElement => {
+export const ProductsModule: FC = async (): Promise<ReactElement> => {
+  const products = await getAllProducts();
+
   return (
     <section className="w-full h-full flex items-center flex-col gap-12">
       <HeroMarket imageUrl="/images/sample-hero.webp" className="gap-8">
@@ -16,13 +19,13 @@ export const ProductsModule: FC = (): ReactElement => {
       </HeroMarket>
 
       <div className="grid grid-cols-3 pt-12 pb-20 gap-6">
-        {Array.from({ length: 9 }).map((_, i) => (
+        {products?.data?.map((item, i) => (
           <CardMarket
             key={i}
-            name="Kopi"
-            price={15000}
-            href="/products/1"
-            imageUrl="/images/kopi.webp"
+            name={item?.name}
+            price={item?.price}
+            href={`/products/${item?.id}`}
+            imageUrl={item?.image}
           />
         ))}
       </div>

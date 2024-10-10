@@ -8,8 +8,11 @@ import {
   CarouselPrevious,
 } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
+import { TOurProductsModule } from './types';
 
-export const ProductCarousel: FC = (): ReactElement => {
+export const ProductCarousel: FC<TOurProductsModule> = ({
+  products,
+}): ReactElement => {
   return (
     <Carousel
       opts={{
@@ -20,13 +23,13 @@ export const ProductCarousel: FC = (): ReactElement => {
     >
       <CarouselPrevious className="disabled:cursor-not-allowed" />
       <CarouselContent className="py-1">
-        {Array.from({ length: 7 }).map((_, i) => (
+        {products?.map((item, i) => (
           <CarouselItem key={i} className="basis-1/3">
             <CardMarket
-              href={`/products/${i + 1}`}
-              name="Kopi"
-              price={15000}
-              imageUrl="/images/kopi.webp"
+              href={`/products/${item?.id}`}
+              name={item?.name}
+              price={item?.price}
+              imageUrl={item?.image}
             />
           </CarouselItem>
         ))}
