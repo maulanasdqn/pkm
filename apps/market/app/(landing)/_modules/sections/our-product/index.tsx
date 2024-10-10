@@ -1,7 +1,10 @@
 import { Button } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
 import { ProductCarousel } from './products';
-export const OurProductSection: FC = (): ReactElement => {
+import { getAllProducts } from '@pkm/libs/actions/market';
+export const OurProductSection: FC = async (): Promise<ReactElement> => {
+  const products = await getAllProducts(6);
+
   return (
     <div className="w-full flex flex-col font-source-sans-pro mt-8 gap-12">
       <div className="w-full flex justify-between items-end">
@@ -17,7 +20,7 @@ export const OurProductSection: FC = (): ReactElement => {
         </Button>
       </div>
 
-      <ProductCarousel />
+      <ProductCarousel products={products?.data} />
     </div>
   );
 };

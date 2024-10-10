@@ -3,12 +3,13 @@
 import { db } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (limit?: number) => {
   try {
     const res = await db.query.products.findMany({
       with: {
         category: true,
       },
+      limit,
       orderBy(fields, operators) {
         return operators.desc(fields.createdAt);
       },
