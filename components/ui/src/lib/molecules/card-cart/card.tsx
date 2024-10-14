@@ -29,10 +29,7 @@ export const CardCart: FC<TCardCart> = ({
           className="min-w-[244px] max-w-[244px] min-h-[188px] max-h-[188px] rounded-[4px] object-cover object-center"
         />
 
-        <div className="flex flex-col gap-4">
-          <p className="text-3xl font-bold">Kopi</p>
-          <p className="text-2xl">200 gram</p>
-        </div>
+        <p className="text-2xl font-bold max-w-[8rem]">{props.name}</p>
       </div>
 
       <div className="py-1.5 w-full max-w-[111px] text-center rounded-sm text-xl border">

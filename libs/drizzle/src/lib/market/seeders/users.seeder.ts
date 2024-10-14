@@ -1,5 +1,5 @@
 import { TDBMarketDrizzle } from './types';
-import { users } from '../schema';
+import { users, carts } from '../schema';
 import { faker } from '@faker-js/faker';
 
 export const seederUsers = async (db: TDBMarketDrizzle) => {
@@ -23,7 +23,17 @@ export const seederUsers = async (db: TDBMarketDrizzle) => {
       });
     }
 
-    await db.insert(users).values(dummyUsers).returning();
+    const result = await db.insert(users).values(dummyUsers).returning();
+
+    const initialCarts = [];
+
+    for (let i = 0; i < result.length; i++) {
+      initialCarts.push({
+        userId: result[i].id,
+      });
+    }
+
+    await db.insert(carts).values(initialCarts).returning();
 
     console.log('Users Market has been seeded!\n');
   } catch (error) {

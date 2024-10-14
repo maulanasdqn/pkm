@@ -3,7 +3,7 @@
 import { db } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
-export const getAllProducts = async (limit?: number) => {
+export const getAllProducts = async (limit?: number, search?: string) => {
   try {
     const res = await db.query.products.findMany({
       with: {
@@ -13,6 +13,10 @@ export const getAllProducts = async (limit?: number) => {
       orderBy(fields, operators) {
         return operators.desc(fields.createdAt);
       },
+      where: search
+        ? (products, { ilike }) =>
+            ilike(products.name, `%${search.toLowerCase()}%`)
+        : undefined,
     });
     return { status: { ok: true }, data: res };
   } catch (error) {

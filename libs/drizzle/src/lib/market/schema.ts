@@ -185,12 +185,13 @@ export const cartItemRelations = relations(cartItems, ({ one }) => ({
   }),
 }));
 
+export type CartItems = typeof cartItems.$inferSelect;
+
 export const carts = pgTable('app_carts', {
   id: uuid('id').defaultRandom().primaryKey(),
   userId: uuid('user_id').references(() => users.id, {
     onDelete: 'cascade',
   }),
-  status: varchar('status').notNull(),
   totalPrice: integer('total_price'),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
@@ -205,3 +206,7 @@ export const cartRelations = relations(carts, ({ one, many }) => ({
 }));
 
 export type Carts = typeof carts.$inferSelect;
+
+export type CartsWithItems = Carts & {
+  cartItems: (CartItems & { product: Products })[];
+};

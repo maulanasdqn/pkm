@@ -3,9 +3,10 @@
 import 'server-only';
 import { eq } from 'drizzle-orm';
 import { signOut } from './auth';
-import { db, users } from '@pkm/libs/drizzle/market';
+import { carts, db, users } from '@pkm/libs/drizzle/market';
 import { hashPassword, verifyPassword } from '../common';
 import { DatabaseError } from 'pg';
+import { MarketRoles } from '@pkm/libs/entities';
 
 export const register = async (
   fullname: string,
@@ -28,7 +29,7 @@ export const register = async (
         email,
         password: hashedPassword,
         address: '',
-        roleId: 2,
+        roleId: MarketRoles.USER,
         emailVerifiedAt: new Date(),
       })
       .returning({
@@ -36,6 +37,10 @@ export const register = async (
         email: users.email,
         fullname: users.fullname,
       });
+
+    await db.insert(carts).values({
+      userId: newUser[0].id,
+    });
 
     return newUser;
   } catch (error) {

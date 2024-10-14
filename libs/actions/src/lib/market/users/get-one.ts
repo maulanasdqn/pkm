@@ -7,7 +7,7 @@ export const getOneUser = async (id: string) => {
   try {
     const res = await db.query.users.findFirst({
       where: (users, { eq }) => eq(users.id, id),
-      with: { roles: true },
+      with: { roles: true, carts: true },
     });
     return { status: { ok: true }, data: res };
   } catch (error) {
