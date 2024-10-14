@@ -6,7 +6,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { type FieldValues, useController } from 'react-hook-form';
 
 const checkboxClassName = cva(
-  'size-8 rounded-full border-2 peer-checked:bg-black transition-all duration-200',
+  'size-8 rounded-full border-2 peer-checked:bg-black transition-all duration-200 peer-disabled:cursor-not-allowed peer-disabled:bg-neutral-30% peer-disabled:border-neutral-60%',
   {
     variants: {
       shape: {

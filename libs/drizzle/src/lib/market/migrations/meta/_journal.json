@@ -8,6 +8,13 @@
       "when": 1728032739509,
       "tag": "0000_slippery_nekra",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728876763447,
+      "tag": "0001_right_amazoness",
+      "breakpoints": true
     }
   ]
 }

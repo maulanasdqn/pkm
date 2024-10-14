@@ -1,9 +1,19 @@
+'use client';
 import { getAllProducts } from '@pkm/libs/actions/market';
+import { Products } from '@pkm/libs/drizzle/market';
 import { CardMarket, HeroMarket, TextField } from '@pkm/ui';
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 
-export const ProductsModule: FC = async (): Promise<ReactElement> => {
-  const products = await getAllProducts();
+export const ProductsModule: FC = (): ReactElement => {
+  const [products, setProducts] = useState<Products[]>([]);
+  const [search, setSearch] = useState('');
+  // const products = await getAllProducts();
+
+  useEffect(() => {
+    getAllProducts(20, search).then((products) => {
+      setProducts(products?.data);
+    });
+  }, [search]);
 
   return (
     <section className="w-full h-full flex items-center flex-col gap-12">
@@ -14,12 +24,18 @@ export const ProductsModule: FC = async (): Promise<ReactElement> => {
 
         <div className="w-[25%] flex flex-col text-center gap-4">
           <h3 className="text-4xl font-bold">PRODUK KAMI</h3>
-          <TextField type="search" placeholder="Cari Produk" dimension="lg" />
+          <TextField
+            variant="default"
+            type="search"
+            placeholder="Cari Produk"
+            dimension="lg"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
       </HeroMarket>
 
       <div className="grid grid-cols-3 pt-12 pb-20 gap-6">
-        {products?.data?.map((item, i) => (
+        {products?.map((item, i) => (
           <CardMarket
             key={i}
             name={item?.name}

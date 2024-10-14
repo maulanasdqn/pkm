@@ -1,14 +1,18 @@
 'use client';
 import { PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Button, HeroMarket } from '@pkm/ui';
+import { Alert, Button, HeroMarket } from '@pkm/ui';
 import Image from 'next/image';
 import { FC, Fragment, ReactElement, useState } from 'react';
 import { TProductIdModule } from './types';
+import { insertCart } from '@pkm/libs/actions/market';
+import { useSession } from 'next-auth/react';
 
 export const ProductIdModule: FC<TProductIdModule> = ({
   product,
 }): ReactElement => {
   const [quantity, setQuantity] = useState(1);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const handleAddQuantity = () => {
     if (quantity === product?.stock) return;
@@ -18,6 +22,33 @@ export const ProductIdModule: FC<TProductIdModule> = ({
   const handleReduceQuantity = () => {
     if (quantity === 1) return;
     setQuantity(quantity - 1);
+  };
+
+  const { data: session } = useSession();
+
+  const handleAddToCart = async () => {
+    try {
+      if (!session?.user?.id) {
+        return setError('Silahkan login terlebih dahulu');
+      }
+
+      if (quantity > product?.stock) {
+        return setError('Jumlah melebihi stok');
+      }
+
+      await insertCart({
+        userId: session?.user?.id as string,
+        productId: product?.id,
+        quantity: quantity,
+      });
+
+      setIsSuccess(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+      setIsSuccess(false);
+    }
   };
 
   return (
@@ -94,6 +125,7 @@ export const ProductIdModule: FC<TProductIdModule> = ({
               size="lg"
               className="gap-2 max-w-[192px] rounded-[4px] h-10"
               color="black"
+              onClick={handleAddToCart}
             >
               <ShoppingCartOutlined className="text-lg relative -top-[0.2px]" />
               Masukan Keranjang
@@ -101,6 +133,22 @@ export const ProductIdModule: FC<TProductIdModule> = ({
           </div>
         </div>
       </div>
+
+      <Alert
+        show={isSuccess}
+        onHide={() => setIsSuccess(false)}
+        message="Produk ditambahkan ke keranjang"
+        variant="success"
+        timer={3000}
+      />
+
+      <Alert
+        show={!!error}
+        onHide={() => setError('')}
+        message={error}
+        variant="error"
+        timer={3000}
+      />
     </Fragment>
   );
 };
