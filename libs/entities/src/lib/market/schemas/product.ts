@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 export const CreateProductMarket = z.object({
   name: z.string({ required_error: 'name harus diisi!' }).min(1, {
-    message: 'name must be at least 1 characters!',
+    message: 'name harus diisi!',
   }),
-  description: z.string({ required_error: 'description harus diisi!' }).min(1, {
-    message: 'description must be at least 1 characters!',
+  description: z.string({ required_error: 'deskripsi harus diisi!' }).min(1, {
+    message: 'deskripsi harus diisi!',
   }),
   image: z
     .any()

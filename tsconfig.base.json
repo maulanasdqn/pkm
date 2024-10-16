@@ -27,6 +27,13 @@
       "@pkm/libs/drizzle/tourism": ["libs/drizzle/src/tourism.ts"],
       "@pkm/libs/entities": ["libs/entities/src/index.ts"],
       "@pkm/libs/env": ["libs/env/src/index.ts"],
+      "@pkm/libs/uploadthing/market/server": [
+        "libs/uploadthing/src/lib/market/server/index.ts"
+      ],
+      "@pkm/libs/uploadthing/market/client": [
+        "libs/uploadthing/src/lib/market/client/index.ts"
+      ],
+
       "@pkm/ui": ["components/ui/src/index.ts"]
     }
   },

@@ -7,7 +7,6 @@ import { FC, ReactElement, useEffect, useState } from 'react';
 export const ProductsModule: FC = (): ReactElement => {
   const [products, setProducts] = useState<Products[]>([]);
   const [search, setSearch] = useState('');
-  // const products = await getAllProducts();
 
   useEffect(() => {
     getAllProducts(20, search).then((products) => {
