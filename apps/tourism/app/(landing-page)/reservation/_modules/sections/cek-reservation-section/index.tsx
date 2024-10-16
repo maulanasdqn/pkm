@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { FC, ReactElement, useEffect, useState } from 'react';
-import { Alert, Button, ControlledTextField } from '@pkm/ui';
+import { FC, ReactElement, useState } from 'react';
+import { Button, ControlledTextField } from '@pkm/ui';
 import { cn } from '@pkm/libs/clsx';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useForm } from 'react-hook-form';
@@ -29,7 +29,6 @@ export const CekReservationSection: FC<{ className?: string }> = ({
       phoneNumber: '',
     },
   });
-  const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
   const [reservationData, setReservationData] =
     useState<TReservationSchema | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -49,11 +48,6 @@ export const CekReservationSection: FC<{ className?: string }> = ({
     }
   };
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      setIsSuccess(isSubmitSuccessful);
-    }
-  }, [isSubmitSuccessful]);
   return (
     <section className={cn('container mx-auto space-y-8 lg:px-40', className)}>
       <div className="flex p-5 gap-3 rounded-lg border border-neutral-60% bg-white shadow-md">
@@ -131,13 +125,6 @@ export const CekReservationSection: FC<{ className?: string }> = ({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         data={reservationData as TReservationSchema}
-      />
-      <Alert
-        show={isSuccess}
-        onHide={() => setIsSuccess(false)}
-        message="Cek reservasi berhasil"
-        variant="success"
-        timer={3000}
       />
     </section>
   );

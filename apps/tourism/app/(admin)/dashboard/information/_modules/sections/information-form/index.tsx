@@ -22,20 +22,22 @@ import {
   useState,
 } from 'react';
 import { TInformationFormTrigger } from './type';
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled, Loading3QuartersOutlined } from '@ant-design/icons';
 import {
+  changeFileNameTourism,
+  compressImageTourism,
   createInformationSchema,
   TCreateInformationSchema,
 } from '@pkm/libs/entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { uploadImage } from '@pkm/libs/actions';
 import {
   createInformation,
   getOneInformation,
   updateInformation,
 } from '@pkm/libs/actions/tourism';
 import Image from 'next/image';
+import { useUploadThing } from '@pkm/libs/uploadthing/tourism/client';
 
 export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
   id,
@@ -44,6 +46,8 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
   const {
     control,
     setValue,
+    watch,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
   } = useForm<TCreateInformationSchema>({
@@ -59,30 +63,24 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData | null>(null);
   const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
-  const [uploadedImage, setUploadedImage] = useState<string>('');
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
 
   const onSubmit = async (values: TCreateInformationSchema) => {
     try {
-      const imagesPath: string[] = [];
-      if (formData) {
-        const results = await uploadImage(formData as FormData, 'informations');
-        if (results) {
-          const { uploadedFiles } = results;
-          uploadedFiles.forEach((file) => {
-            imagesPath.push(file.path);
-          });
-        }
+      if (values.image.length === 0) {
+        return setError('image', {
+          type: 'custom',
+          message: 'Minimal harus ada 1 gambar yang diunggah',
+        });
       }
 
       if (id) {
-        await updateInformation({ ...values, id, image: imagesPath[0] });
+        await updateInformation({ ...values, id });
         setIsLoading(true);
       } else {
         await createInformation({
           ...values,
-          image: imagesPath[0],
         });
         setIsLoading(true);
       }
@@ -99,13 +97,27 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    const formData = new FormData();
     if (files) {
-      Array.from(files).forEach((file) => {
-        formData.append(`images`, file);
+      Array.from(files).forEach(async (file) => {
+        const newFile = changeFileNameTourism({
+          file,
+          prefix: 'product',
+          uniqueId: Date.now().toLocaleString(),
+        });
+
+        const compressedFile = await compressImageTourism(newFile, {
+          quality: 0.6,
+          type: 'image/jpeg',
+        });
+
+        if (compressedFile) {
+          const res = await startUpload([compressedFile]);
+          if (res) {
+            setValue('image', res[0].appUrl);
+          }
+        }
       });
     }
-    setFormData(formData);
   };
 
   const fetchData = useCallback(async () => {
@@ -116,11 +128,6 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
       setValue('description', data.description);
       setValue('location', data.location);
       setValue('image', data.image);
-      setUploadedImage(data.image);
-
-      const formData = new FormData();
-      formData.append('uploaded-image', data.image);
-      setFormData(formData);
     }
   }, [id, setValue]);
 
@@ -197,13 +204,18 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
               }
             />
             <div className="flex flex-col gap-2">
-              <h2>File yang diunggah</h2>
+              <h2>
+                File yang diunggah{' '}
+                {isUploading && (
+                  <Loading3QuartersOutlined className="ml-2.5 animate-spin" />
+                )}
+              </h2>
               <div className="flex justify-center items-center w-full rounded border border-neutral-60% p-5 min-h-[100px]">
-                {uploadedImage.length > 0 ? (
+                {watch('image').length > 0 ? (
                   <div className="w-[100px] h-[100px] rounded">
                     <Image
                       className="w-[100px] h-[100px] object-cover -z-10 group-hover:blur-sm group-hover:opacity-70 transition-all duration-200"
-                      src={uploadedImage}
+                      src={watch('image')}
                       width={100}
                       height={100}
                       alt="thumbnail"
@@ -236,7 +248,7 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
               form="form-information"
               type="submit"
               variant="primary"
-              disabled={isLoading || !formData ? true : false}
+              disabled={isLoading || isUploading}
             >
               {!id ? 'Tambah' : 'Edit'}
             </Button>

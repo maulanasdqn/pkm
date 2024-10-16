@@ -91,12 +91,17 @@ export const ReservationDialog: React.FC<ReservationDialogProps> = ({
             <p>Status : {status()}</p>
             <p>
               Total :{' '}
-              <span className="text-2xl font-semibold">{data.total}</span>{' '}
+              <span className="text-2xl font-semibold">
+                Rp {data.total.toLocaleString('id-ID')}
+              </span>{' '}
             </p>
           </div>
           <div className="flex p-5 gap-3 rounded-lg border border-neutral-60% bg-white shadow-md">
-            <ExclamationCircleOutlined className="text-lg shrink-0" />
             <div className="flex flex-col text-sm md:text-base">
+              <h1 className="inline-flex text-lg font-semibold">
+                <ExclamationCircleOutlined className="text-lg shrink-0 mr-2.5" />
+                Perhatian!
+              </h1>
               <span>Pembayaran tiket dilakukan secara on-site,</span>
               <span>
                 Jika anda ingin mengubah jadwal reservasi, harap hubungi

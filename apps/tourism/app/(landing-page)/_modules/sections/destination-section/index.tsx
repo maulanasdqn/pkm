@@ -5,6 +5,8 @@ import { FC, Fragment, ReactElement, useEffect, useState } from 'react';
 import { Button, Carousel, CarouselContent, CarouselItem } from '@pkm/ui';
 import { TDestinationSchema } from '@pkm/libs/entities';
 import { getAllDestinations } from '@pkm/libs/actions/tourism';
+import { sendGTMEvent } from '@next/third-parties/google';
+import { isMobile } from 'react-device-detect';
 
 const LIMIT_COUNT = 4;
 
@@ -14,6 +16,8 @@ export const DestinationSection: FC = (): ReactElement => {
   useEffect(() => {
     const fetchData = async () => {
       const destinations = await getAllDestinations({ perPage: LIMIT_COUNT });
+      const device = isMobile ? 'mobile' : 'desktop';
+      sendGTMEvent({ event: 'visitor', value: device, date: new Date() });
 
       if (destinations.status.ok) {
         setData(destinations.data);
@@ -71,7 +75,7 @@ export const DestinationSection: FC = (): ReactElement => {
                         width={560}
                         height={300}
                         quality={100}
-                        className="h-[300px] w-full aspect-video rounded size-auto"
+                        className="h-[300px] w-full aspect-video object-cover rounded size-auto"
                       />
                       <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
                         {item.name}

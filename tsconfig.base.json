@@ -33,7 +33,12 @@
       "@pkm/libs/uploadthing/market/client": [
         "libs/uploadthing/src/lib/market/client/index.ts"
       ],
-
+      "@pkm/libs/uploadthing/tourism/server": [
+        "libs/uploadthing/src/lib/tourism/server/index.ts"
+      ],
+      "@pkm/libs/uploadthing/tourism/client": [
+        "libs/uploadthing/src/lib/tourism/client/index.ts"
+      ],
       "@pkm/ui": ["components/ui/src/index.ts"]
     }
   },

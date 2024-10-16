@@ -59,7 +59,7 @@ export const ToursPageModule: FC = (): ReactElement => {
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="h-[300px] w-full rounded animate-pulse"
+                className="h-[300px] w-full rounded animate-pulse bg-white"
               >
                 <div className="h-20 w-1/2 bg-neutral-50% rounded"></div>
                 <div className="h-5 w-1/2 bg-neutral-50% rounded mt-3"></div>

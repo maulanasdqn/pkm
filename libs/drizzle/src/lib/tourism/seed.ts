@@ -8,9 +8,10 @@ import { permissionsSeeder } from './seeders/permissions.seeder';
 import { usersSeeder } from './seeders/users.seeder';
 import { rolesSeeder } from './seeders/roles.seeder';
 
-const dbUrl = process.env.DB_URL_POOLER as string;
+const configEnv = process.env;
+
 const dbQueryClient = new Pool({
-  connectionString: dbUrl,
+  connectionString: configEnv.DB_URL,
 });
 
 const db = drizzle(dbQueryClient, {

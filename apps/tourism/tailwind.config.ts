@@ -1,9 +1,9 @@
 import { createGlobPatternsForDependencies } from '@nx/react/tailwind';
+import { withUt } from 'uploadthing/tw';
 import { join } from 'path';
-import type { Config } from 'tailwindcss';
 import { colors } from './design';
 
-const config: Config = {
+const config = withUt({
   content: [
     join(
       __dirname,
@@ -29,6 +29,6 @@ const config: Config = {
     },
   },
   plugins: [require('tailwindcss-animate')],
-};
+});
 
 export default config;

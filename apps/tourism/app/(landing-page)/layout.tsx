@@ -2,11 +2,11 @@ import { Navbar } from '@pkm/ui';
 import { FooterTourism } from '@pkm/ui';
 import { ReactElement, ReactNode } from 'react';
 
-export default function MainLayout({
+export default async function LandingPageLayout({
   children,
 }: {
   children: ReactNode;
-}): ReactElement {
+}): Promise<ReactElement> {
   return (
     <main className="w-full min-h-screen flex flex-col font-source-sans-pro">
       <Navbar title="Wisata Desa Bojongsari" apps="tourism" page="public" />
