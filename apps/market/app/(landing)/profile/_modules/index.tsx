@@ -1,10 +1,17 @@
 'use client';
 import { EditFilled } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { deleteImage, uploadImage } from '@pkm/libs/actions';
-import { getOneUser, updateUser } from '@pkm/libs/actions/market';
-import { Users } from '@pkm/libs/drizzle/market';
-import { ProfileSchemaMarket, TProfileMarket, TUser } from '@pkm/libs/entities';
+import {
+  deleteImageUT,
+  getOneUser,
+  updateUser,
+} from '@pkm/libs/actions/market';
+import {
+  changeFileName,
+  compressImage,
+  ProfileSchemaMarket,
+  TProfileMarket,
+} from '@pkm/libs/entities';
 import {
   Button,
   ControlledSelect,
@@ -25,6 +32,7 @@ import {
   useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
+import { useUploadThing } from '@pkm/libs/uploadthing/market/client';
 
 export const ProfileModule: FC = (): ReactElement => {
   const {
@@ -39,9 +47,11 @@ export const ProfileModule: FC = (): ReactElement => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [defaultImage, setDefaultImage] = useState<string>('');
-  const [image, setImage] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<File[]>([]);
 
   const { data: session } = useSession();
+
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
 
   const handleUser = useCallback(async () => {
     const res = await getOneUser(session?.user?.id as string);
@@ -62,28 +72,22 @@ export const ProfileModule: FC = (): ReactElement => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (image) {
-        const formData = new FormData();
-        formData.append('images', image);
-
-        const result = await uploadImage(formData, 'profile');
+        const result = await startUpload(image);
 
         if (result) {
-          const { uploadedFiles } = result;
-
           const res = await updateUser(session?.user?.id as string, {
             ...data,
-            gender: data?.gender,
-            image: uploadedFiles[0].path,
+            image: result?.[0]?.appUrl,
           });
 
-          const fileName = defaultImage?.split('/').pop();
-          if (fileName) {
-            await deleteImage(fileName, 'profile');
-          }
-
           if (res.status.ok) {
-            setIsEdit(false);
-            await handleUser();
+            const deleteRes = await deleteImageUT(defaultImage);
+
+            if (deleteRes?.status?.ok) {
+              setIsEdit(false);
+              setImage([]);
+              await handleUser();
+            }
           }
         }
       } else {
@@ -107,8 +111,8 @@ export const ProfileModule: FC = (): ReactElement => {
   }, [handleUser]);
 
   const showImage = useMemo(() => {
-    if (image) {
-      return URL.createObjectURL(image);
+    if (image?.[0]) {
+      return URL.createObjectURL(image?.[0]);
     }
   }, [image]);
 
@@ -138,9 +142,22 @@ export const ProfileModule: FC = (): ReactElement => {
                   type="file"
                   className="hidden"
                   accept="image/*"
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     if (e.target.files) {
-                      setImage(e.target.files?.[0]);
+                      const file = changeFileName({
+                        file: e.target.files[0],
+                        prefix: 'profile',
+                        uniqueId: session?.user?.id as string,
+                      });
+
+                      const compressedFile = await compressImage(file, {
+                        quality: 0.6,
+                        type: 'image/jpeg',
+                      });
+
+                      if (compressedFile) {
+                        setImage([compressedFile]);
+                      }
                     }
                   }}
                 />
@@ -243,7 +260,11 @@ export const ProfileModule: FC = (): ReactElement => {
               />
 
               {isEdit && (
-                <Button type="submit" variant="secondary">
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  isLoading={isUploading}
+                >
                   Simpan
                 </Button>
               )}
@@ -251,12 +272,13 @@ export const ProfileModule: FC = (): ReactElement => {
 
             <Button
               onClick={() => {
-                setImage(undefined);
+                setImage([]);
                 setIsEdit(!isEdit);
               }}
               variant="primary"
               className="w-full"
               color={isEdit ? 'red' : 'blue'}
+              disabled={isUploading}
             >
               {isEdit ? 'Batal' : 'Edit'}
             </Button>

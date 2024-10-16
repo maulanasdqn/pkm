@@ -2,14 +2,20 @@
 
 import { EditOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { deleteImage, uploadImage } from '@pkm/libs/actions';
 import {
+  deleteImageUT,
   getAllCategoriesProduct,
   getOneProduct,
   updateProduct,
 } from '@pkm/libs/actions/market';
 import { Category } from '@pkm/libs/drizzle/market';
-import { CreateProductMarket, TCreateProductMarket } from '@pkm/libs/entities';
+import {
+  changeFileName,
+  compressImage,
+  CreateProductMarket,
+  TCreateProductMarket,
+} from '@pkm/libs/entities';
+import { useUploadThing } from '@pkm/libs/uploadthing/market/client';
 import {
   Button,
   ControlledSelect,
@@ -39,8 +45,10 @@ import { useForm } from 'react-hook-form';
 export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<File[]>([]);
   const [defaultImage, setDefaultImage] = useState<string>('');
+
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
 
   const {
     control,
@@ -74,39 +82,49 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
     }
   }, [id, reset]);
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImage(e.target.files[0]);
-      setError('image', {
-        type: 'custom',
-        message: undefined,
+      const file = changeFileName({
+        file: e.target.files[0],
+        prefix: 'product',
+        uniqueId: Date.now().toLocaleString(),
       });
+
+      const compressedFile = await compressImage(file, {
+        quality: 0.6,
+        type: 'image/jpeg',
+      });
+
+      if (compressedFile) {
+        setImage([compressedFile]);
+
+        setError('image', {
+          type: 'custom',
+          message: undefined,
+        });
+      }
     }
   };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (image) {
-        const formData = new FormData();
-        formData.append('images', image);
-        const results = await uploadImage(formData as FormData, 'products');
-        if (results) {
-          const { uploadedFiles } = results;
+        const result = await startUpload(image);
 
+        if (result) {
           const res = await updateProduct(id, {
             ...data,
-            image: uploadedFiles[0].path,
+            image: result?.[0].appUrl,
           });
 
-          const fileName = defaultImage.split('/').pop();
-          if (fileName) {
-            await deleteImage(fileName, 'products');
-          }
-
           if (res.status.ok) {
-            setShowModal(false);
-            setImage(undefined);
-            getProduct();
+            const deleteRes = await deleteImageUT(defaultImage);
+
+            if (deleteRes.status.ok) {
+              setShowModal(false);
+              setImage([]);
+              getProduct();
+            }
           }
         }
       } else {
@@ -116,7 +134,7 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
         });
         if (res.status.ok) {
           setShowModal(false);
-          setImage(undefined);
+          setImage([]);
           getProduct();
         }
       }
@@ -126,8 +144,8 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
   });
 
   const imageShow = useMemo(() => {
-    if (image) {
-      return URL.createObjectURL(image);
+    if (image?.[0]) {
+      return URL.createObjectURL(image?.[0]);
     } else {
       return undefined;
     }
@@ -283,7 +301,7 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
           <Button type="button" color="red" onClick={() => setShowModal(false)}>
             Batal
           </Button>
-          <Button type="submit" form="produk">
+          <Button type="submit" form="produk" isLoading={isUploading}>
             Edit
           </Button>
         </DialogFooter>

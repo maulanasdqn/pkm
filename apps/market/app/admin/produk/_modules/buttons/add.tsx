@@ -1,13 +1,18 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { uploadImage } from '@pkm/libs/actions';
 import {
   createProduct,
   getAllCategoriesProduct,
 } from '@pkm/libs/actions/market';
 import { Category } from '@pkm/libs/drizzle/market';
-import { CreateProductMarket, TCreateProductMarket } from '@pkm/libs/entities';
+import {
+  changeFileName,
+  compressImage,
+  CreateProductMarket,
+  TCreateProductMarket,
+} from '@pkm/libs/entities';
+import { useUploadThing } from '@pkm/libs/uploadthing/market/client';
 import {
   Button,
   ControlledSelect,
@@ -36,7 +41,9 @@ import { useForm } from 'react-hook-form';
 export const AddProductButton: FC = (): ReactElement => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<File[]>([]);
+
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
 
   const {
     control,
@@ -56,13 +63,27 @@ export const AddProductButton: FC = (): ReactElement => {
     }
   };
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImage(e.target.files[0]);
-      setError('image', {
-        type: 'custom',
-        message: undefined,
+      const file = changeFileName({
+        file: e.target.files[0],
+        prefix: 'product',
+        uniqueId: Date.now().toLocaleString(),
       });
+
+      const compressedFile = await compressImage(file, {
+        quality: 0.6,
+        type: 'image/jpeg',
+      });
+
+      if (compressedFile) {
+        setImage([compressedFile]);
+
+        setError('image', {
+          type: 'custom',
+          message: undefined,
+        });
+      }
     }
   };
 
@@ -75,22 +96,17 @@ export const AddProductButton: FC = (): ReactElement => {
         });
       }
 
-      const formData = new FormData();
-      formData.append('images', image);
+      const result = await startUpload(image);
 
-      const results = await uploadImage(formData as FormData, 'products');
-
-      if (results) {
-        const { uploadedFiles } = results;
-
+      if (result) {
         const res = await createProduct({
           ...data,
-          image: uploadedFiles[0].path,
+          image: result?.[0]?.appUrl,
         });
 
         if (res.status.ok) {
           setShowModal(false);
-          setImage(undefined);
+          setImage([]);
           reset();
         }
       }
@@ -100,8 +116,8 @@ export const AddProductButton: FC = (): ReactElement => {
   });
 
   const imageShow = useMemo(() => {
-    if (image) {
-      return URL.createObjectURL(image);
+    if (image?.[0]) {
+      return URL.createObjectURL(image?.[0]);
     } else {
       return undefined;
     }
@@ -253,7 +269,7 @@ export const AddProductButton: FC = (): ReactElement => {
           <Button onClick={() => setShowModal(false)} color="red">
             Batal
           </Button>
-          <Button type="submit" form="produk">
+          <Button type="submit" form="produk" isLoading={isUploading}>
             Tambah
           </Button>
         </DialogFooter>

@@ -31,6 +31,7 @@
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-popover": "^1.1.1",
     "@tanstack/react-table": "^8.20.5",
+    "@uploadthing/react": "^7.0.3",
     "argon2-wasm-edge": "^1.0.23",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -52,6 +53,7 @@
     "tailwind-merge": "^2.4.0",
     "ts-pattern": "^5.2.0",
     "tslib": "^2.3.0",
+    "uploadthing": "^7.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

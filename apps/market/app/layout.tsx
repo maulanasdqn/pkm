@@ -1,7 +1,10 @@
 import { AuthProvider } from '@pkm/libs/auth';
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
 import './global.css';
 import { Inter, Montserrat, Roboto, Source_Sans_3 } from 'next/font/google';
 import { ReactElement } from 'react';
+import { extractRouterConfig } from 'uploadthing/server';
+import { ourFileRouter } from '@pkm/libs/uploadthing/market/server';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -44,6 +47,7 @@ export default async function RootLayout({
       className={`${inter.variable} ${montserrat.variable} ${source_sans_3.variable} ${roboto.variable}`}
     >
       <AuthProvider>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <body>{children}</body>
       </AuthProvider>
     </html>

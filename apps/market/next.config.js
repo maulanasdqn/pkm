@@ -35,6 +35,11 @@ const nextConfig = {
         hostname: 'w7.pngwing.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: '',
+      },
     ],
   },
   redirects: async () => {
