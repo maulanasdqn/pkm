@@ -117,7 +117,7 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
       Array.from(files).forEach(async (file) => {
         const newFile = changeFileNameTourism({
           file,
-          prefix: 'product',
+          prefix: 'destination',
           uniqueId: Date.now().toLocaleString(),
         });
 

@@ -101,7 +101,7 @@ export const InformationFormTrigger: FC<TInformationFormTrigger> = ({
       Array.from(files).forEach(async (file) => {
         const newFile = changeFileNameTourism({
           file,
-          prefix: 'product',
+          prefix: 'information',
           uniqueId: Date.now().toLocaleString(),
         });
 
