@@ -1,12 +1,19 @@
 import { Navbar } from '@pkm/ui';
 import { ReactElement } from 'react';
 import { ForgotPasswordContextProvider } from './forgot-password/_modules/context';
+import { auth } from '@pkm/libs/auth/tourism';
+import { redirect } from 'next/navigation';
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
-}): ReactElement {
+}): Promise<ReactElement> {
+  const session = await auth();
+
+  if (session) {
+    redirect('/dashboard');
+  }
   return (
     <ForgotPasswordContextProvider>
       <main className="w-full h-screen flex flex-col">

@@ -4,17 +4,14 @@ import { eq } from 'drizzle-orm';
 import { DatabaseError } from 'pg';
 import { db, informations } from '@pkm/libs/drizzle/tourism';
 import { revalidatePath } from 'next/cache';
-import { deleteImage } from '../../common';
 import { getOneInformation } from './get-one';
+import { deleteImageUT } from '../../common';
 
 export const deleteInformation = async (id: string) => {
   try {
     const { data } = await getOneInformation(id);
     if (data) {
-      const fileName = data.image.split('/').pop();
-      if (fileName) {
-        await deleteImage(fileName, 'informations');
-      }
+      await deleteImageUT(data.image);
     }
 
     const res = await db

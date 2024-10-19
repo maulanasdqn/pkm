@@ -60,7 +60,7 @@ const Button = forwardRef<HTMLButtonElement, TButton>(
     ref
   ): ReactElement => {
     const btnLoading = {
-      'bg-neutral-40% text-neutral-80% animate-pulse cursor-wait hover:bg-neutral-50% active:bg-neutral-60% focus:bg-neutral-50%':
+      'bg-neutral-40% text-neutral-80% animate-pulse pointer-events-none cursor-wait hover:bg-neutral-50% active:bg-neutral-60% focus:bg-neutral-50%':
         isLoading,
     };
     return match(href)

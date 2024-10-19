@@ -186,7 +186,7 @@ const Carousel = React.forwardRef<
                           height={150}
                           quality={100}
                           className={cn(
-                            'h-[150px] w-full aspect-video rounded ring',
+                            'h-[150px] w-full aspect-video rounded ring object-cover',
                             index === selectedIndex
                               ? 'ring-primary-90%'
                               : 'ring-neutral-60%'

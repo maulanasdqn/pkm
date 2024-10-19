@@ -27,7 +27,9 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
+    "@builder.io/partytown": "^0.10.2",
     "@hookform/resolvers": "^3.9.0",
+    "@next/third-parties": "^14.2.15",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-popover": "^1.1.1",
     "@tanstack/react-table": "^8.20.5",
@@ -46,6 +48,7 @@
     "pg": "^8.12.0",
     "react": "18.3.1",
     "react-day-picker": "^9.0.8",
+    "react-device-detect": "^2.2.3",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.52.2",
     "recharts": "^2.12.7",

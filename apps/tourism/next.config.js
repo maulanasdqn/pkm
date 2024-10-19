@@ -8,6 +8,7 @@ const { composePlugins, withNx } = require('@nx/next');
  **/
 const nextConfig = {
   experimental: {
+    nextScriptWorkers: true,
     serverActions: {
       bodySizeLimit: '2mb',
     },
@@ -21,15 +22,28 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'w7.pngwing.com',
+        hostname: 'loremflickr.com',
+        port: '',
       },
       {
         protocol: 'https',
         hostname: 'picsum.photos',
+        port: '',
       },
       {
         protocol: 'https',
-        hostname: 'loremflickr.com',
+        hostname: 'img.freepik.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'w7.pngwing.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: '',
       },
     ],
   },

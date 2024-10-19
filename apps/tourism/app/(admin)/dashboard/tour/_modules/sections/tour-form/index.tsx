@@ -28,6 +28,8 @@ import {
 import { TTourFormProps } from './type';
 import { useForm } from 'react-hook-form';
 import {
+  changeFileNameTourism,
+  compressImageTourism,
   createDestinationSchema,
   TCreateDestinationSchema,
 } from '@pkm/libs/entities';
@@ -37,9 +39,15 @@ import {
   getOneDestination,
   updateDestination,
 } from '@pkm/libs/actions/tourism';
-import { deleteImage, uploadImage } from '@pkm/libs/actions';
 import Image from 'next/image';
-import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
+import {
+  CloseOutlined,
+  Loading3QuartersOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
+import { useUploadThing } from '@pkm/libs/uploadthing/tourism/client';
+import { deleteImageUT } from '@pkm/libs/actions';
+
 export const TourFormTrigger: FC<TTourFormProps> = ({
   id,
   text,
@@ -47,6 +55,7 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
   const {
     control,
     setValue,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
   } = useForm<TCreateDestinationSchema>({
@@ -63,31 +72,31 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData | null>(null);
   const [isSuccess, setIsSuccess] = useState(isSubmitSuccessful);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
+
   const onSubmit = async (values: TCreateDestinationSchema) => {
     try {
-      const imagesPath: string[] = [];
-      if (formData) {
-        const results = await uploadImage(formData as FormData, 'destinations');
-        if (results) {
-          const { uploadedFiles } = results;
-          uploadedFiles.forEach((file) => {
-            imagesPath.push(file.path);
-          });
-        } else if (uploadedImages.length > 0) {
-          imagesPath.push(...uploadedImages);
-        }
+      const imagesUrl: string[] = [];
+      if (uploadedImages.length === 0) {
+        return setError('images', {
+          type: 'custom',
+          message: 'Minimal harus ada 1 gambar yang diunggah',
+        });
+      } else {
+        uploadedImages.forEach((image) => {
+          imagesUrl.push(image);
+        });
       }
 
       if (id) {
-        await updateDestination({ ...values, id, images: imagesPath });
+        await updateDestination({ ...values, id, images: imagesUrl });
         setIsLoading(true);
       } else {
         await createDestination({
           ...values,
-          images: imagesPath,
+          images: imagesUrl,
         });
         setIsLoading(true);
       }
@@ -104,28 +113,41 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    const formData = new FormData();
     if (files) {
-      Array.from(files).forEach((file) => {
-        formData.append(`images`, file);
+      Array.from(files).forEach(async (file) => {
+        const newFile = changeFileNameTourism({
+          file,
+          prefix: 'destination',
+          uniqueId: Date.now().toLocaleString(),
+        });
+
+        const compressedFile = await compressImageTourism(newFile, {
+          quality: 0.6,
+          type: 'image/jpeg',
+        });
+
+        if (compressedFile) {
+          const res = await startUpload([compressedFile]);
+          if (res) {
+            setUploadedImages([...uploadedImages, res[0].appUrl]);
+          }
+        }
       });
     }
-    setFormData(formData);
   };
 
   const handleDeleteImage = async (image: string, index: number) => {
-    const fileName = image.split('/').pop();
-    const isLocalImg = image.split('.').pop();
-
     if (uploadedImages.length > 1) {
       setUploadedImages([
         ...uploadedImages.slice(0, index),
         ...uploadedImages.slice(index + 1),
       ]);
-    }
-
-    if (isLocalImg && fileName) {
-      await deleteImage(fileName, 'destinations');
+      await deleteImageUT(image);
+    } else {
+      setError('images', {
+        type: 'custom',
+        message: 'Minimal harus ada 1 gambar yang diunggah',
+      });
     }
   };
 
@@ -138,10 +160,6 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
       setValue('ticketPrice', data.ticketPrice);
       setValue('status', data.status);
       setUploadedImages(data.images);
-
-      const formData = new FormData();
-      formData.append('uploaded-image', data.images[0]);
-      setFormData(formData);
     }
   }, [id, setValue]);
 
@@ -233,7 +251,6 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
                 placeholder="Masukan gambar"
                 accept="image/*"
                 onChange={handleChange}
-                multiple
                 errorMessage={errors.images?.message as string}
                 variant={
                   errors.images
@@ -245,7 +262,12 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
               />
             </div>
             <div className="flex flex-col gap-2">
-              <h2>File yang diunggah </h2>
+              <h2>
+                File yang diunggah{' '}
+                {isUploading && (
+                  <Loading3QuartersOutlined className="ml-2.5 animate-spin" />
+                )}
+              </h2>
               <div className="flex justify-center items-center w-full gap-2 rounded border border-neutral-60% p-5 min-h-[100px]">
                 {uploadedImages.length > 0 ? (
                   uploadedImages.map((image, index) => (
@@ -293,7 +315,7 @@ export const TourFormTrigger: FC<TTourFormProps> = ({
               form="destination-form"
               type="submit"
               variant="primary"
-              disabled={isLoading || !formData ? true : false}
+              isLoading={isLoading || isUploading}
             >
               {!id ? 'Tambah' : 'Edit'}
             </Button>

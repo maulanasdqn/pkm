@@ -82,6 +82,8 @@ export const CreateReservationSection: FC<CreateReservationSectionProps> = ({
       setIsSuccess(isSubmitSuccessful);
     }
   }, [isSubmitSuccessful, dataDestination, setValue]);
+
+  const price = qty * dataDestination.ticketPrice;
   return (
     <section
       className={cn(
@@ -109,11 +111,11 @@ export const CreateReservationSection: FC<CreateReservationSectionProps> = ({
         <div className="border-t-2 space-y-3 pt-8 border-neutral-50%">
           <h3 className="text-base md:text-lg lg:text-xl">Harga Tiket</h3>
           <h4 className="text-xl md:text-2xl lg:text-3xl text-primary-60%">
-            Rp. {qty * dataDestination.ticketPrice}
+            Rp. {price.toLocaleString('id-ID')}
           </h4>
         </div>
       </div>
-      <div className="rounded-lg w-full flex flex-col items-center justify-center p-5 gap-8 border border-neutral-60% shadow-md bg-white">
+      <div className="rounded-lg w-full h-fit flex flex-col items-center justify-center p-5 gap-8 border border-neutral-60% shadow-md bg-white">
         <h1 className="text-2xl font-bold">Isi detail reservasi</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full">
           <div className="flex gap-3 items-center">
