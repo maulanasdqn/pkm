@@ -1,0 +1,1 @@
+ALTER TABLE "app_orders" ADD COLUMN "notes" text;

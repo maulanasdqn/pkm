@@ -1,0 +1,1 @@
+ALTER TABLE "app_cart_items" RENAME COLUMN "is_paid" TO "is_completed";

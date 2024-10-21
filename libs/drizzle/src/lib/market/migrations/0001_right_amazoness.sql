@@ -1,1 +1,0 @@
-ALTER TABLE "app_carts" DROP COLUMN IF EXISTS "status";
