@@ -9,6 +9,7 @@ export type TCardMarket = {
 
 export type TCardMarketAdmin = {
   name: string;
-  amount: number;
+  amount: number | string;
+  className?: string;
   Icon: ComponentType<{ className?: string }>;
 };

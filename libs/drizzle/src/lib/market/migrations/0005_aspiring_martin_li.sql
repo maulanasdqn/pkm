@@ -1,0 +1,1 @@
+ALTER TABLE "app_orders" ALTER COLUMN "image" DROP NOT NULL;

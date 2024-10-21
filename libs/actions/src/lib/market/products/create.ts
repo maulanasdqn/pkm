@@ -12,6 +12,7 @@ export const createProduct = async (data: TCreateProductMarket) => {
       .values({
         ...data,
         price: Number(data.price),
+        sold: 0,
         stock: Number(data.stock),
         image: data.image,
       })

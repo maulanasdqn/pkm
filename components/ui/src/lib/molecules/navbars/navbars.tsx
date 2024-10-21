@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { Button, NavLinks } from '../../atoms';
-import { TNavbarAuthProps } from './type';
+import { TNavbarAuthProps, TUserNavbar } from './type';
 import { cn } from '@pkm/libs/clsx';
 import { match } from 'ts-pattern';
 import Link from 'next/link';
@@ -80,9 +80,11 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                 .with(true, () => {
                   return (
                     <div className="flex gap-8 items-center">
-                      <Link href="/carts">
-                        <ShoppingCartOutlined className="text-3xl" />
-                      </Link>
+                      {(session?.user as TUserNavbar)?.role?.id === 2 && (
+                        <Link href="/carts">
+                          <ShoppingCartOutlined className="text-3xl" />
+                        </Link>
+                      )}
                       <Link href="/profile">
                         <UserOutlined className="text-3xl" />
                       </Link>

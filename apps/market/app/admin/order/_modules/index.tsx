@@ -1,7 +1,12 @@
 import { MarketBreadcumb } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
+import { OrdersTable } from './data.table';
+import { getAllOrders } from '@pkm/libs/actions/market';
+import { columns } from './column';
 
-export const OrderAdminModule: FC = (): ReactElement => {
+export const OrderAdminModule: FC = async (): Promise<ReactElement> => {
+  const orders = await getAllOrders();
+
   return (
     <div className="w-full h-full flex flex-col gap-12">
       <MarketBreadcumb
@@ -11,6 +16,8 @@ export const OrderAdminModule: FC = (): ReactElement => {
         prevLinkName="Home"
         prevLinkUrl="/admin"
       />
+
+      <OrdersTable data={orders?.data} columns={columns} />
     </div>
   );
 };

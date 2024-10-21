@@ -7,6 +7,7 @@ import {
   varchar,
   integer,
   pgEnum,
+  boolean,
 } from 'drizzle-orm/pg-core';
 
 export const defaultImage =
@@ -148,7 +149,7 @@ export const products = pgTable('app_products', {
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
 });
 
-export const productRelations = relations(products, ({ one, many }) => ({
+export const productRelations = relations(products, ({ one }) => ({
   category: one(category, {
     fields: [products.categoryId],
     references: [category.id],
@@ -169,6 +170,10 @@ export const cartItems = pgTable('app_cart_items', {
   productId: uuid('product_id').references(() => products.id, {
     onDelete: 'cascade',
   }),
+  orderId: uuid('order_id').references(() => orders.id, {
+    onDelete: 'set null',
+  }),
+  isCompleted: boolean('is_completed').notNull().default(false),
   quantity: integer('quantity').notNull(),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
@@ -182,6 +187,10 @@ export const cartItemRelations = relations(cartItems, ({ one }) => ({
   product: one(products, {
     fields: [cartItems.productId],
     references: [products.id],
+  }),
+  order: one(orders, {
+    fields: [cartItems.orderId],
+    references: [orders.id],
   }),
 }));
 
@@ -209,4 +218,34 @@ export type Carts = typeof carts.$inferSelect;
 
 export type CartsWithItems = Carts & {
   cartItems: (CartItems & { product: Products })[];
+};
+
+export const statusEnum = pgEnum('status', ['pending', 'approved', 'rejected']);
+
+export const orders = pgTable('app_orders', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id, {
+    onDelete: 'cascade',
+  }),
+  notes: text('notes'),
+  image: text('image'),
+  status: statusEnum('status').notNull().default('pending'),
+  totalPrice: integer('total_price'),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export const orderRelations = relations(orders, ({ one, many }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.id],
+  }),
+  cartItems: many(cartItems),
+}));
+
+export type Orders = typeof orders.$inferSelect;
+
+export type OrdersWithUserItems = Orders & {
+  cartItems: (CartItems & { product: Products })[];
+  user: Users;
 };
