@@ -17,7 +17,7 @@ export const MissionSection: FC = (): ReactElement => {
       </div>
 
       <Image
-        src="/images/sample-mission.webp"
+        src="/images/market-about.webp"
         alt="mission"
         width={500}
         height={500}

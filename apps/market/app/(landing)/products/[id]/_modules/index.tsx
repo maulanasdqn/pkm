@@ -76,7 +76,7 @@ export const ProductIdModule: FC<TProductIdModule> = ({
             <div className="flex flex-col gap-2 text-lg">
               <div className="flex items-center gap-6">
                 <div className="flex gap-2">
-                  {product?.sold}{' '}
+                  {product?.sold || 0}{' '}
                   <span className="text-neutral-60%">Terjual</span>
                 </div>
 

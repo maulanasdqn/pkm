@@ -1,7 +1,13 @@
 'use client';
-import { deleteCartItems, getOneCart } from '@pkm/libs/actions/market';
+import {
+  createOrder,
+  deleteCartItems,
+  getOneCart,
+} from '@pkm/libs/actions/market';
 import { cn } from '@pkm/libs/clsx';
 import { CartsWithItems } from '@pkm/libs/drizzle/market';
+import { changeFileName, compressImage } from '@pkm/libs/entities';
+import { useUploadThing } from '@pkm/libs/uploadthing/market/client';
 import {
   Button,
   CardCart,
@@ -11,13 +17,28 @@ import {
   TextField,
 } from '@pkm/ui';
 import { useSession } from 'next-auth/react';
-import { FC, ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 export const CartsModule: FC = (): ReactElement => {
   const [cart, setCart] = useState<CartsWithItems>({} as CartsWithItems);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'transfer' | null>(
+    null
+  );
+  const [approved, setApproved] = useState(false);
+  const [image, setImage] = useState<File[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const { data: session } = useSession();
+
+  const { startUpload, isUploading } = useUploadThing('imageUploader');
 
   const getCart = useCallback(async () => {
     await getOneCart(session?.user?.id as string).then((res) => {
@@ -27,13 +48,47 @@ export const CartsModule: FC = (): ReactElement => {
     });
   }, [session?.user?.id]);
 
+  const filteredCart = useMemo(() => {
+    return cart?.cartItems?.filter((item) => !item.isCompleted);
+  }, [cart]);
+
+  const handleSubmit = async (formdata: FormData) => {
+    try {
+      const notes = formdata.get('notes') as string;
+
+      if (image?.[0]) {
+        const result = await startUpload(image);
+
+        if (result) {
+          await createOrder({
+            cartId: cart?.id as string,
+            image: result[0].url,
+            cartItemsIds: selectedItems,
+            notes,
+          });
+        }
+      } else {
+        await createOrder({
+          cartId: cart?.id as string,
+          image: null,
+          cartItemsIds: selectedItems,
+          notes,
+        });
+      }
+
+      await getCart();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getCart();
   }, [getCart]);
 
   return (
     <section className="w-full h-full flex flex-col items-center gap-[10rem] px-20 py-28">
-      {cart?.cartItems?.length === 0 ? (
+      {filteredCart?.length === 0 ? (
         <div className="w-full h-full flex justify-center items-center">
           <p className="text-3xl font-bold text-neutral-60%">
             Keranjang Belanja Kosong
@@ -42,7 +97,7 @@ export const CartsModule: FC = (): ReactElement => {
       ) : (
         <div className="w-full flex flex-col gap-8">
           <div className="w-full flex flex-col gap-12">
-            {cart?.cartItems?.map((item, i) => (
+            {filteredCart?.map((item, i) => (
               <CardCart
                 key={i}
                 name={item?.product?.name}
@@ -52,8 +107,14 @@ export const CartsModule: FC = (): ReactElement => {
                 price={item?.product?.price}
                 onChange={(e) => {
                   if (e.target.checked) {
+                    setTotalPrice(
+                      totalPrice + item?.product?.price * item?.quantity
+                    );
                     setSelectedItems([...selectedItems, item?.id]);
                   } else {
+                    setTotalPrice(
+                      totalPrice - item?.product?.price * item?.quantity
+                    );
                     setSelectedItems(
                       selectedItems.filter((i) => i !== item?.id)
                     );
@@ -68,6 +129,11 @@ export const CartsModule: FC = (): ReactElement => {
                   );
                   await getCart();
                   setSelectedItems(selectedItems.filter((i) => i !== item?.id));
+                  if (selectedItems.includes(item?.id)) {
+                    setTotalPrice(
+                      totalPrice - item?.product?.price * item?.quantity
+                    );
+                  }
                 }}
               />
             ))}
@@ -75,7 +141,7 @@ export const CartsModule: FC = (): ReactElement => {
 
           <div className="w-full flex justify-between items-center px-20 text-2xl font-bold">
             <p>TOTAL PEMBELIAN</p>
-            <p>Rp.{cart?.totalPrice?.toLocaleString('id-ID') || 0}</p>
+            <p>Rp.{totalPrice?.toLocaleString('id-ID') || 0}</p>
           </div>
         </div>
       )}
@@ -85,23 +151,27 @@ export const CartsModule: FC = (): ReactElement => {
           Informasi Pembelian
         </p>
 
-        <form className="w-full flex flex-col items-center gap-20 pt-14 pb-8">
+        <form
+          action={handleSubmit}
+          className="w-full flex flex-col items-center gap-20 pt-14 pb-8"
+        >
           <div className="w-full flex justify-center gap-24">
             <fieldset className="flex flex-col gap-6">
               <p className="font-source-sans-pro text-lg">Metode Pemesanan</p>
               <Radio
                 label="Pick Up"
+                value="pickup"
                 sublabel="Ambil sendiri ditempat atau di toko"
                 name="order"
-                // disabled={cart?.cartItems?.length === 0}
+                disabled={filteredCart?.length === 0}
               />
 
               <Textarea
-                name="note"
+                name="notes"
                 dimension="lg"
-                placeholder="Catatan Tambahan"
+                placeholder="Catatan Tambahan, contoh bila ingin janjian ambil barang, tetapi tidak di toko (opsional)"
                 className="w-full min-w-[353px] min-h-[117px]"
-                disabled={cart?.cartItems?.length === 0}
+                disabled={filteredCart?.length === 0}
               />
             </fieldset>
 
@@ -109,26 +179,51 @@ export const CartsModule: FC = (): ReactElement => {
               <p className="font-source-sans-pro text-lg">Metode Pemesanan</p>
               <Radio
                 label="Cash"
+                value="cod"
                 sublabel="Bayar ditempat"
                 name="payment"
-                // disabled={cart?.cartItems?.length === 0}
+                onChange={(e) => setPaymentMethod(e.target.value as 'cod')}
+                disabled={filteredCart?.length === 0}
               />
               <Radio
                 label="Transfer"
+                value="transfer"
                 sublabel="Bayar menggunakan  ATM BCA 4490******"
                 name="payment"
-                // disabled={cart?.cartItems?.length === 0}
+                onChange={(e) => setPaymentMethod(e.target.value as 'transfer')}
+                disabled={filteredCart?.length === 0}
               />
-              <div className="flex flex-col gap-2">
-                <label htmlFor="file" className="font-source-sans-pro">
-                  Upload bukti pembayaran
-                </label>
-                <TextField
-                  name="file"
-                  type="file"
-                  placeholder="Upload bukti pembayaran"
-                />
-              </div>
+
+              {paymentMethod === 'transfer' && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="file" className="font-source-sans-pro">
+                    Upload bukti pembayaran
+                  </label>
+                  <TextField
+                    name="file"
+                    type="file"
+                    placeholder="Upload bukti pembayaran"
+                    onChange={async (e) => {
+                      if (e.target.files) {
+                        const file = changeFileName({
+                          file: e.target.files[0],
+                          prefix: 'order',
+                          uniqueId: session?.user?.id as string,
+                        });
+
+                        const compressedFile = await compressImage(file, {
+                          quality: 0.6,
+                          type: 'image/jpeg',
+                        });
+
+                        if (compressedFile) {
+                          setImage([compressedFile]);
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              )}
             </fieldset>
           </div>
 
@@ -138,11 +233,12 @@ export const CartsModule: FC = (): ReactElement => {
                 name="approve"
                 shape="square"
                 size="sm"
-                disabled={cart?.cartItems?.length === 0}
+                onChange={(e) => setApproved(e.target.checked)}
+                disabled={filteredCart?.length === 0}
               />
               <p
                 className={cn('font-montserrat text-sm font-medium', {
-                  'text-neutral-80%': cart?.cartItems?.length === 0,
+                  'text-neutral-80%': filteredCart?.length === 0,
                 })}
               >
                 Data yang saya masukkan sudah benar
@@ -155,8 +251,12 @@ export const CartsModule: FC = (): ReactElement => {
               type="submit"
               className="text-lg font-normal"
               disabled={
-                cart?.cartItems?.length === 0 || selectedItems.length === 0
+                filteredCart?.length === 0 ||
+                selectedItems.length === 0 ||
+                !paymentMethod ||
+                !approved
               }
+              isLoading={isUploading}
             >
               Buat Pesanan
             </Button>
