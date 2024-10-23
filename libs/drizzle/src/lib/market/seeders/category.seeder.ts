@@ -28,6 +28,9 @@ export const categorySeeder = async (db: TDBMarketDrizzle) => {
         {
           name: 'Kesehatan',
         },
+        {
+          name: 'Siap Saji',
+        },
       ])
       .returning();
 

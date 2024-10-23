@@ -249,3 +249,16 @@ export type OrdersWithUserItems = Orders & {
   cartItems: (CartItems & { product: Products })[];
   user: Users;
 };
+
+export const messages = pgTable('app_messages', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  sender: text('sender').notNull(),
+  email: text('email').notNull(),
+  message: text('message').notNull(),
+  isRead: boolean('is_read').notNull().default(false),
+  isDeleted: boolean('is_deleted').notNull().default(false),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow(),
+});
+
+export type Messages = typeof messages.$inferSelect;

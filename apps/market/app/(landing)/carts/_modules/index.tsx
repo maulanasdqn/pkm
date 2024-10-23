@@ -17,6 +17,7 @@ import {
   TextField,
 } from '@pkm/ui';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import {
   FC,
   ReactElement,
@@ -37,6 +38,8 @@ export const CartsModule: FC = (): ReactElement => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { data: session } = useSession();
+
+  const { push } = useRouter();
 
   const { startUpload, isUploading } = useUploadThing('imageUploader');
 
@@ -60,23 +63,29 @@ export const CartsModule: FC = (): ReactElement => {
         const result = await startUpload(image);
 
         if (result) {
-          await createOrder({
+          const res = await createOrder({
             cartId: cart?.id as string,
             image: result[0].url,
             cartItemsIds: selectedItems,
             notes,
           });
+
+          await getCart();
+          setSelectedItems([]);
+          push(`/order/${res?.data?.[0]?.id}`);
         }
       } else {
-        await createOrder({
+        const res = await createOrder({
           cartId: cart?.id as string,
           image: null,
           cartItemsIds: selectedItems,
           notes,
         });
-      }
 
-      await getCart();
+        await getCart();
+        setSelectedItems([]);
+        push(`/order/${res?.data?.[0]?.id}`);
+      }
     } catch (error) {
       console.log(error);
     }

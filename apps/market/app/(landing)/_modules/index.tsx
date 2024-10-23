@@ -4,35 +4,55 @@ import { FC, ReactElement } from 'react';
 import { OurProductSection } from './sections';
 import { ActivitySection } from './sections/activity';
 import Link from 'next/link';
+import { getAllCategoriesProduct } from '@pkm/libs/actions/market';
 
-const cardsContent = [
-  {
-    name: 'Pertanian',
-    image: '/images/pertanian.webp',
-  },
-  {
-    name: 'Perikanan',
-    image: '/images/perikanan.webp',
-  },
-  {
-    name: 'Peternakan',
-    image: '/images/peternakan.webp',
-  },
-  {
-    name: 'Perkebunan',
-    image: '/images/perkebunan.webp',
-  },
-  {
-    name: 'Kerajinan',
-    image: '/images/kerajinan.webp',
-  },
-  {
-    name: 'Kesehatan',
-    image: '/images/kesehatan.webp',
-  },
-];
+export const LandingModule: FC = async (): Promise<ReactElement> => {
+  const { data } = await getAllCategoriesProduct();
 
-export const LandingModule: FC = (): ReactElement => {
+  const categoriesImages = [
+    {
+      name: 'Pertanian',
+      image: '/images/pertanian.webp',
+    },
+    {
+      name: 'Perikanan',
+      image: '/images/perikanan.webp',
+    },
+    {
+      name: 'Peternakan',
+      image: '/images/peternakan.webp',
+    },
+    {
+      name: 'Perkebunan',
+      image: '/images/perkebunan.webp',
+    },
+    {
+      name: 'Kerajinan',
+      image: '/images/kerajinan.webp',
+    },
+    {
+      name: 'Kesehatan',
+      image: '/images/kesehatan.webp',
+    },
+    {
+      name: 'Siap Saji',
+      image: '/images/siap-saji.webp',
+    },
+  ];
+
+  const categories = data?.map((item) => {
+    const image = categoriesImages?.find(
+      (image) => image.name === item.name
+    )?.image;
+    if (image) {
+      return {
+        id: item.id,
+        name: item.name,
+        image,
+      };
+    }
+  });
+
   return (
     <section className="flex flex-col pt-20 pb-16 justify-center items-center gap-20 container mx-auto">
       <div className="w-full flex flex-col px-20 gap-12">
@@ -47,8 +67,8 @@ export const LandingModule: FC = (): ReactElement => {
           </p>
         </div>
 
-        <div className='bg-[url("/images/big-card-market.webp")] bg-center bg-cover w-full h-[400px]'>
-          <div className="bg-black bg-opacity-25 w-full min-h-full flex flex-col items-center justify-center gap-4 font-source-sans-pro pt-16">
+        <div className='bg-[url("/images/landing-image.webp")] bg-center bg-cover w-full h-[400px]'>
+          <div className="bg-black bg-opacity-35 w-full min-h-full flex flex-col items-center justify-center gap-4 font-source-sans-pro pt-16">
             <p className="text-white text-2xl">
               Daftarkan produkmu dan raih lebih banyak pelanggan!
             </p>
@@ -65,21 +85,21 @@ export const LandingModule: FC = (): ReactElement => {
         <div className="w-full flex flex-col gap-12 items-center mt-4">
           <h3 className="text-4xl">Kategori Produk</h3>
           <div className="w-full flex justify-evenly items-center">
-            {cardsContent?.map((item, index) => (
+            {categories?.map((item, index) => (
               <Link
-                href={`/categories/${index + 1}`}
+                href={`/categories/${item?.id}`}
                 key={index}
                 className="py-3 px-6 flex flex-col items-center justify-center gap-1 bg-primary-20% rounded-2xl max-w-[120px] max-h-[120px] transition-all duration-300 hover:scale-110"
               >
                 <Image
-                  alt={item.name}
-                  src={item.image}
+                  alt={item?.name || ''}
+                  src={item?.image as string}
                   width={200}
                   height={200}
                   quality={100}
                   className="w-14"
                 />
-                <p className="text-lg">{item.name}</p>
+                <p className="text-lg">{item?.name}</p>
               </Link>
             ))}
           </div>

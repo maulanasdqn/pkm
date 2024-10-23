@@ -3,10 +3,10 @@
 import { db, OrdersWithUserItems } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
-export const getAllOrders = async () => {
+export const getOneOrders = async (id: string) => {
   try {
-    const res = (await db.query.orders.findMany({
-      orderBy: (fields, { desc }) => [desc(fields.createdAt)],
+    const res = (await db.query.orders.findFirst({
+      where: (orders, { eq }) => eq(orders.id, String(id)),
       with: {
         cartItems: {
           with: {
@@ -15,14 +15,14 @@ export const getAllOrders = async () => {
         },
         user: true,
       },
-    })) as OrdersWithUserItems[];
+    })) as OrdersWithUserItems;
 
     return { status: { ok: true }, data: res };
   } catch (error) {
     if (error instanceof DatabaseError) {
-      console.error(error);
-      throw new Error(error.message);
+      return { status: { ok: false }, message: error.message };
     }
+
     throw new Error(error as string);
   }
 };

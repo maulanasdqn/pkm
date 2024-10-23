@@ -16,9 +16,12 @@ import { OrderStatus } from '@pkm/libs/entities';
 
 export const AcceptButton: FC<ButtonsStatus> = ({ orderId }): ReactElement => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleAccept = async () => {
+    setIsLoading(true);
     await updateOrderStatus(orderId, OrderStatus.APPROVED);
+    setIsLoading(false);
     setShowModal(!showModal);
   };
 
@@ -46,7 +49,7 @@ export const AcceptButton: FC<ButtonsStatus> = ({ orderId }): ReactElement => {
         </DialogHeader>
 
         <DialogFooter>
-          <Button onClick={handleAccept} type="button">
+          <Button onClick={handleAccept} type="button" isLoading={isLoading}>
             Konfirmasi Pembayaran
           </Button>
         </DialogFooter>

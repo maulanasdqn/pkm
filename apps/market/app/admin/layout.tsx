@@ -2,10 +2,12 @@ import {
   CalendarOutlined,
   ContactsOutlined,
   HomeOutlined,
+  MailOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons';
+import { getAllMessages, getAllOrders } from '@pkm/libs/actions/market';
 import { auth } from '@pkm/libs/auth/market';
-import { MarketRoles } from '@pkm/libs/entities';
+import { MarketRoles, OrderStatus } from '@pkm/libs/entities';
 import { SidebarMarket } from '@pkm/ui';
 import { redirect } from 'next/navigation';
 
@@ -24,6 +26,9 @@ export default async function AdminLayout({
     redirect('/');
   }
 
+  const messages = await getAllMessages();
+  const orders = await getAllOrders();
+
   return (
     <main className="w-full h-full flex items-center bg-neutral-10%">
       <SidebarMarket
@@ -40,13 +45,34 @@ export default async function AdminLayout({
           },
           {
             href: '/admin/order',
-            icon: <ShoppingCartOutlined className="text-2xl" />,
+            icon: (
+              <div className="relative">
+                <ShoppingCartOutlined className="text-2xl" />
+                {orders.data?.filter(
+                  (order) => order.status === OrderStatus.PENDING
+                ).length ? (
+                  <div className="absolute top-0 -right-1 w-2 h-2 rounded-full bg-red-500"></div>
+                ) : null}
+              </div>
+            ),
             title: 'Order',
           },
           {
             href: '/admin/users',
             icon: <ContactsOutlined className="text-2xl" />,
             title: 'Manajemen Pengguna',
+          },
+          {
+            href: '/admin/messages',
+            icon: (
+              <div className="relative">
+                <MailOutlined className="text-2xl" />
+                {messages.data?.filter((message) => !message.isRead).length ? (
+                  <div className="absolute top-0 -right-1 w-2 h-2 rounded-full bg-red-500"></div>
+                ) : null}
+              </div>
+            ),
+            title: 'Pesan',
           },
         ]}
         imgSrc={session?.user?.image || ''}
