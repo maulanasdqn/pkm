@@ -1,21 +1,14 @@
 'use server';
 
-import { db, OrdersWithUserItems } from '@pkm/libs/drizzle/market';
+import { db } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
-export const getAllOrders = async () => {
+export const getAllMessages = async () => {
   try {
-    const res = (await db.query.orders.findMany({
+    const res = await db.query.messages.findMany({
+      where: (messages, { eq }) => eq(messages.isDeleted, false),
       orderBy: (fields, { desc }) => [desc(fields.createdAt)],
-      with: {
-        cartItems: {
-          with: {
-            product: true,
-          },
-        },
-        user: true,
-      },
-    })) as OrdersWithUserItems[];
+    });
 
     return { status: { ok: true }, data: res };
   } catch (error) {

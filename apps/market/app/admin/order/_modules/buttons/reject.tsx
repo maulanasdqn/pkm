@@ -16,10 +16,13 @@ import { OrderStatus } from '@pkm/libs/entities';
 
 export const RejectButton: FC<ButtonsStatus> = ({ orderId }): ReactElement => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleReject = async () => {
+    setIsLoading(true);
     await updateOrderStatus(orderId, OrderStatus.REJECTED);
     setShowModal(!showModal);
+    setIsLoading(false);
   };
 
   return (
@@ -52,7 +55,12 @@ export const RejectButton: FC<ButtonsStatus> = ({ orderId }): ReactElement => {
           </DialogHeader>
 
           <DialogFooter>
-            <Button onClick={handleReject} color="red" type="button">
+            <Button
+              onClick={handleReject}
+              color="red"
+              type="button"
+              isLoading={isLoading}
+            >
               Tolak Pembayaran
             </Button>
           </DialogFooter>

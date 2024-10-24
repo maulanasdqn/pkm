@@ -1,4 +1,8 @@
-export { getAllCategoriesProduct, getAllProducts } from './get-all';
+export {
+  getAllCategoriesProduct,
+  getAllProducts,
+  getProductsByCategory,
+} from './get-all';
 export { createProduct } from './create';
 export { deleteProduct } from './delete';
 export { getOneProduct } from './get-one';
