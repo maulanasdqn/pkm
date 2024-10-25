@@ -9,16 +9,16 @@ export const HeroSection: FC<{ className?: string }> = ({
     <section
       className={cn(
         'w-full flex flex-col 2xl:container 2xl:mx-auto',
-        className
+        className,
       )}
     >
       <div className="relative">
         <Image
-          src="/images/heroImg.webp"
+          src="/images/heroImg.jpg"
           alt="reservation page"
           width={1536}
           height={370}
-          className="aspect-auto max-h-[350px]"
+          className="aspect-auto max-h-[450px]"
         />
         <div className="absolute z-10 bottom-1/2 left-1/2 -translate-x-1/2 flex flex-col justify-center items-center text-center gap-8 text-white">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">

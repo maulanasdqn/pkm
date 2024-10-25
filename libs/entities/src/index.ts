@@ -5,3 +5,4 @@ export * from './lib/token';
 export * from './lib/tourism';
 export * from './lib/market';
 export * from './lib/market/enums';
+export * from './lib/backoffice';

@@ -2,7 +2,7 @@ import { NavItems } from '../../molecules/sidebars/type';
 
 export type NavLinksProps = {
   component: 'navbar' | 'footer';
-  apps: 'tourism' | 'market';
+  apps: 'tourism' | 'market' | 'backoffice';
 };
 
 export type TNavLinkDashboardProps = {
