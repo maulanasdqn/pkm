@@ -4,8 +4,8 @@ import {
   WhatsAppOutlined,
   YoutubeOutlined,
 } from '@ant-design/icons';
-import { Button, NavLinks } from '@pkm/ui';
 import { FC, ReactElement } from 'react';
+import { Button, NavLinks } from '../../atoms';
 
 export const FooterBackoffice: FC = (): ReactElement => {
   return (
