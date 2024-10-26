@@ -54,22 +54,22 @@ export const ProductIdModule: FC<TProductIdModule> = ({
   return (
     <Fragment>
       <HeroMarket imageUrl="/images/sample-hero-3.webp" className="gap-6">
-        <h2 className="text-4xl font-bold">DETAIL PRODUK</h2>
-        <h3 className="text-3xl uppercase">{product?.name}</h3>
+        <h2 className="text-2xl lg:text-4xl font-bold">DETAIL PRODUK</h2>
+        <h3 className="text-xl lg:text-3xl uppercase">{product?.name}</h3>
       </HeroMarket>
 
-      <div className="w-full h-full py-20 flex flex-col justify-center items-center gap-20">
+      <div className="w-full h-full py-20 flex flex-col justify-center items-center gap-20 px-4 lg:px-0">
         <Image
           src={product?.image}
           alt="sample-product"
           width={500}
           height={500}
           quality={100}
-          className="min-w-[778px] max-w-[778px] min-h-[580px] max-h-[580px] rounded-lg object-cover object-center"
+          className="lg:min-w-[778px] lg:max-w-[778px] lg:min-h-[580px] lg:max-h-[580px] rounded-lg object-cover object-center"
         />
 
         {/* Detail */}
-        <div className="w-full max-w-[808px]  max-h-[639px] rounded-[10px] flex flex-col gap-8 p-12 bg-neutral-10% shadow-md font-source-sans-pro">
+        <div className="w-full max-w-[808px]  max-h-[639px] rounded-[10px] flex flex-col gap-8 py-8 px-6 lg:p-12 bg-neutral-10% shadow-md font-source-sans-pro">
           <div className="flex flex-col gap-6">
             <h2 className="text-4xl font-bold">{product?.name}</h2>
 

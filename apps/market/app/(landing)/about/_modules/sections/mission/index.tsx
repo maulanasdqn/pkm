@@ -3,10 +3,10 @@ import { FC, ReactElement } from 'react';
 
 export const MissionSection: FC = (): ReactElement => {
   return (
-    <div className="w-full flex px-20 py-8 gap-[3rem]">
+    <div className="w-full flex flex-col lg:flex-row px-6 lg:px-20 py-8 gap-[3rem]">
       <div className="flex flex-col gap-8 items-center">
-        <h3 className="text-4xl font-bold">MISI KAMI</h3>
-        <p className="text-3xl">
+        <h3 className="text-2xl lg:text-4xl font-bold">MISI KAMI</h3>
+        <p className="text-xl lg:text-3xl">
           Misi kami adalah mempermudah proses jual beli di pasar desa,
           memberikan kenyamanan bagi pembeli, dan mendorong kemajuan ekonomi
           desa secara berkelanjutan. Melalui teknologi, kami menjembatani antara
@@ -22,7 +22,7 @@ export const MissionSection: FC = (): ReactElement => {
         width={500}
         height={500}
         quality={100}
-        className="max-w-[514px] min-w-[514px] max-h-[314px] min-h-[314px] rounded-[10px] object-cover object-center"
+        className="w-full lg:max-w-[514px] lg:min-w-[514px] max-h-[314px] min-h-[314px] rounded-[10px] object-cover object-left lg:object-center"
       />
     </div>
   );

@@ -14,12 +14,12 @@ export default async function AuthLayout({
   }
 
   return (
-    <main className="w-full h-screen flex flex-col">
+    <main className="w-full lg:h-screen flex flex-col overflow-x-hidden">
       <Navbar apps="market" title="Digitalisasi Pasar Desa" page="auth" />
 
-      <section className="w-full h-full bg-[url('/images/desa-bg.webp')] bg-cover">
-        <div className="w-full h-full flex justify-center items-center bg-black bg-opacity-70">
-          <div className="bg-white flex flex-col justify-center items-center rounded-xl 2xl:min-h-[520px] max-w-[500px] py-6 min-w-[480px]">
+      <section className="w-full h-screen lg:h-full bg-[url('/images/desa-bg.webp')] bg-cover">
+        <div className="w-full h-screen lg:h-full flex justify-center items-center bg-black bg-opacity-70 px-4">
+          <div className="bg-white flex flex-col justify-center items-center rounded-xl 2xl:min-h-[520px] max-w-[500px] py-6 min-w-[340px] md:min-w-[480px]">
             {children}
           </div>
         </div>

@@ -16,7 +16,7 @@ export const Accordion: FC<TAccordion> = ({
         onClick={() => setOpen(!open)}
         className="flex justify-between items-center border-b border-neutral-50% py-2 pr-3"
       >
-        <span className="text-2xl">{title}</span>
+        <span className="text-lg lg:text-2xl">{title}</span>
         <DownOutlined
           className={cn(
             'text-neutral-70% text-lg transition-all duration-300',
@@ -36,7 +36,7 @@ export const Accordion: FC<TAccordion> = ({
           }
         )}
       >
-        <p className="p-4 text-lg">{children}</p>
+        <p className="p-4 text-base lg:text-lg">{children}</p>
       </div>
     </div>
   );

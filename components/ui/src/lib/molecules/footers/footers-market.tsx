@@ -48,10 +48,10 @@ const footerNav = [
 
 export const FooterMarket: FC = (): ReactElement => {
   return (
-    <footer className="relative bottom-0 w-full min-h-[455px] flex flex-col justify-between bg-neutral-40% py-4 font-source-sans-pro">
-      <div className="w-full h-full flex px-20 py-10 justify-between items-center container mx-auto">
+    <footer className="relative bottom-0 w-full lg:min-h-[455px] flex flex-col justify-between bg-neutral-40% py-4 font-source-sans-pro">
+      <div className="w-full h-full flex flex-col lg:flex-row px-6 lg:px-20 py-10 gap-8 lg:gap-0 lg:justify-between items-center container mx-auto">
         <div className="h-full flex flex-col text-center gap-12 py-4">
-          <h5 className="text-2xl">Terhubung dengan kami</h5>
+          <h5 className="text-xl lg:text-2xl">Terhubung dengan kami</h5>
           <div className="flex gap-4 items-center">
             {images?.map((item, i) => (
               <Link
@@ -65,18 +65,18 @@ export const FooterMarket: FC = (): ReactElement => {
                   width={500}
                   height={500}
                   quality={100}
-                  className="size-[61px] hover:scale-105 duration-200"
+                  className="size-[50px] lg:size-[61px] hover:scale-105 duration-200"
                 />
               </Link>
             ))}
           </div>
         </div>
 
-        <div className="h-full flex flex-col gap-3">
+        <div className="w-full lg:w-auto h-full flex flex-col gap-3">
           {footerNav?.map((item, i) => (
             <Button
               key={i}
-              className="text-2xl"
+              className="text-lg lg:text-2xl"
               variant="text"
               color="black"
               href={item.link}
@@ -86,7 +86,7 @@ export const FooterMarket: FC = (): ReactElement => {
           ))}
         </div>
 
-        <div className="h-full w-[30%] flex flex-col gap-8 py-4 text-2xl">
+        <div className="h-full lg:w-[30%] flex flex-col gap-8 py-4 text-lg lg:text-2xl">
           <div className="flex gap-2">
             <EnvironmentOutlined className="text-2xl" />
             <h5>Alamat</h5>
@@ -97,8 +97,8 @@ export const FooterMarket: FC = (): ReactElement => {
       </div>
 
       <h6 className="w-full py-6 flex justify-center gap-1 items-center border-t">
-        <span className="font-bold">&#169;</span> 2024 Dipasar.id. All right
-        reserved
+        <span className="font-bold">&#169;</span> 2024 Desa Bojongsari. All
+        right reserved
       </h6>
     </footer>
   );

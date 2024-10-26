@@ -55,11 +55,11 @@ export const LandingModule: FC = async (): Promise<ReactElement> => {
 
   return (
     <section className="flex flex-col pt-20 pb-16 justify-center items-center gap-20 container mx-auto">
-      <div className="w-full flex flex-col px-20 gap-12">
+      <div className="w-full flex flex-col px-6 lg:px-20 gap-12">
         <div className="flex flex-col gap-10 font-source-sans-pro items-center">
-          <h2 className="text-5xl">Digitalisasi Pasar Desa</h2>
+          <h2 className="text-3xl lg:text-5xl">Digitalisasi Pasar Desa</h2>
 
-          <p className="text-xl w-[660px]">
+          <p className="text-lg lg:text-xl text-justify lg:text-left lg:w-[660px]">
             Digitalisasi Pasar Desa di desa Bojongsari kecamatan Bojongsoang
             merujuk pada proses memanfaatkan teknologi digital, seperti platform
             online yang bertujuan untuk meningkatkan pendapatan hingga
@@ -67,9 +67,9 @@ export const LandingModule: FC = async (): Promise<ReactElement> => {
           </p>
         </div>
 
-        <div className='bg-[url("/images/landing-image.webp")] bg-center bg-cover w-full h-[400px]'>
+        <div className='bg-[url("/images/landing-image.webp")] bg-center bg-cover w-full h-[300px] md:h-[400px]'>
           <div className="bg-black bg-opacity-35 w-full min-h-full flex flex-col items-center justify-center gap-4 font-source-sans-pro pt-16">
-            <p className="text-white text-2xl">
+            <p className="text-white text-lg lg:text-2xl text-center px-10 md:px-0">
               Daftarkan produkmu dan raih lebih banyak pelanggan!
             </p>
             <Button
@@ -83,8 +83,8 @@ export const LandingModule: FC = async (): Promise<ReactElement> => {
         </div>
 
         <div className="w-full flex flex-col gap-12 items-center mt-4">
-          <h3 className="text-4xl">Kategori Produk</h3>
-          <div className="w-full flex justify-evenly items-center">
+          <h3 className="text-3xl lg:text-4xl">Kategori Produk</h3>
+          <div className="w-full flex flex-wrap gap-4 lg:gap-0 justify-evenly items-center">
             {categories?.map((item, index) => (
               <Link
                 href={`/categories/${item?.id}`}

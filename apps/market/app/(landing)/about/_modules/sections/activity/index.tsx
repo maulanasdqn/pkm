@@ -10,17 +10,17 @@ const images = [
 export const ActivitySectionAbout: FC = (): ReactElement => {
   return (
     <div className="flex flex-col items-center gap-14 mt-24 overflow-hidden">
-      <h4 className="text-4xl font-bold">
+      <h4 className="text-2xl lg:text-4xl font-bold text-center">
         Kegiatan Sosial dan Budaya di Pasar Desa
       </h4>
 
       <AutoImageSlider
-        imageClassName="min-w-[641px] min-h-[489px]"
+        imageClassName="md:min-w-[641px] md:min-h-[489px] min-w-[441px] min-h-[289px]"
         images={images}
         toX={-420}
       />
 
-      <p className="text-3xl px-20 mb-24">
+      <p className="text-xl lg:text-3xl px-6 lg:px-20 mb-24">
         Pasar Desa adalah platform digital yang didirikan untuk menghubungkan
         produk-produk lokal dari desa dengan pasar yang lebih luas.Di Pasar
         Desa, kami bekerja sama dengan masyarakat dan mitra lokal untuk

@@ -15,7 +15,7 @@ import { UserOutlined } from '@ant-design/icons';
 export const ContactModule: FC = (): ReactElement => {
   return (
     <Fragment>
-      <div className="w-full flex justify-between gap-[6.2rem] items-center rounded-lg bg-neutral-10% px-8 2xl:py-24 md:py-14 shadow-lg">
+      <div className="w-full flex flex-col lg:flex-row lg:justify-between gap-10 py-6 lg:gap-[6.2rem] items-center rounded-lg bg-neutral-10% px-8 2xl:py-24 md:py-14 shadow-lg">
         <Image
           src="/images/contact-1.png"
           alt="contact"
@@ -38,12 +38,21 @@ export const ContactModule: FC = (): ReactElement => {
         </div>
       </div>
 
-      <div className="w-full flex justify-between items-center py-6">
-        <div className="flex flex-col gap-2">
-          <h3 className="pl-6 font-bold text-3xl">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-center xl:gap-0 gap-6 py-6">
+        <div className="flex flex-col gap-6 lg:gap-2 xl:items-start items-center">
+          <h3 className="lg:pl-6 font-bold text-xl lg:text-3xl">
             Pertanyaan yang sering diajukan
           </h3>
-          <div className="w-full flex flex-col rounded-lg bg-neutral-10% max-w-[868px] min-h-[323px] p-4 shadow-lg">
+
+          <Image
+            src="/images/contact-2.png"
+            alt="contact-2"
+            width={700}
+            height={700}
+            quality={100}
+            className="max-w-[264px] w-full 2xl:min-w-[464px] md:min-w-[350px] xl:hidden"
+          />
+          <div className="w-full flex flex-col rounded-lg bg-neutral-10% max-w-[868px] min-h-[323px]  lg:p-4 shadow-lg">
             {Array.from({ length: 4 }).map((_, index) => (
               <Accordion
                 key={index}
@@ -73,11 +82,11 @@ export const ContactModule: FC = (): ReactElement => {
           width={700}
           height={700}
           quality={100}
-          className="max-w-[464px] w-full 2xl:min-w-[464px] md:min-w-[350px]"
+          className="max-w-[464px] w-full 2xl:min-w-[464px] md:min-w-[350px] hidden xl:block"
         />
       </div>
 
-      <div className="w-full px-20 flex justify-center items-center">
+      <div className="w-full lg:px-20 flex justify-center items-center">
         <Carousel
           opts={{
             align: 'center',
@@ -85,14 +94,14 @@ export const ContactModule: FC = (): ReactElement => {
           }}
           className="w-full max-w-[730px]"
         >
-          <CarouselPrevious className="disabled:cursor-not-allowed" />
-          <CarouselContent className="py-6 px-2.5">
+          <CarouselPrevious className="disabled:cursor-not-allowed hidden lg:block" />
+          <CarouselContent className="lg:py-6 px-2.5">
             {Array.from({ length: 7 }).map((_, i) => (
               <CarouselItem key={i}>
-                <div className="flex flex-col max-w-[710px] min-w-[710px] justify-center items-center gap-4 px-6 py-8 rounded-lg shadow-md bg-neutral-10%">
-                  <UserOutlined className="text-5xl fill-black" />
+                <div className="flex flex-col lg:max-w-[710px] lg:min-w-[710px] justify-center items-center gap-4 px-6 py-8 rounded-lg shadow-md bg-neutral-10%">
+                  <UserOutlined className="text-3xl lg:text-5xl fill-black" />
 
-                  <p className="text-2xl text-center">
+                  <p className="text-sm lg:text-2xl text-center">
                     Saya sangat senang bisa mendaftarkan produk saya ke usaha
                     desa. Ini adalah langkah besar untuk memperkenalkan produk
                     lokal kami ke pasar yang lebih luas. Dengan adanya dukungan
@@ -105,7 +114,7 @@ export const ContactModule: FC = (): ReactElement => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext className="disabled:cursor-not-allowed" />
+          <CarouselNext className="disabled:cursor-not-allowed hidden lg:block" />
         </Carousel>
       </div>
     </Fragment>

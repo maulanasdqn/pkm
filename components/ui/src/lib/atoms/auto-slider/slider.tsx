@@ -4,11 +4,12 @@ import { motion, useMotionValue } from 'framer-motion';
 import { TAutoSlider } from './type';
 import Image from 'next/image';
 import { cn } from '@pkm/libs/clsx';
+import { isMobile } from 'react-device-detect';
 
 export const AutoImageSlider: FC<TAutoSlider> = ({
   images,
   imageClassName,
-  toX = -410,
+  toX = isMobile ? -320 : -410,
 }): ReactElement => {
   const xTransition = useMotionValue(0);
 
@@ -32,7 +33,7 @@ export const AutoImageSlider: FC<TAutoSlider> = ({
         <div
           key={index}
           className={cn(
-            'min-w-[626px] min-h-[417px] overflow-hidden relative rounded-xl object-cover object-center z-10',
+            'md:min-w-[626px] md:min-h-[417px] min-w-[426px] min-h-[217px] overflow-hidden relative rounded-xl object-cover object-center z-10',
             imageClassName
           )}
         >

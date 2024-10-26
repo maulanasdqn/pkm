@@ -51,7 +51,7 @@ export const OrderModule: FC<TOrderModule> = async ({
   ];
 
   return (
-    <section className="w-full flex flex-col justify-center items-center px-28 pt-6 pb-[7rem] gap-12 font-source-sans-pro">
+    <section className="w-full flex flex-col justify-center items-center px-6 lg:px-28 pt-6 pb-[7rem] gap-12 font-source-sans-pro">
       <div className="w-full flex flex-col justify-center items-center gap-6 relative">
         <Image
           src="/images/money.webp"
@@ -59,26 +59,29 @@ export const OrderModule: FC<TOrderModule> = async ({
           width={1000}
           height={1000}
           quality={100}
-          className="object-cover object-center min-w-[696px] max-w-[696px]"
+          className="object-cover object-center lg:min-w-[696px] lg:max-w-[696px]"
         />
 
-        <div className="flex flex-col items-center gap-4 relative bg-white bottom-16 pt-10">
-          <p className="text-4xl font-bold">Pesanan Berhasil</p>
+        <div className="flex flex-col items-center gap-4 relative bg-white bottom-12 lg:bottom-16 pt-10">
+          <p className="text-2xl lg:text-4xl font-bold">Pesanan Berhasil</p>
 
-          <p className="text-2xl w-[80%] text-center">
+          <p className="text-lg lg:text-2xl lg:w-[80%] text-center">
             Terimakasih telah memesan produk kami. Tunggu konfirmasi
             selanjutnya, kami akan segera menghubungi anda, mohon bersabar.
           </p>
         </div>
       </div>
 
-      <div className="w-full rounded-lg min-h-[700px] bg-neutral-10% relative flex flex-col items-center gap-10">
-        <div className="bg-neutral-30% text-4xl font-bold text-center px-20 py-4 relative rounded-lg bottom-9">
+      <div className="w-full rounded-lg lg:min-h-[700px] bg-neutral-10% relative flex flex-col items-center gap-2 lg:gap-10 pb-8 lg:pb-0">
+        <div className="bg-neutral-30% text-2xl lg:text-4xl font-bold text-center px-20 py-4 relative rounded-lg bottom-9">
           Detail Pesanan
         </div>
-        <div className="w-full flex flex-col gap-6 px-14">
+        <div className="w-full flex flex-col gap-6 px-4 lg:px-14">
           {orderData?.map((item, i) => (
-            <div key={i} className="w-full flex gap-10 items-center text-3xl">
+            <div
+              key={i}
+              className="w-full flex gap-6 lg:gap-10 items-center text-sm lg:text-3xl"
+            >
               <p className="xl:w-[30%] w-full">{item?.title}</p>
               <p className="w-full">: {item?.value}</p>
             </div>

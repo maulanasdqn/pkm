@@ -10,7 +10,7 @@ const images = [
 export const ActivitySection: FC = (): ReactElement => {
   return (
     <div className="w-full flex flex-col items-center gap-12 overflow-hidden">
-      <h3 className="text-4xl">Aktivitas Pasar Desa</h3>
+      <h3 className="text-3xl lg:text-4xl">Aktivitas Pasar Desa</h3>
 
       <AutoImageSlider images={images} />
     </div>
