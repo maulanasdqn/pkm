@@ -9,12 +9,12 @@ export const HeroMarket: FC<THeroMarket> = ({
 }): ReactElement => {
   return (
     <div
-      className={`relative w-full min-h-[627px] max-h-[627px] bg-cover bg-center`}
+      className={`relative w-full md:min-h-[627px] md:max-h-[627px] min-h-[400px] max-h-[400px] bg-cover bg-center`}
       style={{ backgroundImage: `url(${imageUrl})` }}
     >
       <div
         className={cn(
-          'w-full min-h-[627px] max-h-[627px] flex flex-col items-center justify-center bg-black bg-opacity-50 text-white font-source-sans-pro',
+          'w-full md:min-h-[627px] md:max-h-[627px] min-h-[400px] max-h-[400px] flex flex-col items-center justify-center bg-black bg-opacity-60 text-white font-source-sans-pro',
           className
         )}
       >

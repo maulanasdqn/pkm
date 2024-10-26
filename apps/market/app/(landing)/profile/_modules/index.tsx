@@ -117,15 +117,15 @@ export const ProfileModule: FC = (): ReactElement => {
   }, [image]);
 
   return (
-    <section className="container mx-auto w-full h-full flex flex-col p-12 gap-10">
+    <section className="container mx-auto w-full h-full flex flex-col px-6 py-12 lg:p-12 gap-10">
       <h2 className="text-4xl">Profil Saya</h2>
 
       <div className="w-full rounded-lg bg-neutral-10% shadow-md">
-        <div className="w-full px-14 py-6 bg-neutral-40% rounded-t-lg">
+        <div className="w-full px-7 lg:px-14 py-6 bg-neutral-40% rounded-t-lg">
           <h3 className="text-2xl text-neutral-80%">Informasi Akun</h3>
         </div>
 
-        <div className="flex gap-20 p-14">
+        <div className="flex flex-col lg:flex-row gap-20 p-7 lg:p-14">
           <figure className="relative">
             <Image
               src={showImage || defaultImage}
@@ -133,7 +133,7 @@ export const ProfileModule: FC = (): ReactElement => {
               width={500}
               height={500}
               quality={100}
-              className="rounded-lg object-cover object-center min-w-[410px] max-w-[410px] min-h-[345px] max-h-[345px]"
+              className="rounded-lg object-cover object-center lg:min-w-[410px] lg:max-w-[410px] lg:min-h-[345px] lg:max-h-[345px]"
             />
             {isEdit && (
               <Fragment>
@@ -173,7 +173,7 @@ export const ProfileModule: FC = (): ReactElement => {
           <div className="w-full flex flex-col items-center gap-8">
             <form
               onSubmit={onSubmit}
-              className="w-full grid grid-cols-2 gap-x-8 gap-y-12 h-fit"
+              className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 h-fit"
             >
               <ControlledTextField
                 name="fullname"

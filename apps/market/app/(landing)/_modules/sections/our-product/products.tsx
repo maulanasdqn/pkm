@@ -19,12 +19,12 @@ export const ProductCarousel: FC<TOurProductsModule> = ({
         align: 'start',
         loop: true,
       }}
-      className="w-full 2xl:px-16 px-4"
+      className="w-full h-full lg:max-w-full lg:max-h-full max-w-sm max-h-sm 2xl:px-16 px-4"
     >
-      <CarouselPrevious className="disabled:cursor-not-allowed" />
+      <CarouselPrevious className="disabled:cursor-not-allowed hidden md:block" />
       <CarouselContent className="py-1">
         {products?.map((item, i) => (
-          <CarouselItem key={i} className="basis-1/3">
+          <CarouselItem key={i} className="lg:basis-1/3">
             <CardMarket
               href={`/products/${item?.id}`}
               name={item?.name}
@@ -34,7 +34,7 @@ export const ProductCarousel: FC<TOurProductsModule> = ({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselNext className="disabled:cursor-not-allowed" />
+      <CarouselNext className="disabled:cursor-not-allowed hidden md:block" />
     </Carousel>
   );
 };

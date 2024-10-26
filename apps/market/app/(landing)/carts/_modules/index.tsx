@@ -96,10 +96,10 @@ export const CartsModule: FC = (): ReactElement => {
   }, [getCart]);
 
   return (
-    <section className="w-full h-full flex flex-col items-center gap-[10rem] px-20 py-28">
+    <section className="w-full h-full flex flex-col items-center gap-24 lg:gap-[10rem] px-6 lg:px-20 py-12 lg:py-28">
       {filteredCart?.length === 0 ? (
         <div className="w-full h-full flex justify-center items-center">
-          <p className="text-3xl font-bold text-neutral-60%">
+          <p className="text-xl lg:text-3xl font-bold text-neutral-60% text-center">
             Keranjang Belanja Kosong
           </p>
         </div>
@@ -148,23 +148,23 @@ export const CartsModule: FC = (): ReactElement => {
             ))}
           </div>
 
-          <div className="w-full flex justify-between items-center px-20 text-2xl font-bold">
+          <div className="w-full flex flex-col lg:flex-row justify-between items-center px-6 lg:px-20 text-2xl font-bold">
             <p>TOTAL PEMBELIAN</p>
             <p>Rp.{totalPrice?.toLocaleString('id-ID') || 0}</p>
           </div>
         </div>
       )}
 
-      <div className="w-[70%] max-h-[624px] flex flex-col bg-neutral-10% shadow-md rounded-lg">
+      <div className="w-full lg:w-[70%] lg:max-h-[624px] flex flex-col bg-neutral-10% shadow-md rounded-lg">
         <p className="py-5 w-full text-center text-xl border-b border-neutral">
           Informasi Pembelian
         </p>
 
         <form
           action={handleSubmit}
-          className="w-full flex flex-col items-center gap-20 pt-14 pb-8"
+          className="w-full flex flex-col items-center gap-20 pt-10 lg:pt-14 pb-8 px-6"
         >
-          <div className="w-full flex justify-center gap-24">
+          <div className="w-full flex flex-col lg:flex-row justify-center gap-12 lg:gap-24">
             <fieldset className="flex flex-col gap-6">
               <p className="font-source-sans-pro text-lg">Metode Pemesanan</p>
               <Radio
@@ -179,7 +179,7 @@ export const CartsModule: FC = (): ReactElement => {
                 name="notes"
                 dimension="lg"
                 placeholder="Catatan Tambahan, contoh bila ingin janjian ambil barang, tetapi tidak di toko (opsional)"
-                className="w-full min-w-[353px] min-h-[117px]"
+                className="w-full lg:min-w-[353px] min-h-[117px]"
                 disabled={filteredCart?.length === 0}
               />
             </fieldset>
@@ -246,9 +246,12 @@ export const CartsModule: FC = (): ReactElement => {
                 disabled={filteredCart?.length === 0}
               />
               <p
-                className={cn('font-montserrat text-sm font-medium', {
-                  'text-neutral-80%': filteredCart?.length === 0,
-                })}
+                className={cn(
+                  'font-montserrat text-xs lg:text-sm font-medium',
+                  {
+                    'text-neutral-80%': filteredCart?.length === 0,
+                  }
+                )}
               >
                 Data yang saya masukkan sudah benar
               </p>

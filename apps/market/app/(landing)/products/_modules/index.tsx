@@ -17,12 +17,12 @@ export const ProductsModule: FC = (): ReactElement => {
   return (
     <section className="w-full h-full flex items-center flex-col gap-12">
       <HeroMarket imageUrl="/images/sample-hero.webp" className="gap-8">
-        <h2 className="text-3xl">
+        <h2 className="text-2xl text-center lg:text-3xl">
           Temukan solusi terbaik untuk kebutuhan anda
         </h2>
 
-        <div className="w-[25%] flex flex-col text-center gap-4">
-          <h3 className="text-4xl font-bold">PRODUK KAMI</h3>
+        <div className="lg:w-[25%] flex flex-col text-center gap-4">
+          <h3 className="text-2xl lg:text-4xl font-bold">PRODUK KAMI</h3>
           <TextField
             variant="default"
             type="search"
@@ -33,7 +33,7 @@ export const ProductsModule: FC = (): ReactElement => {
         </div>
       </HeroMarket>
 
-      <div className="grid grid-cols-3 pt-12 pb-20 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-8 md:pt-12 pb-20 gap-6">
         {products?.map((item, i) => (
           <CardMarket
             key={i}

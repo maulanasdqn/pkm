@@ -14,7 +14,7 @@ export const FormAuth: FC<TFormAuth> = ({
     <form
       {...props}
       title={title}
-      className="w-full h-full flex flex-col 2xl:gap-10 gap-8 items-center px-20 2xl:py-5 py-3"
+      className="w-full h-full flex flex-col 2xl:gap-10 gap-8 items-center px-10 lg:px-20 2xl:py-5 py-3"
     >
       <div className="flex flex-col gap-3 items-center">
         <h2 className="2xl:text-4xl text-3xl font-source-sans-pro">{title}</h2>
