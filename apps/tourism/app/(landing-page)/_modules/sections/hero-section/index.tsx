@@ -9,7 +9,7 @@ export const HeroSection: FC = (): ReactElement => {
     >
       <div className="relative">
         <Image
-          src="/images/heroImg.webp"
+          src="/images/heroImg.jpg"
           alt="reservation page"
           width={1536}
           height={575}

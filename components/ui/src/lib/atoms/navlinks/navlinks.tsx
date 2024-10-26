@@ -39,6 +39,29 @@ const navLinksTourism = [
   },
 ];
 
+const navLinksBackoffice = [
+  {
+    title: 'beranda',
+    href: '/',
+  },
+  {
+    title: 'Profil',
+    href: '/profil',
+  },
+  {
+    title: 'Program',
+    href: '/program',
+  },
+  {
+    title: 'Layanan',
+    href: '/layanan',
+  },
+  {
+    title: 'kegiatan',
+    href: '/kegiatan',
+  },
+];
+
 export const NavLinks: FC<NavLinksProps> = ({
   component,
   apps,
@@ -77,7 +100,7 @@ export const NavLinks: FC<NavLinksProps> = ({
                         'hidden md:block md:text-lg lg:text-xl font-semibold capitalize font-source-sans-pro hover:text-primary/70 transition-colors duration-300',
                         item.href === pathname
                           ? 'text-primary'
-                          : 'text-black/50'
+                          : 'text-black/50',
                       )}
                     >
                       {item.title}
@@ -108,7 +131,7 @@ export const NavLinks: FC<NavLinksProps> = ({
                             'text-xl font-semibold capitalize font-source-sans-pro',
                             item.href === pathname
                               ? 'text-primary'
-                              : 'text-black/50'
+                              : 'text-black/50',
                           )}
                         >
                           {item.title}
@@ -124,6 +147,81 @@ export const NavLinks: FC<NavLinksProps> = ({
         .exhaustive();
     })
     .otherwise(() => {
-      return <nav>Market Nav</nav>;
+      return match(component)
+        .with('footer', () => {
+          return (
+            <ul className="flex flex-col items-left gap-4">
+              {navLinksBackoffice.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    href={item.href}
+                    title={item.title}
+                    className="text-xl font-semibold capitalize font-source-sans-pro hover:text-primary/70 transition-colors duration-300"
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          );
+        })
+        .with('navbar', () => {
+          return (
+            <>
+              <ul className="flex items-left gap-4">
+                {navLinksBackoffice.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      href={item.href}
+                      title={item.title}
+                      className={cn(
+                        'hidden md:block md:text-lg lg:text-xl font-semibold capitalize font-source-sans-pro hover:text-primary/70 transition-colors duration-300',
+                        item.href === pathname
+                          ? 'text-primary'
+                          : 'text-black/50',
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Sheet>
+                <SheetTrigger className="md:hidden" asChild>
+                  <Button variant="secondary" size="icon">
+                    <MenuOutlined />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader className="my-5">
+                    <SheetTitle>Menu</SheetTitle>
+                    <SheetDescription>
+                      Selamat datang di website layanan desa bojongsari
+                    </SheetDescription>
+                  </SheetHeader>
+                  <ul className="space-y-3">
+                    {navLinksTourism.map((item, index) => (
+                      <li key={index}>
+                        <Link
+                          href={item.href}
+                          title={item.title}
+                          className={cn(
+                            'text-xl font-semibold capitalize font-source-sans-pro',
+                            item.href === pathname
+                              ? 'text-primary'
+                              : 'text-black/50',
+                          )}
+                        >
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </SheetContent>
+              </Sheet>
+            </>
+          );
+        })
+        .exhaustive();
     });
 };

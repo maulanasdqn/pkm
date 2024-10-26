@@ -71,7 +71,7 @@ export const Navbar: FC<TNavbarAuthProps> = ({
                         'text-neutral-60% hover:text-black':
                           pathname !== item.link,
                         'hover:text-neutral-70%': pathname === item.link,
-                      }
+                      },
                     )}
                   >
                     {item.name}
@@ -188,6 +188,19 @@ export const Navbar: FC<TNavbarAuthProps> = ({
           );
         })
         .with('dashboard', () => null)
+        .exhaustive();
+    })
+    .with('backoffice', () => {
+      return match(page)
+        .with('public', () => {
+          return <NavLinks component="navbar" apps="backoffice" />;
+        })
+        .with('auth', () => null)
+        .with('dashboard', () => (
+          <Button variant="text" size="lg" className="text-2xl p-0 mr-20">
+            <BellOutlined />
+          </Button>
+        ))
         .exhaustive();
     })
     .otherwise(() => {
