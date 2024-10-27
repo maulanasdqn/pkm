@@ -91,7 +91,7 @@ export const rolePermissionRelations = relations(
       fields: [rolePermissions.permissionId],
       references: [permissions.id],
     }),
-  })
+  }),
 );
 
 export type RolePermission = typeof rolePermissions.$inferSelect;
@@ -157,3 +157,10 @@ export const informations = pgTable('app_informations', {
 });
 
 export type Informations = typeof informations.$inferSelect;
+
+export const visitors = pgTable('app_visitors', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  date: timestamp('date', { mode: 'string' }).notNull(),
+  desktop: integer('desktop').notNull(),
+  mobile: integer('mobile').notNull(),
+});

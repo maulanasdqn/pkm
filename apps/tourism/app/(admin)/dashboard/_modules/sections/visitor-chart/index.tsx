@@ -5,7 +5,7 @@ import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 import { ChartConfig } from './type';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@pkm/ui';
 
-const chartData = [{ month: 'january', desktop: 1260, mobile: 570 }];
+const chartData = [{ month: 'loading...', desktop: 0, mobile: 0 }];
 const chartConfig = {
   desktop: {
     label: 'Desktop',
@@ -17,21 +17,29 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const legendData = [
-  {
-    label: 'Desktop',
-    value: chartData[0].desktop,
-    color: chartConfig.desktop.color,
-  },
-  {
-    label: 'Mobile',
-    value: chartData[0].mobile,
-    color: chartConfig.mobile.color,
-  },
-];
+type TChartData = {
+  month: string;
+  desktop: number;
+  mobile: number;
+}[];
 
-export const VisitorChart: FC = (): ReactElement => {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile;
+export const VisitorChart: FC<{ visitorData: TChartData }> = ({
+  visitorData,
+}): ReactElement => {
+  const totalVisitors = visitorData[0].desktop + visitorData[0].mobile || 0;
+  const legendData = [
+    {
+      label: 'Desktop',
+      value: visitorData[0].desktop,
+      color: chartConfig.desktop.color,
+    },
+    {
+      label: 'Mobile',
+      value: visitorData[0].mobile,
+      color: chartConfig.mobile.color,
+    },
+  ];
+
   return (
     <div className="w-[40rem] shrink-0 py-3 flex flex-col gap-3 justify-center items-center shadow-md rounded-md bg-white">
       <h1 className="text-xl font-semibold">Pengunjung Bulan Agustus</h1>
@@ -42,7 +50,7 @@ export const VisitorChart: FC = (): ReactElement => {
             className="mx-auto aspect-square w-full max-w-[250px] min-h-[250px]"
           >
             <RadialBarChart
-              data={chartData}
+              data={visitorData || chartData}
               endAngle={360}
               innerRadius={80}
               outerRadius={130}
@@ -105,7 +113,7 @@ export const VisitorChart: FC = (): ReactElement => {
                 }}
               />
               <p className="text-lg">
-                {item.value} Pengunjung {item.label}
+                {item.value.toLocaleString()} Pengunjung {item.label}
               </p>
             </div>
           ))}

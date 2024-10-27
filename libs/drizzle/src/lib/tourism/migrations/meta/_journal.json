@@ -50,6 +50,20 @@
       "when": 1728055298912,
       "tag": "0006_cool_ser_duncan",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1730040936674,
+      "tag": "0007_numerous_the_enforcers",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1730042361027,
+      "tag": "0008_loose_valkyrie",
+      "breakpoints": true
     }
   ]
 }

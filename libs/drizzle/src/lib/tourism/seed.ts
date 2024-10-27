@@ -7,6 +7,7 @@ import { reservationsSeeder } from './seeders/reservations.seeder';
 import { permissionsSeeder } from './seeders/permissions.seeder';
 import { usersSeeder } from './seeders/users.seeder';
 import { rolesSeeder } from './seeders/roles.seeder';
+import { visitorsSeeder } from './seeders/visitors.seeder';
 
 const configEnv = process.env;
 
@@ -26,6 +27,7 @@ const seeds = async () => {
     await permissionsSeeder(db);
     await usersSeeder(db);
     await rolesSeeder(db);
+    await visitorsSeeder(db);
   } catch (error) {
     console.error(error);
   }
