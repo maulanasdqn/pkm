@@ -1,16 +1,17 @@
 'use server';
 
-import { db, destinations } from '@pkm/libs/drizzle/tourism';
+import { db, destinations, visitors } from '@pkm/libs/drizzle/tourism';
 import {
   TDestinationSchema,
   TMetaResponse,
   TQueryParams,
 } from '@pkm/libs/entities';
-import { asc, ilike } from 'drizzle-orm';
+import { asc, eq, ilike } from 'drizzle-orm';
 import { DatabaseError } from 'pg';
+import { isMobile } from 'react-device-detect';
 
 export const getAllDestinations = async (
-  params?: TQueryParams
+  params?: TQueryParams,
 ): Promise<{
   status: { [key: string]: boolean };
   data: TDestinationSchema[];
@@ -47,6 +48,58 @@ export const getAllDestinations = async (
     const nextPage = page < totalPage ? Number(page) + 1 : null;
     const prevPage = page > 1 ? Number(page - 1) : null;
 
+    const todayVisitor = await db
+      .select({
+        id: visitors.id,
+        date: visitors.date,
+        desktop: visitors.desktop,
+        mobile: visitors.mobile,
+      })
+      .from(visitors)
+      .where(eq(visitors.date, new Date().toISOString().split('T')[0]));
+
+    if (!todayVisitor) {
+      const newData = {
+        date: new Date().toISOString().split('T')[0],
+        desktop: 0,
+        mobile: 0,
+      };
+      if (isMobile) {
+        await db
+          .insert(visitors)
+          .values([{ ...newData, desktop: 0, mobile: 1 }]);
+      } else {
+        await db
+          .insert(visitors)
+          .values([{ ...newData, desktop: 1, mobile: 0 }]);
+      }
+    } else {
+      if (isMobile) {
+        const res = await db
+          .update(visitors)
+          .set({
+            date: todayVisitor[0].date,
+            desktop: todayVisitor[0].desktop,
+            mobile: todayVisitor[0].mobile + 1,
+          })
+          .where(eq(visitors.id, todayVisitor[0].id))
+          .returning({
+            mobile: visitors.mobile,
+          });
+        console.log('visitor mobile updated!' + res);
+      } else {
+        const res = await db
+          .update(visitors)
+          .set({
+            date: todayVisitor[0].date,
+            desktop: todayVisitor[0].desktop + 1,
+            mobile: todayVisitor[0].mobile,
+          })
+          .where(eq(visitors.id, todayVisitor[0].id))
+          .returning({ desktop: visitors.desktop });
+        console.log(res);
+      }
+    }
     return {
       status: { ok: true },
       data: data,

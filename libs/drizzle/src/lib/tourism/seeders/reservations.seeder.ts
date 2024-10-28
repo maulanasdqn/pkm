@@ -43,7 +43,6 @@ export const reservationsSeeder = async (db: TDBTourismDrizzle) => {
           dummyDestinations[faker.number.int({ min: 0, max: 2 })].id,
       });
     }
-
     await db.insert(schema.reservations).values(dummyReservations).returning();
 
     console.log('Seeding reservations done! 🎊');

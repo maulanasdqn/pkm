@@ -14,7 +14,7 @@ export const GallerySection: React.FC = (): React.ReactElement => {
           Galeri Kegiatan Sosial
         </h1>
         <Link
-          href="/gallery"
+          href="/kegiatan"
           className="text-primary font-medium text-base md:text-lg hover:underline underline-offset-2"
         >
           Lihat semua

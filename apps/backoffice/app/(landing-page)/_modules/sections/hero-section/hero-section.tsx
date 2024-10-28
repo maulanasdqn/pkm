@@ -5,7 +5,7 @@ export const HeroSection: React.FC = (): React.ReactElement => {
   return (
     <>
       <Image
-        src="/images/hero-desa.png"
+        src="/images/hero-image.png"
         alt="hero-desa"
         width={1440}
         height={450}
