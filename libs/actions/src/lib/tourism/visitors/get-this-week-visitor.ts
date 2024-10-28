@@ -24,8 +24,8 @@ export const getThisWeekVisitor = async () => {
           lte(visitors.date, today.toISOString().split('T')[0]),
         ),
       );
-    console.log(data);
-    let thisWeekVisitorCount: number = 0;
+
+    let thisWeekVisitorCount = 0;
     data.forEach(({ desktop, mobile }) => {
       thisWeekVisitorCount += desktop + mobile;
     });
