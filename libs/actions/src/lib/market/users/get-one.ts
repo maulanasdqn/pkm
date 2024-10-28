@@ -13,7 +13,7 @@ export const getOneUser = async (id: string) => {
   } catch (error) {
     if (error instanceof DatabaseError) {
       console.error(error);
-      throw new Error(error.message);
+      return { status: { ok: false }, message: error.message };
     }
     throw new Error(error as string);
   }

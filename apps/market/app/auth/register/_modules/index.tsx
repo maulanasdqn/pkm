@@ -1,6 +1,6 @@
 'use client';
 import { Alert, ControlledTextField, FormAuth, FormAuthFooter } from '@pkm/ui';
-import { FC, Fragment, ReactElement, useEffect, useState } from 'react';
+import { FC, Fragment, ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -8,6 +8,7 @@ import {
   TRegisterSchemaMarket,
 } from '@pkm/libs/entities';
 import { register } from 'libs/auth/src/lib/market/util';
+import { sendEmailMarket } from '@pkm/libs/actions/market';
 
 export const RegisterModule: FC = (): ReactElement => {
   const {
@@ -31,7 +32,16 @@ export const RegisterModule: FC = (): ReactElement => {
         });
       }
 
-      await register(data.fullname, data.email, data.password);
+      const user = await register(data.fullname, data.email, data.password);
+
+      const send = await sendEmailMarket('/auth/verify', {
+        id: user?.[0].id,
+        email: user?.[0].email,
+      });
+
+      if (send?.status?.ok) {
+        setIsSuccess(true);
+      }
     } catch (error) {
       if (error instanceof Error) {
         setError('root', {
@@ -40,12 +50,6 @@ export const RegisterModule: FC = (): ReactElement => {
       }
     }
   });
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      setIsSuccess(isSubmitSuccessful);
-    }
-  }, [isSubmitSuccessful]);
 
   return (
     <Fragment>
@@ -122,7 +126,7 @@ export const RegisterModule: FC = (): ReactElement => {
       <Alert
         show={isSuccess}
         onHide={() => setIsSuccess(false)}
-        message="Registrasi Berhasil"
+        message="Email verifikasi telah dikirim, silahkan cek email anda"
         variant="success"
         timer={3000}
       />
