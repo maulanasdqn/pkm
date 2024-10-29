@@ -2,11 +2,26 @@ import { FC, ReactElement } from 'react';
 import { CustomerChartDashboard } from './customer-chart';
 import { CardMarketAdmin } from '@pkm/ui';
 import { CreditCardOutlined } from '@ant-design/icons';
-import { getAllOrders } from '@pkm/libs/actions/market';
+import { getAllOrders, getAllVisitors } from '@pkm/libs/actions/market';
 import { OrderStatus } from '@pkm/libs/entities';
 
 export const ChartDashboardSection: FC = async (): Promise<ReactElement> => {
   const totalAmount = await getAllOrders();
+
+  const visitors = await getAllVisitors();
+
+  const filteredVisitors = [
+    {
+      name: 'passenger',
+      visitors: visitors.data.filter((d) => d.type === 'passenger').length,
+      fill: 'var(--color-passenger)',
+    },
+    {
+      name: 'buyer',
+      visitors: visitors.data.filter((d) => d.type === 'buyer').length,
+      fill: 'var(--color-buyer)',
+    },
+  ];
 
   const filteredAmount = totalAmount?.data?.filter((item) => {
     return item.status === OrderStatus.APPROVED;
@@ -25,7 +40,7 @@ export const ChartDashboardSection: FC = async (): Promise<ReactElement> => {
         amount={`Rp. ${total.toLocaleString('id-ID')}`}
       />
 
-      <CustomerChartDashboard />
+      <CustomerChartDashboard chartData={filteredVisitors} />
     </div>
   );
 };

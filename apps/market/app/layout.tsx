@@ -31,16 +31,16 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: 'Pasar Digital',
+  title: 'Pasar Digital Bojongsari',
   description:
-    'Pasar Digital adalah sebuah platform digital yang menyediakan layanan jual beli online',
+    'Pasar Digital Bojongsari adalah sebuah platform digital yang menyediakan layanan jual beli online dalam lingkup Desa Bojongsari',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): Promise<ReactElement> {
+}): ReactElement {
   return (
     <html
       lang="en"

@@ -262,3 +262,13 @@ export const messages = pgTable('app_messages', {
 });
 
 export type Messages = typeof messages.$inferSelect;
+
+export const visitorsType = pgEnum('visitors', ['buyer', 'passenger']);
+
+export const visitors = pgTable('app_visitors', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  date: timestamp('date', { mode: 'string' }).defaultNow(),
+  type: visitorsType('type').notNull(),
+});
+
+export type Visitors = typeof visitors.$inferSelect;

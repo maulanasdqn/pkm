@@ -10,17 +10,13 @@ import {
 } from '@pkm/ui';
 import { FC, ReactElement, useMemo } from 'react';
 import { Label, Pie, PieChart } from 'recharts';
+import { TCustomerChart } from './types';
 
-const chartData = [
-  { name: 'tourist', visitors: 275, fill: 'var(--color-tourist)' },
-  { name: 'buyer', visitors: 200, fill: 'var(--color-buyer)' },
-  { name: 'member', visitors: 287, fill: 'var(--color-member)' },
-];
 const chartConfig = {
   visitors: {
     label: 'Visitors',
   },
-  tourist: {
+  passenger: {
     label: 'Pengunjung',
     color: 'hsl(var(--chart-1))',
   },
@@ -28,16 +24,14 @@ const chartConfig = {
     label: 'Pembeli',
     color: 'hsl(var(--chart-2))',
   },
-  member: {
-    label: 'Pendaftar Produk',
-    color: 'hsl(var(--chart-3))',
-  },
 } satisfies ChartConfig;
 
-export const CustomerChartDashboard: FC = (): ReactElement => {
+export const CustomerChartDashboard: FC<TCustomerChart> = ({
+  chartData,
+}): ReactElement => {
   const totalVisitors = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+  }, [chartData]);
 
   return (
     <div className="flex flex-col gap-5 w-[35rem] max-h-[420px] h-full bg-white py-6 px-8 rounded-[10px] shadow-md">
