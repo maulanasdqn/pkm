@@ -3,17 +3,19 @@
 import { db } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
-export const getOneUser = async (id: string) => {
+export const getAllVisitors = async () => {
   try {
-    const res = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, id),
-      with: { roles: true, carts: true },
+    const res = await db.query.visitors.findMany({
+      orderBy(fields, operators) {
+        return operators.desc(fields.date);
+      },
     });
+
     return { status: { ok: true }, data: res };
   } catch (error) {
     if (error instanceof DatabaseError) {
       console.error(error);
-      return { status: { ok: false }, message: error.message };
+      throw new Error(error.message);
     }
     throw new Error(error as string);
   }

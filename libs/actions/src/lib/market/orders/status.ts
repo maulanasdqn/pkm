@@ -1,6 +1,6 @@
 'use server';
 
-import { db, orders, products } from '@pkm/libs/drizzle/market';
+import { db, orders, products, visitors } from '@pkm/libs/drizzle/market';
 import { OrderStatus } from '@pkm/libs/entities';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
@@ -29,6 +29,10 @@ export const updateOrderStatus = async (id: string, status: OrderStatus) => {
             sold: Number(item?.product?.sold ?? 0) + Number(item.quantity ?? 0),
           })
           .where(eq(products.id, item?.productId as string));
+      });
+
+      await db.insert(visitors).values({
+        type: 'buyer',
       });
 
       revalidatePath('/admin/order');

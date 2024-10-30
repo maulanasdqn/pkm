@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@pkm/libs/drizzle/market';
+import { db, visitors } from '@pkm/libs/drizzle/market';
 import { DatabaseError } from 'pg';
 
 export const getAllProducts = async (limit?: number, search?: string) => {
@@ -31,6 +31,13 @@ export const getAllProducts = async (limit?: number, search?: string) => {
 export const getAllCategoriesProduct = async () => {
   try {
     const res = await db.query.category.findMany();
+
+    await db
+      .insert(visitors)
+      .values({
+        type: 'passenger',
+      })
+      .returning();
 
     return { status: { ok: true }, data: res };
   } catch (error) {

@@ -30,7 +30,6 @@ export const register = async (
         password: hashedPassword,
         address: '',
         roleId: MarketRoles.USER,
-        emailVerifiedAt: new Date(),
       })
       .returning({
         id: users.id,
