@@ -200,7 +200,7 @@ export const NavLinks: FC<NavLinksProps> = ({
                     </SheetDescription>
                   </SheetHeader>
                   <ul className="space-y-3">
-                    {navLinksTourism.map((item, index) => (
+                    {navLinksBackoffice.map((item, index) => (
                       <li key={index}>
                         <Link
                           href={item.href}

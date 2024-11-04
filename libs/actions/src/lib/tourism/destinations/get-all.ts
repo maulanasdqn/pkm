@@ -58,7 +58,7 @@ export const getAllDestinations = async (
       .from(visitors)
       .where(eq(visitors.date, new Date().toISOString().split('T')[0]));
 
-    if (!todayVisitor) {
+    if (!todayVisitor || todayVisitor.length === 0) {
       const newData = {
         date: new Date().toISOString().split('T')[0],
         desktop: 0,

@@ -23,8 +23,8 @@ export const visitorsSeeder = async (db: TDBTourismDrizzle) => {
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(currentYear, currentMonth, day, 23, 59, 59, 586);
       // Dummy data for each day, adjust as needed
-      const desktopVisitors = faker.number.int({ min: 500, max: 2500 });
-      const mobileVisitors = faker.number.int({ min: 300, max: 1800 });
+      const desktopVisitors = faker.number.int({ min: 5, max: 25 });
+      const mobileVisitors = faker.number.int({ min: 3, max: 18 });
 
       data.push({
         date: date.toISOString().split('T')[0],

@@ -58,7 +58,7 @@ export const FooterBackoffice: FC = (): ReactElement => {
         </div>
       </footer>
       <div className="bg-primary-90% w-full border-t text-center border-white text-white py-8">
-        <h6> © 2024 Wisata Desa Bojongsari.</h6>
+        <h6> © 2024 Layanan Desa Bojongsari.</h6>
       </div>
     </>
   );
