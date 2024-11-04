@@ -53,7 +53,7 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
     setError,
     reset,
   } = useForm<TCreateProductMarket>({
@@ -108,7 +108,7 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (image) {
+      if (image?.[0]) {
         const result = await startUpload(image);
 
         if (result) {
@@ -301,7 +301,11 @@ export const EditProductButton: FC<{ id: string }> = ({ id }): ReactElement => {
           <Button type="button" color="red" onClick={() => setShowModal(false)}>
             Batal
           </Button>
-          <Button type="submit" form="produk" isLoading={isUploading}>
+          <Button
+            type="submit"
+            form="produk"
+            isLoading={isSubmitting || isUploading}
+          >
             Edit
           </Button>
         </DialogFooter>

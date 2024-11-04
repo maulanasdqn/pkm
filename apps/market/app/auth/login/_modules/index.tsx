@@ -11,7 +11,8 @@ export const LoginModule: FC = (): ReactElement => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+
+    formState: { errors, isSubmitting },
     setError,
   } = useForm<TLoginSchemaMarket>({
     mode: 'all',
@@ -38,6 +39,7 @@ export const LoginModule: FC = (): ReactElement => {
         title="Masuk Akun"
         buttonName="Masuk"
         onSubmit={onSubmit}
+        buttonLoading={isSubmitting}
         footer={
           <FormAuthFooter
             title="Belum punya akun"
