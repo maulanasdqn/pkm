@@ -17,10 +17,13 @@ export const DeleteProductButton: FC<{ id: string }> = ({
   id,
 }): ReactElement => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async () => {
+    setIsLoading(true);
     await deleteProduct(id);
     setShowModal(false);
+    setIsLoading(false);
   };
 
   return (
@@ -43,7 +46,7 @@ export const DeleteProductButton: FC<{ id: string }> = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={handleDelete} color="red">
+          <Button onClick={handleDelete} color="red" isLoading={isLoading}>
             Hapus
           </Button>
         </DialogFooter>

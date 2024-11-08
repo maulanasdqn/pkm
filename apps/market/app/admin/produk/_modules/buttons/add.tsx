@@ -48,7 +48,7 @@ export const AddProductButton: FC = (): ReactElement => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
     setError,
     reset,
   } = useForm<TCreateProductMarket>({
@@ -89,7 +89,7 @@ export const AddProductButton: FC = (): ReactElement => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (!image) {
+      if (!image?.[0]) {
         return setError('image', {
           type: 'custom',
           message: 'image harus diisi!',
@@ -269,7 +269,11 @@ export const AddProductButton: FC = (): ReactElement => {
           <Button onClick={() => setShowModal(false)} color="red">
             Batal
           </Button>
-          <Button type="submit" form="produk" isLoading={isUploading}>
+          <Button
+            type="submit"
+            form="produk"
+            isLoading={isSubmitting || isUploading}
+          >
             Tambah
           </Button>
         </DialogFooter>

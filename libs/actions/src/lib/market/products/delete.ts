@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { DatabaseError } from 'pg';
 import { getOneProduct } from './get-one';
-import { deleteImage } from '../../common';
+import { deleteImageUT } from '../users';
 
 export const deleteProduct = async (id: string) => {
   try {
@@ -18,9 +18,9 @@ export const deleteProduct = async (id: string) => {
     }
 
     if (product?.data?.image) {
-      const fileName = product?.data?.image.split('/').pop();
+      const fileName = product?.data?.image;
       if (fileName) {
-        await deleteImage(fileName, 'products');
+        await deleteImageUT(fileName);
       }
     }
 
@@ -29,7 +29,7 @@ export const deleteProduct = async (id: string) => {
       .where(eq(products.id, id))
       .returning();
 
-    revalidatePath('/dashboard/tour');
+    revalidatePath('/dashboard/produk');
     return {
       message: `product ${res[0].name} deleted successfully!`,
       data: res,

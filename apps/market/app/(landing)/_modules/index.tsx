@@ -5,9 +5,17 @@ import { OurProductSection } from './sections';
 import { ActivitySection } from './sections/activity';
 import Link from 'next/link';
 import { getAllCategoriesProduct } from '@pkm/libs/actions/market';
+import { db, visitors } from '@pkm/libs/drizzle/market';
 
 export const LandingModule: FC = async (): Promise<ReactElement> => {
   const { data } = await getAllCategoriesProduct();
+
+  await db
+    .insert(visitors)
+    .values({
+      type: 'passenger',
+    })
+    .returning();
 
   const categoriesImages = [
     {
