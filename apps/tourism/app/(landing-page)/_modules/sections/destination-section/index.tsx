@@ -28,29 +28,24 @@ export const DestinationSection: FC = (): ReactElement => {
   return (
     <section
       id="destination"
-      className="w-full h-full relative 2xl:container 2xl:mx-auto font-source-sans-pro"
+      className="w-full h-full relative mt-20 mb-8 container mx-auto font-source-sans-pro"
     >
-      <Image
-        src="/images/bg-grass.webp"
-        alt="grass-bg"
-        width={1536}
-        height={295}
-        className="absolute bottom-0 left-0 aspect-video -z-10 max-h-[300px] object-cover"
-      />
-      <div className="pb-10 md:pb-14 lg:pb-20">
-        <div className="container mx-auto px-4 md:px-8 lg:px-14 mb-5 md:mb-10 flex justify-between items-center">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary-70%">
-            Destinasi Wisata
-          </h1>
+      <div className="pb-10 md:pb-14 lg:pb-20 flex flex-col gap-6">
+        <div className="flex w-full gap-4 items-center mb-6">
+          <h2 className="text-xl md:text-3xl whitespace-nowrap font-semibold">
+            Destinasi Wisata Populer
+          </h2>
+          <div className="h-[1px] w-full bg-gray" />
           <Button
-            size="lg"
-            variant="text"
             href="/tours"
-            className="p-0 hover:underline text-sm md:text-base lg:text-lg"
+            variant="text"
+            color="primary"
+            className="border border-primary"
           >
-            Destinasi lainnya
+            Lihat Semua Destinasi
           </Button>
         </div>
+
         <Carousel
           opts={{
             align: 'start',
@@ -58,27 +53,27 @@ export const DestinationSection: FC = (): ReactElement => {
             dragFree: true,
           }}
           showDotNavigator
-          className="w-full max-w-full"
+          className="w-full max-w-full mt-6"
         >
           <CarouselContent>
             {data.length > 0 ? (
               data.map((item) => (
                 <CarouselItem
                   key={item.id}
-                  className="basis-full md:basis-1/2 lg:basis-1/3 pl-0"
+                  className="basis-full md:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="p-5">
-                    <Link href={`/tours/${item.id}`} className="relative">
+                  <div className="relative">
+                    <Link href={`/tours/${item.id}`}>
                       <Image
                         src={item.images[0]}
                         alt={item.name}
                         width={560}
                         height={300}
                         quality={100}
-                        className="h-[300px] w-full aspect-video object-cover rounded size-auto"
+                        className="h-[300px] w-full object-cover rounded-lg"
                       />
-                      <div className="absolute z-10 -bottom-5 left-1/2 -translate-x-1/2 rounded py-2 px-5 text-primary-80% bg-white">
-                        {item.name}
+                      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent text-white p-4">
+                        <h3 className="text-xl font-bold">{item.name}</h3>
                       </div>
                     </Link>
                   </div>
